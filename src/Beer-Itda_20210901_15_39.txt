@@ -1,0 +1,174 @@
+﻿-- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
+
+-- Style_Big Table Create SQL
+CREATE TABLE Style_Big
+(
+    `id`        INT            NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `big_name`  VARCHAR(45)    NOT NULL    COMMENT '대분류 이름', 
+    CONSTRAINT PK_Style_Big PRIMARY KEY (id)
+);
+
+
+-- Style_Mid Table Create SQL
+CREATE TABLE Style_Mid
+(
+    `id`                INT            NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `중분류 이름`            VARCHAR(45)    NOT NULL    COMMENT 'mid_name', 
+    `중분류 설명`            VARCHAR(45)    NOT NULL    COMMENT 'description', 
+    `Style_Big 테이블 FK`  INT            NOT NULL    COMMENT 'big_style_id', 
+    CONSTRAINT PK_Style_Mid PRIMARY KEY (id)
+);
+
+ALTER TABLE Style_Mid
+    ADD CONSTRAINT FK_Style_Mid_Style_Big 테이블 FK_Style_Big_id FOREIGN KEY (Style_Big 테이블 FK)
+        REFERENCES Style_Big (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Style_Small Table Create SQL
+CREATE TABLE Style_Small
+(
+    `id`                INT            NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `소분류 이름`            VARCHAR(45)    NOT NULL    COMMENT 'small_name', 
+    `Style_Mid 테이블 FK`  INT            NOT NULL    COMMENT 'mid_style_id', 
+    CONSTRAINT PK_Style_Small PRIMARY KEY (id)
+);
+
+ALTER TABLE Style_Small
+    ADD CONSTRAINT FK_Style_Small_Style_Mid 테이블 FK_Style_Mid_id FOREIGN KEY (Style_Mid 테이블 FK)
+        REFERENCES Style_Mid (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Country Table Create SQL
+CREATE TABLE Country
+(
+    `id`       INT            NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `country`  VARCHAR(45)    NOT NULL    COMMENT '제조국가', 
+    CONSTRAINT PK_Country PRIMARY KEY (id)
+);
+
+ALTER TABLE Country COMMENT '제조국가';
+
+
+-- Aroma Table Create SQL
+CREATE TABLE Aroma
+(
+    `id`     INT            NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `aroma`  VARCHAR(45)    NOT NULL    COMMENT '향 이름', 
+    CONSTRAINT PK_Aroma PRIMARY KEY (id)
+);
+
+
+-- Level Table Create SQL
+CREATE TABLE Level
+(
+    `id`     INT            NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `level`  VARCHAR(45)    NOT NULL    COMMENT '등급', 
+    CONSTRAINT PK_Level PRIMARY KEY (id)
+);
+
+ALTER TABLE Level COMMENT '등급';
+
+
+-- User Table Create SQL
+CREATE TABLE User
+(
+    `id`            INT            NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `nickname`      VARCHAR(45)    NOT NULL    COMMENT '유저 닉네임', 
+    `email`         VARCHAR(45)    NOT NULL    COMMENT '유저 이메일', 
+    `review_count`  VARCHAR(45)    NULL        COMMENT '리뷰의 수', 
+    `level_id`      INT            NOT NULL    COMMENT 'Level 테이블 FK', 
+    CONSTRAINT PK_User PRIMARY KEY (id)
+);
+
+ALTER TABLE User COMMENT '유저';
+
+ALTER TABLE User
+    ADD CONSTRAINT FK_User_level_id_Level_id FOREIGN KEY (level_id)
+        REFERENCES Level (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Beer Table Create SQL
+CREATE TABLE Beer
+(
+    `id`               INT             NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `k_name`           VARCHAR(45)     NOT NULL    COMMENT '맥주 이름(한글)', 
+    `e_name`           VARCHAR(45)     NOT NULL    COMMENT '맥주 이름(영어)', 
+    `country_id`       INT             NOT NULL    COMMENT 'Country 테이블 FK', 
+    `brewery`          VARCHAR(45)     NOT NULL    COMMENT '제조사(영어)', 
+    `abv`              FLOAT           NOT NULL    COMMENT '도수(abv)', 
+    `thumbnail_image`  VARCHAR(100)    NOT NULL    COMMENT '맥주 이미지', 
+    `star_avg`         FLOAT           NULL        COMMENT '별점 평균', 
+    `review_count`     INT             NULL        COMMENT '리뷰 수', 
+    `aroma_id`         INT             NOT NULL    COMMENT 'Aroma 테이블 FK (향1,2,3)', 
+    `style_id`         INT             NOT NULL    COMMENT 'Style 테이블 FK', 
+    CONSTRAINT PK_Beer PRIMARY KEY (id)
+);
+
+ALTER TABLE Beer
+    ADD CONSTRAINT FK_Beer_style_id_Style_Small_id FOREIGN KEY (style_id)
+        REFERENCES Style_Small (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE Beer
+    ADD CONSTRAINT FK_Beer_aroma_id_Aroma_id FOREIGN KEY (aroma_id)
+        REFERENCES Aroma (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE Beer
+    ADD CONSTRAINT FK_Beer_country_id_Country_id FOREIGN KEY (country_id)
+        REFERENCES Country (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Review Table Create SQL
+CREATE TABLE Review
+(
+    `id`       INT             NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `star`     FLOAT           NULL        COMMENT '별점', 
+    `review`   VARCHAR(200)    NULL        COMMENT '댓글', 
+    `beer_id`  INT             NOT NULL    COMMENT 'Beer 테이블 FK', 
+    `user_id`  INT             NOT NULL    COMMENT 'User 테이블 FK', 
+    CONSTRAINT PK_Review PRIMARY KEY (id)
+);
+
+ALTER TABLE Review COMMENT '후기(댓글, 별점)';
+
+ALTER TABLE Review
+    ADD CONSTRAINT FK_Review_user_id_User_id FOREIGN KEY (user_id)
+        REFERENCES User (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE Review
+    ADD CONSTRAINT FK_Review_beer_id_Beer_id FOREIGN KEY (beer_id)
+        REFERENCES Beer (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Favorite Table Create SQL
+CREATE TABLE Favorite
+(
+    `id`             INT    NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `beer_id`        INT    NOT NULL    COMMENT 'Beer 테이블 FK', 
+    `user_id`        INT    NOT NULL    COMMENT 'User 테이블 FK', 
+    `favorite_flag`  BIT    NOT NULL    COMMENT '좋아요', 
+    CONSTRAINT PK_Favorite PRIMARY KEY (id)
+);
+
+ALTER TABLE Favorite COMMENT '좋아요';
+
+ALTER TABLE Favorite
+    ADD CONSTRAINT FK_Favorite_user_id_User_id FOREIGN KEY (user_id)
+        REFERENCES User (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE Favorite
+    ADD CONSTRAINT FK_Favorite_beer_id_Beer_id FOREIGN KEY (beer_id)
+        REFERENCES Beer (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+-- Style Table Create SQL
+CREATE TABLE Style
+(
+    `id`      INT            NOT NULL    AUTO_INCREMENT COMMENT 'id', 
+    `대분류`     VARCHAR(45)    NULL        COMMENT 'big_name', 
+    `중분류`     VARCHAR(45)    NULL        COMMENT 'mid_name', 
+    `중분류 설명`  VARCHAR(45)    NULL        COMMENT 'description', 
+    `소분류`     VARCHAR(45)    NULL        COMMENT 'small_name', 
+    CONSTRAINT PK_Style PRIMARY KEY (id)
+);
+
+
