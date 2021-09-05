@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.use('/', require('./users'));
-router.use('/detail/:BeerName', require('./users'));
+router.use('/detail/:id', require('./users'));
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
