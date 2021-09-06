@@ -8,7 +8,8 @@ const {
   sequelize
 } = require('./models');
 sequelize.sync({
-    alter: false
+    alter: true,
+    force: false
   })
   .then(() => {
     console.log('데이터베이스 연결 성공.');
@@ -18,7 +19,8 @@ sequelize.sync({
   })
 
 var indexRouter = require('./src/routes/index');
-var usersRouter = require('./src/routes/users');
+var userRouter = require('./src/routes/user');
+var beerRouter = require('./src/routes/beer');
 
 var app = express();
 
@@ -35,7 +37,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
+app.use('/beer', beerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

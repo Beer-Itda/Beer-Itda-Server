@@ -13,7 +13,7 @@ db.Sequelize = Sequelize;
 
 db.Beer = require('./beer')(sequelize, Sequelize);
 db.Aroma = require('./aroma')(sequelize, Sequelize);
-db.Country = require('./contry')(sequelize, Sequelize);
+db.Country = require('./country')(sequelize, Sequelize);
 //db.Style_Big = require('./style_big')(sequelize, Sequelize);
 //db.Style_Mid = require('./style_mid')(sequelize, Sequelize);
 //db.Style_Small = require('./style_small')(sequelize, Sequelize);
@@ -26,8 +26,8 @@ db.Level = require('./level')(sequelize, Sequelize);
 db.Country.hasMany(db.Beer);
 db.Beer.belongsTo(db.Country);
 
-/** 1 : N User : Level */
-db.User.hasMany(db.Level);
-db.Level.belongsTo(db.User);
+/** 1 : N  Level : User */
+db.Level.hasMany(db.User);
+db.User.belongsTo(db.Level);
 
 module.exports = db;
