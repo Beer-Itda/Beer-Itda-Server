@@ -21,6 +21,7 @@ sequelize.sync({
 var indexRouter = require('./src/routes/index');
 var userRouter = require('./src/routes/user');
 var beerRouter = require('./src/routes/beer');
+var levelRouter = require('./src/routes/level');
 
 var app = express();
 
