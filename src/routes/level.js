@@ -1,6 +1,9 @@
 var express = require('express');
-const Level = require('../../models');
+const Level = require('../../models/level');
 var router = express.Router();
+const statusCode = require('../../modules/statusCode');
+const responseMessage = require('../../modules/responseMessage');
+const util = require('../../modules/util');
 
 /* GET users listing. */
 router.get('/suagongzu', function (req, res, next) {
@@ -9,7 +12,7 @@ router.get('/suagongzu', function (req, res, next) {
 
 router.get('/', async (req, res, next) => {
   try {
-    const levels = await Level.findAll();
+    const levels = await Level.findAll({});
     console.log(levels);
     return res.status(statusCode.OK).send(util.success(statusCode.OK, levels));
   } catch (error) {
