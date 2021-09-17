@@ -1,12 +1,14 @@
-var express = require('express');
-const Beer = require('../../models/beer');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const {
+  Beer
+} = require('../../models/beer');
 const statusCode = require('../../modules/statusCode');
 const responseMessage = require('../../modules/responseMessage');
 const util = require('../../modules/util');
 const {
   sequelize
-} = require("../../models");
+} = require('sequelize');
 
 /* GET users listing. */
 router.get('/suagongzu', function (req, res, next) {
@@ -14,13 +16,15 @@ router.get('/suagongzu', function (req, res, next) {
 });
 
 router.get('/', async (req, res) => {
-  //모든 맥주정보 response (일단은 2개만)
   try {
+    console.log('왜안돼!!!2');
     const beers = await Beer.findAll({
       attributes: ['id', 'k_name', 'e_name', 'brewery', 'abv', 'thumbnail_image']
-    })
+    });
+    const result = {};
+    result.id = beers.id;
     console.log(beers);
-    return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.OK, beers));
+    return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.OK, result));
   } catch (error) {
     console.error(error);
     return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
@@ -42,8 +46,6 @@ router.get('/:id', async (req, res) => {
     return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
   }
 });
-
-
 
 module.exports = router;
 

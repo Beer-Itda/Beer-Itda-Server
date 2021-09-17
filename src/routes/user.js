@@ -4,6 +4,7 @@ var router = express.Router();
 const statusCode = require('../../modules/statusCode');
 const responseMessage = require('../../modules/responseMessage');
 const util = require('../../modules/util');
+const sequelize = require('sequelize');
 
 /* GET users listing. */
 router.get('/suagongzu', function (req, res, next) {
