@@ -7,7 +7,7 @@ router.get('/suagongzu', function (req, res, next) {
   res.send('으랏챠 level page 연결');
 });
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const levels = await Level.findAll();
     console.log(levels);

@@ -36,6 +36,7 @@ router.get('/', async (req, res) => {
     const beers = await Beer.findAll({
       attributes: ['id', 'k_name', 'e_name'],
     });
+    //const beers = await Beer.findAll({});
     console.log(beers);
     return res.status(statusCode.OK).send(util.success(statusCode.OK, responseMessage.NO_BEER_ID, beers));
   } catch (error) {

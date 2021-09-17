@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Y',
       allowNull: false,
     },
+    //Level 테이블 FK
+    levelId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   }, {
     //옵션지정
     freezeTableName: true,
