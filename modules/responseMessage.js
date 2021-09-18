@@ -8,10 +8,12 @@ module.exports = {
   CANT_ACCESS: '접근할 수 없습니다.',
 
   /*맥주관련*/
+  BEER_OK: '맥주정보 불러오기 성공했습니다.',
   NO_BEER_ID: '맥주 아이디/정보가 없습니다.',
   BEER_READ_ALL_FAIL: '맥주정보 불러오기 실패했습니다.',
 
   /*유저관련*/
+  USER_OK: '유저정보 불러오기 성공했습니다.',
   NO_USER_ID: '유저 아이디/정보가 없습니다.',
 
 
