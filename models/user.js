@@ -16,17 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    //Level 테이블 FK
-    LevelId: {
-      type: DataTypes.STRING(200),
-      allowNull: false,
-    },
-    //계정생성 날짜
-    start_date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Sequelize.fn('NOW'),
-    },
     //활성계정여부
     active: {
       type: DataTypes.STRING(3),
@@ -37,5 +26,6 @@ module.exports = (sequelize, DataTypes) => {
     //옵션지정
     freezeTableName: true,
     timestamps: false,
+    underscored: true
   });
 };

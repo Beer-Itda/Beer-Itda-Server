@@ -7,6 +7,14 @@ module.exports = {
   NEED_LOGIN: '로그인이 필요합니다.',
   CANT_ACCESS: '접근할 수 없습니다.',
 
+  /*맥주관련*/
+  NO_BEER_ID: '맥주 아이디/정보가 없습니다.',
+  BEER_READ_ALL_FAIL: '맥주정보 불러오기 실패했습니다.',
+
+  /*유저관련*/
+  NO_USER_ID: '유저 아이디/정보가 없습니다.',
+
+
   /* 서버에러 */
   INTERNAL_SERVER_ERROR: "서버 내부 오류",
 };

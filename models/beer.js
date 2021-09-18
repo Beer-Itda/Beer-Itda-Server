@@ -11,14 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
-    //제조사
-    brewery: {
-      type: DataTypes.STRING(30),
-      allowNull: false,
-    },
     //도수(abv)
     abv: {
-      type: DataTypes.Float,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     //맥주 이미지
@@ -29,27 +24,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     //별점 평균
     star_avg: {
-      type: DataTypes.Float,
-      allowNull: false,
-    },
-    //제조사
-    brewery: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     //리뷰 수
     review_count: {
-      type: DataTypes.Integer,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     //Aroma 테이블 FK
     aroma_id: {
-      type: DataTypes.Integer,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     //Style 테이블 FK
     style_id: {
-      type: DataTypes.Integer,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   }, {
