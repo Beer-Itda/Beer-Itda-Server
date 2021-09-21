@@ -1,7 +1,10 @@
 var express = require('express');
 
 const {
-  Beer
+  Beer,
+  Style_Big,
+  Style_Mid,
+  Style_Small
 } = require('../../models');
 
 const util = require('../../modules/util');
