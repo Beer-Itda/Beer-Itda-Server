@@ -9,12 +9,17 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.Beer = require('./beer')(sequelize, Sequelize);
+// 맥주 향
 db.Aroma = require('./aroma')(sequelize, Sequelize);
+// 맥주 제조국가
 db.Country = require('./country')(sequelize, Sequelize);
-//db.Style_Big = require('./style_big')(sequelize, Sequelize);
-//db.Style_Mid = require('./style_mid')(sequelize, Sequelize);
-//db.Style_Small = require('./style_small')(sequelize, Sequelize);
+// 맥주 스타일 
+db.Style_Big = require('./style_big')(sequelize, Sequelize);
+db.Style_Mid = require('./style_mid')(sequelize, Sequelize);
+db.Style_Small = require('./style_small')(sequelize, Sequelize);
+// 사용자
 db.User = require('./user')(sequelize, Sequelize);
+// 사용자 레벨
 db.Level = require('./level')(sequelize, Sequelize);
 //db.Favorite = require('./favorite')(sequelize, Sequelize);
 //db.Review = require('./review')(sequelize, Sequelize);
@@ -26,5 +31,14 @@ db.Beer.belongsTo(db.Country);
 /** 1 : N  Level : User */
 db.Level.hasMany(db.User);
 db.User.belongsTo(db.Level);
+
+/** 1 : N  Style_Big : Style_Mid */
+db.Style_Big.hasMany(db.Style_Mid);
+db.Style_Mid.belongsTo(db.Style_Big);
+
+/** 1 : N  Style_Mid : Style_Small */
+db.Style_Mid.hasMany(db.Style_Small);
+db.Style_Small.belongsTo(db.Style_Mid);
+
 
 module.exports = db;
