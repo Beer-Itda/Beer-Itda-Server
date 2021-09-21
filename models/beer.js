@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     //도수(abv)
     abv: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.STRING(7),
       allowNull: false,
     },
     //맥주 이미지

@@ -24,13 +24,10 @@ db.Level = require('./level')(sequelize, Sequelize);
 //db.Favorite = require('./favorite')(sequelize, Sequelize);
 //db.Review = require('./review')(sequelize, Sequelize);
 
+// Beer관계
 /** 1 : N  Country : Beer */
 db.Country.hasMany(db.Beer);
 db.Beer.belongsTo(db.Country);
-
-/** 1 : N  Level : User */
-db.Level.hasMany(db.User);
-db.User.belongsTo(db.Level);
 
 /** 1 : N  Style_Big : Style_Mid */
 db.Style_Big.hasMany(db.Style_Mid);
@@ -40,5 +37,9 @@ db.Style_Mid.belongsTo(db.Style_Big);
 db.Style_Mid.hasMany(db.Style_Small);
 db.Style_Small.belongsTo(db.Style_Mid);
 
+// User관계
+/** 1 : N  Level : User */
+db.Level.hasMany(db.User);
+db.User.belongsTo(db.Level);
 
 module.exports = db;
