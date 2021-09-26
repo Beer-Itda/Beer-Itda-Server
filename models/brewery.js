@@ -1,3 +1,4 @@
+//있지만 지금 안씀
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('Brewery', {
     //제조사(영어)
