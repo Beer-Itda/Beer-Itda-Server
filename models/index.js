@@ -13,6 +13,8 @@ db.Beer = require('./beer')(sequelize, Sequelize);
 db.Aroma = require('./aroma')(sequelize, Sequelize);
 // 맥주 제조국가
 db.Country = require('./country')(sequelize, Sequelize);
+// 맥주 제조사
+db.Brewery = require('./brewery')(sequelize, Sequelize);
 // 맥주 스타일 
 db.Style_Big = require('./style_big')(sequelize, Sequelize);
 db.Style_Mid = require('./style_mid')(sequelize, Sequelize);
@@ -28,6 +30,10 @@ db.Level = require('./level')(sequelize, Sequelize);
 /** 1 : N  Country : Beer */
 db.Country.hasMany(db.Beer);
 db.Beer.belongsTo(db.Country);
+
+/** 1 : N  Brewery : Beer */
+db.Brewery.hasMany(db.Beer);
+db.Beer.belongsTo(db.Brewery);
 
 /** 1 : N  Style_Big : Style_Mid */
 db.Style_Big.hasMany(db.Style_Mid);
