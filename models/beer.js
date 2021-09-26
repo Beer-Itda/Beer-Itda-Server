@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0
     },
+    //제조국가
+    brewery: {
+      type: DataTypes.STRING(30),
+      allowNull: false,
+    },
     //별점 평균
     star_avg: {
       type: DataTypes.FLOAT,
@@ -44,11 +49,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     //Country 테이블 FK
     country_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    //Brewery 테이블 FK
-    brewery_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
