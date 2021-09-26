@@ -38,7 +38,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     //Aroma 테이블 FK
-    aroma_id: {
+    aroma_id_1: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    aroma_id_2: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    aroma_id_3: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    aroma_id_4: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
