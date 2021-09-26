@@ -4,7 +4,9 @@ const {
   Beer,
   Style_Big,
   Style_Mid,
-  Style_Small
+  Style_Small,
+  Country,
+  Brewery
 } = require('../../models');
 
 const util = require('../../modules/util');

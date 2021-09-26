@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 
-//esj(템플릿)으로 설정하기
+//ejs(템플릿)으로 설정하기
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
