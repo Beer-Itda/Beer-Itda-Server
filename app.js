@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 const {
   sequelize
@@ -23,6 +24,7 @@ var userRouter = require('./src/routes/user');
 
 const app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
