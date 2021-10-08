@@ -21,9 +21,6 @@ module.exports = {
     try {
       const users = await User.findOne({
         attributes: ['email', 'nickname', 'review_count', 'level_id'],
-        where: {
-          id = id
-        },
       });
 
       const result = {};

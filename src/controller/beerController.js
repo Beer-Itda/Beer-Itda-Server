@@ -55,7 +55,10 @@ module.exports = {
     const id = req.params.id;
     try {
       const beers = await Beer.findOne({
-        attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image', 'brewery', 'aroma_id', 'style_id', 'country_id']
+        attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image', 'brewery',
+          'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4',
+          'style_id', 'country_id'
+        ]
       });
 
       const result = {};
@@ -67,7 +70,10 @@ module.exports = {
       result.thumbnail_image = beers.thumbnail_image;
       result.brewery = beers.brewery;
 
-      const aroma_id_1 = beers.aroma_id;
+      const aroma_id_1 = beers.aroma_id_1;
+      const aroma_id_2 = beers.aroma_id_2;
+      const aroma_id_3 = beers.aroma_id_3;
+      const aroma_id_4 = beers.aroma_id_4;
       const style_id = beers.style_id;
       const country_id = beers.country_id;
 
@@ -96,8 +102,29 @@ module.exports = {
           id: aroma_id_1,
         }
       });
+      const aroma2 = await Aroma.findOne({
+        attributes: ['aroma'],
+        where: {
+          id: aroma_id_2,
+        }
+      });
+      const aroma3 = await Aroma.findOne({
+        attributes: ['aroma'],
+        where: {
+          id: aroma_id_3,
+        }
+      });
+      const aroma4 = await Aroma.findOne({
+        attributes: ['aroma'],
+        where: {
+          id: aroma_id_4,
+        }
+      });
       result.aroma = {};
       result.aroma.a1 = aroma1.aroma;
+      result.aroma.a2 = aroma2.aroma;
+      result.aroma.a3 = aroma3.aroma;
+      result.aroma.a4 = aroma4.aroma;
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {
