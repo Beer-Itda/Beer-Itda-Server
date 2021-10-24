@@ -4,10 +4,16 @@ const {
 } = require('../../models');
 
 module.exports = {
+  getAromaBeer: ({}),
+  /*
   getStyleBeer: ({
     style_id
   }) => {
-    try {}
+    try {
+
+    } catch (err) {
+      throw err;
+    }
   },
 
   orderByResolver: {
@@ -26,4 +32,5 @@ module.exports = {
       },
     },
   }
+  */
 }
