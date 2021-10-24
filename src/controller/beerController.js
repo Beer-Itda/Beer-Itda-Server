@@ -13,7 +13,7 @@ const util = require('../../modules/util');
 const statusCode = require('../../modules/statusCode');
 const responseMessage = require('../../modules/responseMessage');
 
-const beerService = require("../service/beerService");
+//const beerService = require("../service/beerService");
 
 module.exports = {
   // beerController 연결확인
@@ -55,6 +55,12 @@ module.exports = {
     const id = req.params.id;
     try {
       const beers = await Beer.findOne({
+        /*
+        attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image', 'brewery',
+          'aroma_id_1',
+          'style_id', 'country_id'
+        ]
+        */
         attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image', 'brewery',
           'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4',
           'style_id', 'country_id'
@@ -102,12 +108,14 @@ module.exports = {
           id: aroma_id_1,
         }
       });
+
       const aroma2 = await Aroma.findOne({
         attributes: ['aroma'],
         where: {
           id: aroma_id_2,
         }
       });
+      /*
       const aroma3 = await Aroma.findOne({
         attributes: ['aroma'],
         where: {
@@ -120,11 +128,12 @@ module.exports = {
           id: aroma_id_4,
         }
       });
+      */
       result.aroma = {};
       result.aroma.a1 = aroma1.aroma;
       result.aroma.a2 = aroma2.aroma;
-      result.aroma.a3 = aroma3.aroma;
-      result.aroma.a4 = aroma4.aroma;
+      //result.aroma.a3 = aroma3.aroma;
+      //result.aroma.a4 = aroma4.aroma;
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {

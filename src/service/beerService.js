@@ -1,7 +1,29 @@
 const {
-  Beer
-} = require('../../models/index');
+  Beer,
+  Style_Small
+} = require('../../models');
 
 module.exports = {
-  // 계산할 것이 있을 때 사용하기
+  getStyleBeer: ({
+    style_id
+  }) => {
+    try {}
+  },
+
+  orderByResolver: {
+    [BeerListOrderBy.ID_ASC]: {
+      cursor: "beer.id",
+      orderBy: {
+        "beer.id": "ASC",
+      },
+    },
+
+    [BeerListOrderBy.STYLE_ID_ASC]: {
+      cursor: "CONCAT(LPAD(POW(10, 5) - style_id, 5, '0'), LPAD(POW(10, 5) - id, 5, '0'))",
+      orderBy: {
+        "beer.style": "ASC",
+        "beer.id": "ASC",
+      },
+    },
+  }
 }
