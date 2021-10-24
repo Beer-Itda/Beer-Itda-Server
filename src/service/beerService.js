@@ -7,8 +7,8 @@ module.exports = {
   getAromaBeer: ({}),
   /*
   getStyleBeer: ({
-    style_id
-  }) => {
+    style_d
+  }) => i{
     try {
 
     } catch (err) {
@@ -33,4 +33,7 @@ module.exports = {
     },
   }
   */
+  //별점 계산 자동화 (그때그때 계산하면 넘 오래걸리미)
+  getCountStarAvg: ({}),
+
 }

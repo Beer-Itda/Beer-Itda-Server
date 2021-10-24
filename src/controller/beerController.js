@@ -98,7 +98,7 @@ module.exports = {
       });
       result.style = styles.small_name;
 
-      // 스타일 불러오기 
+      // 향 불러오기 
       result.aroma = {};
 
       const aroma1 = await Aroma.findOne({
