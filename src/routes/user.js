@@ -6,6 +6,8 @@ const userController = require('../controller/userController');
 router.get('/suagongzu', userController.getCheckUser);
 
 //router.get('/', userController.getAllUser);
+
+//유저 상세 정보
 router.get('/:id', userController.getOneUser);
 
 module.exports = router;
