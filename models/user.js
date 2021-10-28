@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     underscored: true
   });
-
+  /*
   User.associate = models => {
     //User안에 있는 "id값"을 "user_id라는 컬럼 이름"으로 Select에 새로운 컬럼으로 추가
     User.hasOne(models.Select, {
@@ -42,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       sourceKey: 'id'
     });
   };
+  */
 
   return User;
 };

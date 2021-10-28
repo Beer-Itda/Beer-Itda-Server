@@ -1,9 +1,9 @@
 var express = require('express');
+var dbConObj = require('../../config/db_info');
+var dbconn = dbConObj.init();
 
 const {
   Beer,
-  Style_Big,
-  Style_Mid,
   Style_Small,
   Aroma,
   Country,
@@ -16,16 +16,25 @@ const responseMessage = require('../../modules/responseMessage');
 const beerService = require("../service/beerService");
 
 module.exports = {
-  // beerController 연결확인
-  getCheckBeer: async (req, res) => {
-    res.send('으랏챠 beer page 연결');
-  },
-  // 전체 beer 불러오기(페이징 안됨)
+  /* 전체 beer 불러오기 */
   getAllBeer: async (req, res) => {
+    const cursor = 4;
     try {
       const beers = await Beer.findAll({
-        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image']
+        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'],
+        where: {
+          id: cursor
+        }
       });
+      /*
+      const beers = {
+        beer: function(req, res){
+          var sql = "SELECT id, k_name, style_id as cursor FROM Beer LIMIT 10";
+          dbconn.query(sql, function(err, results, field){
+            res.render({data : 'testData list ejs', results});
+          });
+      }
+      */
       const result = {};
       result.beers = beers;
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
@@ -39,7 +48,10 @@ module.exports = {
   getMonthlyBeer: async (req, res) => {
     try {
       const beers = await Beer.findOne({
-        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image']
+        attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image'],
+        where: {
+          star_avg: 5
+        }
       });
       const result = {};
       result.beers = beers;
@@ -51,7 +63,7 @@ module.exports = {
   },
 
   // beer 세부사항 불러오기
-  getOneBeer: async (req, res) => {
+  getBeerDetail: async (req, res) => {
     const id = req.params.id;
     try {
       const beers = await Beer.findOne({
@@ -150,7 +162,10 @@ module.exports = {
   getAllStyleBeer: async (req, res) => {
     try {
       const beers = await Beer.findAll({
-        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image']
+        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'style_id'],
+        where: {
+          'style_id': 1,
+        }
       });
       //좋아하는 스타일 불러오는 로직
       const result = {};
@@ -168,7 +183,7 @@ module.exports = {
       const beers = await Beer.findAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image']
       });
-      //좋아하는 스타일 불러오는 로직
+      //좋아하는 향 불러오는 로직
       const result = {};
       result.Stylebeers = beers;
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
