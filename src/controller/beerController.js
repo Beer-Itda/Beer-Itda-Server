@@ -1,4 +1,13 @@
 var express = require('express');
+/*
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: "localhost",
+  user: "admin",
+  password: "qlddlTek123",
+  database: "Beer-Itda"
+});
+*/
 
 const {
   Beer,
@@ -16,16 +25,17 @@ const responseMessage = require('../../modules/responseMessage');
 const beerService = require("../service/beerService");
 
 module.exports = {
-  // beerController 연결확인
-  getCheckBeer: async (req, res) => {
-    res.send('으랏챠 beer page 연결');
-  },
-  // 전체 beer 불러오기(페이징 안됨)
+  /* 전체 beer 불러오기 */
   getAllBeer: async (req, res) => {
     try {
+
       const beers = await Beer.findAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image']
       });
+      /*
+      connection.release();
+      const beers = connection.query("SELECT id, k_name, style_id as 'cursor' FROM 'Beer' LIMIT 10");
+      */
       const result = {};
       result.beers = beers;
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
@@ -37,9 +47,13 @@ module.exports = {
 
   // 이달의 beer 불러오기(1개)
   getMonthlyBeer: async (req, res) => {
+    const id = req.params.id;
     try {
       const beers = await Beer.findOne({
-        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image']
+        attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image'],
+        where: {
+          id: id
+        }
       });
       const result = {};
       result.beers = beers;
@@ -51,7 +65,7 @@ module.exports = {
   },
 
   // beer 세부사항 불러오기
-  getOneBeer: async (req, res) => {
+  getBeerDetail: async (req, res) => {
     const id = req.params.id;
     try {
       const beers = await Beer.findOne({
