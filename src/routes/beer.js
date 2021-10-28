@@ -3,7 +3,6 @@ const router = express.Router();
 const beerController = require('../controller/beerController');
 
 /* GET users listing. */
-router.get('/suagongzu', beerController.getCheckBeer);
 router.get('/', beerController.getAllBeer);
 router.get('/:id', beerController.getOneBeer);
 router.get('/monthly', beerController.getMonthlyBeer);
