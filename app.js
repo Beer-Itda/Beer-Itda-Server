@@ -1,17 +1,18 @@
-var createError = require('http-errors');
+const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
+const session = require('express-session');
 
 const {
   sequelize
 } = require('./models/index');
 
 sequelize.sync({
-    alter: false
-  })
+  alter: false
+})
   .then(() => {
     console.log('데이터베이스 연결 성공.');
   })
@@ -19,8 +20,8 @@ sequelize.sync({
     console.error(error);
   })
 
-var indexRouter = require('./src/routes/index');
-var userRouter = require('./src/routes/user');
+const indexRouter = require('./src/routes/index');
+const userRouter = require('./src/routes/user');
 
 const app = express();
 
@@ -33,11 +34,18 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'aaa',
+  resave: false,
+  secure: false,
+  saveUninitialized: false,
+}))
+
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 
 //ejs(템플릿)으로 설정하기
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 app.set('views', path.join(__dirname, 'views'));
 
 // catch 404 and forward to error handler
