@@ -65,7 +65,9 @@ db.Level.hasMany(db.User);
 db.User.belongsTo(db.Level);
 
 /** 1 : 1  Select : User */
-db.Select.hasOne(db.User);
+db.Select.hasOne(db.User, {
+  onDelete: 'cascade'
+});
 db.User.belongsTo(db.Select);
 
 module.exports = db;
