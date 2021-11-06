@@ -47,10 +47,23 @@ module.exports = {
   // 이달의 beer 불러오기(1개)
   getMonthlyBeer: async (req, res) => {
     try {
+      //가장 star_avg가 높은 beer찾기
+      /*
+      const monthlyBeer_id = await Beer.findOne({
+        attributes: [
+          [sequelize.fn("COUNT", sequelize.col("id")), "monthlyBeer_id"],
+        ],
+      });
+      */
+
+      //임시 monthlyBeer
+      const monthlyBeer_id = 10;
+
+      //가져온 Beer id로부터 맥주정보 불러오기
       const beers = await Beer.findOne({
         attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image'],
         where: {
-          star_avg: 5
+          id: monthlyBeer_id
         }
       });
       const result = {};
