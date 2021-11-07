@@ -13,30 +13,35 @@ const util = require('../../modules/util');
 const statusCode = require('../../modules/statusCode');
 const responseMessage = require('../../modules/responseMessage');
 
-const beerService = require("../service/beerService");
+//const beerService = require("../service/beerService");
 
 module.exports = {
   /* 전체 beer 불러오기 */
   getAllBeer: async (req, res) => {
-    const cursor = 4;
+    const cursor = req.body;
+
     try {
       const beers = await Beer.findAll({
-        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'],
-        where: {
-          id: cursor
-        }
+        attributes: [
+          'id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'
+        ],
       });
-      /*
-      const beers = {
-        beer: function(req, res){
-          var sql = "SELECT id, k_name, style_id as cursor FROM Beer LIMIT 10";
-          dbconn.query(sql, function(err, results, field){
-            res.render({data : 'testData list ejs', results});
+
+      const beers2 = {
+        function (req, res) {
+          var sql = "SELECT id, k_name, style_id as number FROM Beer LIMIT 10";
+          dbconn.query(sql, function (err, results, field) {
+            res.render({
+              data: 'testData list ejs',
+              results
+            });
           });
+        }
       }
-      */
+
       const result = {};
       result.beers = beers;
+      result.cursor = cursor;
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {
       console.error(error);
