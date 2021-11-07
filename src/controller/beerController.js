@@ -21,6 +21,7 @@ module.exports = {
     const cursor = req.body;
 
     try {
+
       const beers = await Beer.findAll({
         attributes: [
           'id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'
@@ -51,6 +52,7 @@ module.exports = {
 
   // 이달의 beer 불러오기(1개)
   getMonthlyBeer: async (req, res) => {
+    const id = req.params.id;
     try {
       //가장 star_avg가 높은 beer찾기
       /*
