@@ -7,6 +7,7 @@ const {
   Style_Small,
   Aroma,
   Country,
+  Select
 } = require('../../models');
 
 const util = require('../../modules/util');
@@ -21,24 +22,11 @@ module.exports = {
     const cursor = req.body;
 
     try {
-
       const beers = await Beer.findAll({
         attributes: [
           'id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'
         ],
       });
-
-      const beers2 = {
-        function (req, res) {
-          var sql = "SELECT id, k_name, style_id as number FROM Beer LIMIT 10";
-          dbconn.query(sql, function (err, results, field) {
-            res.render({
-              data: 'testData list ejs',
-              results
-            });
-          });
-        }
-      }
 
       const result = {};
       result.beers = beers;
@@ -54,15 +42,6 @@ module.exports = {
   getMonthlyBeer: async (req, res) => {
     const id = req.params.id;
     try {
-      //가장 star_avg가 높은 beer찾기
-      /*
-      const monthlyBeer_id = await Beer.findOne({
-        attributes: [
-          [sequelize.fn("COUNT", sequelize.col("id")), "monthlyBeer_id"],
-        ],
-      });
-      */
-
       //임시 monthlyBeer
       const monthlyBeer_id = 10;
 
@@ -180,11 +159,34 @@ module.exports = {
 
   // 좋아하는 스타일 beer 전체 불러오기(페이징 안됨) [전체보기 기준, id값 정렬할 것]
   getAllStyleBeer: async (req, res) => {
+    const user_id = req.body.user_id;
+
     try {
+      const userSelectStyle = await Select.findOne({
+        attributes: ['style'],
+        where: {
+          id: user_id,
+        }
+      });
+      const abc = Object.values(userSelectStyle);
+      console.log('-----------------', user_id, abc, userSelectStyle[1], '\n\n');
+      console.log('-----------------', user_id, typeof (userSelectStyle));
+
+      var st = new Array();
+      for (var i = 0; i < 5; i++) {
+        if (userSelectStyle[i] != 'null') {
+          st[i] = userSelectStyle[i];
+          console.log("배열값 작성: ", i, ": ", st[i]);
+        }
+      }
+
+
       const beers = await Beer.findAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'style_id'],
         where: {
-          'style_id': 1,
+          style_id: {
+            [Op.or]: [st[0], st[1], st[2], st[3], st[4]]
+          }
         }
       });
       //좋아하는 스타일 불러오는 로직
