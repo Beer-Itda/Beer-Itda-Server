@@ -54,7 +54,7 @@ module.exports = {
       });
       const result = {};
       result.beers = beers;
-      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
+      return res.status(statusCode.OK).send(util.success(responseMessage.MONTHLY_BEER_OK, result));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
