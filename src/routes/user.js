@@ -15,6 +15,6 @@ router.get('/:id', userController.getOneUser);
 router.get('/auth/kakao', userController.userAuthKakao);
 
 //카카오계정으로 로그인
-router.get('/signup/kakao', userController.userSignupKakao);
+router.get('/login/:social', userController.userLoginSocial);
 
 module.exports = router;
