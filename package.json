@@ -18,6 +18,7 @@
     "mysql2": "^2.3.0",
     "nodemon": "^2.0.14",
     "sequelize": "^6.6.5",
-    "sequelize-cli": "^6.2.0"
+    "sequelize-cli": "^6.2.0",
+    "sequelize-cursor-pagination": "^2.3.0"
   }
 }
