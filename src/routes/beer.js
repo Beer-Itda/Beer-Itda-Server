@@ -1,12 +1,16 @@
 const express = require('express');
+const beerAllGET = require('../controller/beer/beerAllGET');
+const beerChoiceAromaGET = require('../controller/beer/beerChoiceAromaGET');
+const beerChoiceStyleGET = require('../controller/beer/beerChoiceStyleGET');
+const beerDetailGET = require('../controller/beer/beerDetailGET');
+const beerMonthlyGET = require('../controller/beer/beerMonthlyGET');
 const router = express.Router();
-const beerController = require('../controller/beerController');
 
 /* GET users listing. */
-router.get('/', beerController.getAllBeer);
-router.get('/detail/:id', beerController.getBeerDetail);
-router.get('/monthly', beerController.getMonthlyBeer);
-router.get('/style', beerController.getAllStyleBeer);
-router.get('/aroma', beerController.getAllAromaBeer);
+router.get('/', beerAllGET.getAllBeer);
+router.get('/detail/:id', beerDetailGET.getBeerDetail);
+router.get('/monthly', beerMonthlyGET.getMonthlyBeer);
+router.get('/style', beerChoiceStyleGET.getAllStyleBeer);
+router.get('/aroma', beerChoiceAromaGET.getAllAromaBeer);
 
 module.exports = router;
