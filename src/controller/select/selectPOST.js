@@ -22,9 +22,9 @@ module.exports = {
 
       //유저 가입할 때 select 테이블도 같이 생성하면 안될까....?
       const select_user = await Select.create({
-        id: userId,
         style: styleIds,
-        aroma: aromaIds
+        aroma: aromaIds,
+        userId: userId,
       });
       const result = {};
       result.select_user = select_user;

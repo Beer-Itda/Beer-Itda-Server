@@ -37,16 +37,12 @@ db.Beer.belongsTo(db.Country, {
   foreignKey: 'country_id',
   targetKey: 'id'
 });
-
-db.Style_Small.hasMany(db.Beer, {
-  foreignKey: 'style_id',
-  sourceKey: 'id'
-});
-db.Beer.belongsTo(db.Style_Small, {
-  foreignKey: 'style_id',
+/*
+db.User.belongsTo(db.Select, {
+  foreignKey: 'select_id',
   targetKey: 'id'
 });
-
+*/
 /** 1 : N  Style_Big : Style_Mid */
 db.Style_Big.hasMany(db.Style_Mid);
 db.Style_Mid.belongsTo(db.Style_Big);
@@ -61,13 +57,11 @@ db.Style_Small.belongsTo(db.Style_Mid);
 
 // User관계
 /** 1 : N  Level : User */
-db.Level.hasMany(db.User);
-db.User.belongsTo(db.Level);
+//db.Level.hasMany(db.User);
+//db.User.belongsTo(db.Level);
 
-/** 1 : 1  Select : User */
-db.Select.hasOne(db.User, {
-  onDelete: 'cascade'
-});
-db.User.belongsTo(db.Select);
+/** 1 : N  Level : User */
+//db.User.belongsTo(db.Select);
 
+//onDelete: 'cascade'
 module.exports = db;
