@@ -12,15 +12,19 @@ module.exports = {
   /* 최초 스타일,향 선택하기 */
   postFirstSelect: async (req, res) => {
     const {
-      user_id,
-      style,
-      aroma
+      userId,
+      styleIds,
+      aromaIds
     } = req.body;
     try {
+      //style
+      //const valuesString = userIds.map(styleIds => `(${user_id}, ${styleIds})`).join(',');
+
+      //유저 가입할 때 select 테이블도 같이 생성하면 안될까....?
       const select_user = await Select.create({
-        id: user_id,
-        style: style,
-        aroma: aroma
+        id: userId,
+        style: styleIds,
+        aroma: aromaIds
       });
       const result = {};
       result.select_user = select_user;

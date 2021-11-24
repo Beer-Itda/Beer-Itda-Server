@@ -12,6 +12,8 @@ const {
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 //const beerService = require("../service/beerService");
 
@@ -27,15 +29,31 @@ module.exports = {
           id: user_id,
         }
       });
-      const abc = Object.values(userSelectStyle);
-      console.log('-----------------', user_id, abc, userSelectStyle[1], '\n\n');
-      console.log('-----------------', user_id, typeof (userSelectStyle));
+      // userSelectStyle와 JSON.stringify(userSelectStyle)의 type
+      console.log(`---userSelectStyle의 type : ${typeof(userSelectStyle)}`);
+      console.log(`---JSON.stringify(userSelectStyle)의 type : ${typeof(JSON.stringify(userSelectStyle))}`);
 
+      console.log(`---JSON.stringify(userSelectStyle) >>> ${JSON.stringify(userSelectStyle)}`);
+      console.log(`---JSON.stringify(userSelectStyle)[0] >>> ${ JSON.stringify((userSelectStyle)[0]) }`);
+      const a = JSON.stringify((userSelectStyle)[0]);
+      const b = (JSON.stringify(userSelectStyle))[2];
+      const c = userSelectStyle.toString();
+      console.log(a, typeof (a), '\n\n', b, typeof (b), '\n\n', c[0], typeof (c));
+
+      /*
+      const abc = Object.values(userSelectStyle);      
+      const objtostr = JSON.stringify(userSelectStyle);
+      console.log(objtostr, '\n\n');
+      */
+
+
+      // 배열의 값 숫자만큼 for문 돌리기
       var st = new Array();
       for (var i = 0; i < 5; i++) {
         if (userSelectStyle[i] != 'null') {
-          st[i] = userSelectStyle[i];
-          console.log("배열값 작성: ", i, ": ", st[i]);
+          st[i] = JSON.stringify(userSelectStyle[i]);
+          console.log(`배열값 ${i} 작성 : ${st[i]}`);
+          //console.log("배열값 작성: ", i, ": ", st[i]);
         }
       }
 
@@ -44,7 +62,7 @@ module.exports = {
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'style_id'],
         where: {
           style_id: {
-            [Op.or]: [st[0], st[1], st[2], st[3], st[4]]
+            [Op.or]: [1, 2, 3]
           }
         }
       });
