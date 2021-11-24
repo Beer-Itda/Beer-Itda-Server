@@ -9,6 +9,11 @@ const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 
 module.exports = {
+  //1. Select 테이블에 userId가 있는지 확인
+  //1-1. userId가 없다면 생성(create table)
+  //1-2. userId가 있다면 수정(modify table)
+
+
   /* 최초 스타일,향 선택하기 */
   postFirstSelect: async (req, res) => {
     const {
@@ -30,6 +35,27 @@ module.exports = {
       const result = {};
       result.select_user = select_user;
       return res.status(statusCode.OK).send(util.success(responseMessage.SELECT_AROMA_OK, result));
+    } catch (err) {
+      console.log(err);
+      return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(responseMessage.INTERNAL_SERVER_ERROR));
+    }
+  },
+
+  /*스타일, 향 수정 */
+  modifySelect: async (req, res) => {
+    const {
+      userId,
+      style
+    } = req.body;
+    try {
+      await Select.update({
+        style: style,
+      }, {
+        where: {
+          userId: userId
+        },
+      });
+      return res.status(statusCode.OK).send(util.success(responseMessage.MODIFY_STYLE_OK));
     } catch (err) {
       console.log(err);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(responseMessage.INTERNAL_SERVER_ERROR));
