@@ -1,13 +1,7 @@
 var express = require('express');
-var dbConObj = require('../../../config/db_info');
-var dbconn = dbConObj.init();
 
 const {
   Beer,
-  Style_Small,
-  Aroma,
-  Country,
-  Select
 } = require('../../../models');
 
 const util = require('../../../modules/util');
@@ -26,6 +20,7 @@ module.exports = {
         attributes: [
           'id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'
         ],
+        limit: 10,
       });
 
       const result = {};

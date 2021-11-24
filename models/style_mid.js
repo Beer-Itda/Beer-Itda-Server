@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     //중분류
     mid_name: {
       type: DataTypes.STRING(45),
-      unique: true,
+      unique: 'compositeIndex',
       allowNull: false,
     },
     //설명

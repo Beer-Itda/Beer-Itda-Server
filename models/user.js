@@ -32,7 +32,12 @@ module.exports = (sequelize, DataTypes) => {
     path: {
       type: DataTypes.STRING(10),
       allowNull: false
-    }
+    },
+    //Select 테이블 FK
+    select_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   }, {
     //옵션지정
     freezeTableName: true,
@@ -48,6 +53,4 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
   */
-
-  return User;
 };

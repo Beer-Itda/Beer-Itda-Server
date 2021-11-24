@@ -1,6 +1,4 @@
 var express = require('express');
-var dbConObj = require('../../../config/db_info');
-var dbconn = dbConObj.init();
 
 const {
   Beer,

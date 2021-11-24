@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     //대분류
     big_name: {
       type: DataTypes.STRING(45),
-      unique: true,
       allowNull: false,
     },
   }, {

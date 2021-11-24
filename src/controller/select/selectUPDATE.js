@@ -12,7 +12,7 @@ module.exports = {
   /* 스타일 수정 */
   modifySelectStyle: async (req, res) => {
     const {
-      user_id,
+      userId,
       style
     } = req.body;
     try {
@@ -20,7 +20,7 @@ module.exports = {
         style: style,
       }, {
         where: {
-          id: user_id
+          userId: userId
         },
       });
       return res.status(statusCode.OK).send(util.success(responseMessage.MODIFY_STYLE_OK));
