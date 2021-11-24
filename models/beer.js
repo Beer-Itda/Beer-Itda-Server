@@ -44,15 +44,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     aroma_id_2: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     aroma_id_3: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     aroma_id_4: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     //Style 테이블 FK
     style_id: {

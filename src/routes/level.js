@@ -6,10 +6,6 @@ const responseMessage = require('../../modules/responseMessage');
 const util = require('../../modules/util');
 
 /* GET users listing. */
-router.get('/suagongzu', function (req, res, next) {
-  res.send('으랏챠 level page 연결');
-});
-
 router.get('/', async (req, res, next) => {
   try {
     const levels = await Level.findAll({});

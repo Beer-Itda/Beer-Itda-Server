@@ -17,6 +17,9 @@ db.Country = require('./country')(sequelize, Sequelize);
 db.Style_Big = require('./style_big')(sequelize, Sequelize);
 db.Style_Mid = require('./style_mid')(sequelize, Sequelize);
 db.Style_Small = require('./style_small')(sequelize, Sequelize);
+
+//사용자의 맥주 스타일/향 선택
+db.Select = require('./select')(sequelize, Sequelize);
 // 사용자
 db.User = require('./user')(sequelize, Sequelize);
 // 사용자 레벨
@@ -26,9 +29,20 @@ db.Level = require('./level')(sequelize, Sequelize);
 
 // Beer관계
 /** 1 : N  Country : Beer */
-db.Country.hasMany(db.Beer);
-db.Beer.belongsTo(db.Country);
-
+db.Country.hasMany(db.Beer, {
+  foreignKey: 'country_id',
+  sourceKey: 'id'
+});
+db.Beer.belongsTo(db.Country, {
+  foreignKey: 'country_id',
+  targetKey: 'id'
+});
+/*
+db.User.belongsTo(db.Select, {
+  foreignKey: 'select_id',
+  targetKey: 'id'
+});
+*/
 /** 1 : N  Style_Big : Style_Mid */
 db.Style_Big.hasMany(db.Style_Mid);
 db.Style_Mid.belongsTo(db.Style_Big);
@@ -37,9 +51,17 @@ db.Style_Mid.belongsTo(db.Style_Big);
 db.Style_Mid.hasMany(db.Style_Small);
 db.Style_Small.belongsTo(db.Style_Mid);
 
+/** 1 : N  Style_Mid : Style_Small */
+db.Style_Mid.hasMany(db.Style_Small);
+db.Style_Small.belongsTo(db.Style_Mid);
+
 // User관계
 /** 1 : N  Level : User */
-db.Level.hasMany(db.User);
-db.User.belongsTo(db.Level);
+//db.Level.hasMany(db.User);
+//db.User.belongsTo(db.Level);
 
+/** 1 : N  Level : User */
+//db.User.belongsTo(db.Select);
+
+//onDelete: 'cascade'
 module.exports = db;

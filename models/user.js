@@ -1,5 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('User', {
+  const User = sequelize.define('User', {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      comment: "고유번호 ID",
+    },
     //유저 이메일(로그인할 때 사용되는 아이디)
     email: {
       type: DataTypes.STRING(30),
@@ -26,11 +32,25 @@ module.exports = (sequelize, DataTypes) => {
     path: {
       type: DataTypes.STRING(10),
       allowNull: false
-    }
+    },
+    //Select 테이블 FK
+    select_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   }, {
     //옵션지정
     freezeTableName: true,
     timestamps: true,
     underscored: true
   });
+  /*
+  User.associate = models => {
+    //User안에 있는 "id값"을 "user_id라는 컬럼 이름"으로 Select에 새로운 컬럼으로 추가
+    User.hasOne(models.Select, {
+      foreignKey: "user_id",
+      sourceKey: 'id'
+    });
+  };
+  */
 };

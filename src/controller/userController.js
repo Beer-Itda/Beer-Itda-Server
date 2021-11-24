@@ -8,7 +8,9 @@ const jwt = require('jsonwebtoken');
 
 
 //계속되는 fetch import에 대한 문제로 인하여 검색하였더니 이런식으로 import 해야된다고 함
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({
+  default: fetch
+}) => fetch(...args));
 // import fetch from 'node-fetch';
 // const fetch = require('node-fetch');
 const cookieParser = require('cookie-parser');
@@ -55,7 +57,9 @@ module.exports = {
     const id = req.params.id;
     try {
       const users = await User.findOne({
-        where: { 'id': id },
+        where: {
+          'id': id
+        },
         attributes: ['id', 'email', 'nickname', 'review_count', 'level_id'],
       });
       //유저 정보 모두 불러왔는데 result로 묶어서 보내는 형태가 아니라서 users만 내보내겠습니다.
@@ -100,7 +104,9 @@ module.exports = {
       case 'kakao':
         const userData = await kakaoLogin(req, res);
         const kakaoToken = await createToken(userData);
-        res.json({ kakaoToken });
+        res.json({
+          kakaoToken
+        });
         break;
 
       case 'apple':
@@ -209,12 +215,18 @@ const kakaoLogin = async (req, res) => {
 //유저 데이터 이용한 토큰 생성
 const createToken = async (userData) => {
   //accessToekn 생성
-  let accessToken = await jwt.sign({ id: userData.id }, tokenConfig.jwt.accessSecret, {
+  let accessToken = await jwt.sign({
+    id: userData.id
+  }, tokenConfig.jwt.accessSecret, {
     expiresIn: tokenConfig
       .jwt.accessExpiredIn
   });
   //refreshToken 생성
-  let refreshToken = await jwt.sign({ id: userData.id }, tokenConfig.jwt.refreshSecret, { expiresIn: tokenConfig.jwt.refreshExpiredIn });
+  let refreshToken = await jwt.sign({
+    id: userData.id
+  }, tokenConfig.jwt.refreshSecret, {
+    expiresIn: tokenConfig.jwt.refreshExpiredIn
+  });
 
   return {
     accessToken: accessToken,

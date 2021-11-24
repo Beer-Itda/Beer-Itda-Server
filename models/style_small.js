@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     //소분류
     small_name: {
       type: DataTypes.STRING(45),
-      unique: true,
+      unique: 'compositeIndex',
       allowNull: false,
     },
   }, {
