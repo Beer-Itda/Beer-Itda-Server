@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     //향 이름
     aroma: {
       type: DataTypes.STRING(20),
-      unique: true,
+      unique: 'compositeIndex',
       allowNull: false,
     },
 
