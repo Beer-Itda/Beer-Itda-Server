@@ -11,5 +11,6 @@ router.get('/', function (req, res, next) {
 router.use('/user', require('./user'));
 router.use('/beer', require('./beer'));
 router.use('/level', require('./level'));
+router.use('/select', require('./select'));
 
 module.exports = router;
