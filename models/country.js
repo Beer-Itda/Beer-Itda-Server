@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     //제조국가
     country: {
       type: DataTypes.STRING(20),
-      unique: true,
+      unique: 'compositeIndex',
       allowNull: false,
     },
   }, {

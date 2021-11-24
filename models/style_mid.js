@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     //설명
     description: {
       type: DataTypes.STRING(45),
-      unique: true,
+      unique: false,
       allowNull: false,
     },
   }, {
