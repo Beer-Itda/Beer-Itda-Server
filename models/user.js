@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  return sequelize.define('User', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -38,19 +38,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    //Level 테이블 FK
+    level_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   }, {
     //옵션지정
     freezeTableName: true,
     timestamps: true,
     underscored: true
   });
-  /*
-  User.associate = models => {
-    //User안에 있는 "id값"을 "user_id라는 컬럼 이름"으로 Select에 새로운 컬럼으로 추가
-    User.hasOne(models.Select, {
-      foreignKey: "user_id",
-      sourceKey: 'id'
-    });
-  };
-  */
+
 };
