@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     //유저 이메일(로그인할 때 사용되는 아이디)
     email: {
       type: DataTypes.STRING(30),
-      unique: true,
+      unique: 'compositeIndex',
       allowNull: false,
     },
     //유저 닉네임 (최대 10자 최소 2자)
@@ -28,10 +28,15 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'Y',
       allowNull: false,
     },
+    //가입 경로
+    path: {
+      type: DataTypes.STRING(10),
+      allowNull: false
+    }
   }, {
     //옵션지정
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
     underscored: true
   });
   /*

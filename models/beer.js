@@ -2,8 +2,8 @@ module.exports = (sequelize, DataTypes) => {
   return sequelize.define('Beer', {
     //맥주 이름(한글)
     k_name: {
-      type: DataTypes.STRING(30),
-      unique: true,
+      type: DataTypes.STRING,
+      unique: 'compositeIndex',
       allowNull: false,
     },
     //맥주 이름(영어)

@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     //등급
     level: {
       type: DataTypes.STRING(10),
-      unique: true,
+      unique: 'compositeIndex',
       allowNull: false,
     },
   }, {
