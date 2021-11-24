@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     //Select 테이블 FK
     select_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
   }, {
     //옵션지정
