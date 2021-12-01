@@ -19,6 +19,9 @@ module.exports = {
   // 좋아하는 스타일 beer 전체 불러오기(페이징 안됨) [전체보기 기준, id값 정렬할 것]
   getAllStyleBeer: async (req, res) => {
     const user_id = req.body.user_id;
+    const cursor = req.body.cursor;
+    if (!user_id) return res.status(statusCode.BAD_REQUEST).send(util.fail(responseMessage.NO_USER_ID));
+    if (!cursor) return res.status(statusCode.BAD_REQUEST).send(util.fail(responseMessage.NO_CURSOR));
 
     try {
       const userSelectStyle = await Select.findOne({
