@@ -24,7 +24,7 @@ module.exports = {
   NO_USER_ID: '유저 아이디/정보가 없습니다.',
   NO_SOCIAL_INFO: '소셜 유저 정보가 없습니다',
 
-
+  NO_CURSOR: '커서 정보가 없습니다',
 
   /* 서버에러 */
   INTERNAL_SERVER_ERROR: "서버 내부 오류",

@@ -15,6 +15,11 @@ const Op = Sequelize.Op;
 module.exports = {
   // 좋아하는 향 beer 전체 불러오기 [전체보기 기준, id값 정렬할 것]
   getAllAromaBeer: async (req, res) => {
+    const user_id = req.body.user_id;
+    const cursor = req.body.cursor;
+    if (!user_id) return res.status(statusCode.BAD_REQUEST).send(util.fail(responseMessage.NO_USER_ID));
+    if (!cursor) return res.status(statusCode.BAD_REQUEST).send(util.fail(responseMessage.NO_CURSOR));
+
     try {
       const beers = await Beer.findAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'aroma_id_1', 'aroma_id_2'],
