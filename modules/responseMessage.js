@@ -12,6 +12,7 @@ module.exports = {
   NO_BEER_ID: '맥주 아이디/정보가 없습니다.',
   BEER_READ_ALL_FAIL: '맥주정보 불러오기 실패했습니다.',
   MONTHLY_BEER_OK: '이달의 맥주 불러오기 성공했습니다.',
+  BEER_RANDOM_OK: '맥주 랜덤으로 불러오기 성공했습니다.',
 
   /*필터관련*/
   SELECT_AROMA_OK: '향 선택에 성공했습니다',
@@ -23,6 +24,12 @@ module.exports = {
   USER_OK: '유저정보 불러오기 성공했습니다.',
   NO_USER_ID: '유저 아이디/정보가 없습니다.',
   NO_SOCIAL_INFO: '소셜 유저 정보가 없습니다',
+
+  /*정보관련*/
+  STYLE_INFO_OK: '모든 스타일 정보 불러오기 성공했습니다',
+  STYLE_INFO_FAIL: '모든 스타일 정보 불러오기 실패했습니다',
+  AROMA_INFO_OK: '모든 향 정보 불러오기 성공했습니다',
+  AROMA_INFO_FAIL: '모든 향 정보 불러오기 실패했습니다',
 
   NO_CURSOR: '커서 정보가 없습니다',
 
