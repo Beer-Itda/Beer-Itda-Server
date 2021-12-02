@@ -1,9 +1,9 @@
 const express = require('express');
-const beerAllGET = require('../controller/beer/beerAllGET');
-const beerChoiceAromaGET = require('../controller/beer/beerChoiceAromaGET');
-const beerChoiceStyleGET = require('../controller/beer/beerChoiceStyleGET');
-const beerDetailGET = require('../controller/beer/beerDetailGET');
-const beerMonthlyGET = require('../controller/beer/beerMonthlyGET');
+const beerAllGET = require('../../controller/beer/beerAllGET');
+const beerChoiceAromaGET = require('../../controller/beer/beerChoiceAromaGET');
+const beerChoiceStyleGET = require('../../controller/beer/beerChoiceStyleGET');
+const beerDetailGET = require('../../controller/beer/beerDetailGET');
+const beerMonthlyGET = require('../../controller/beer/beerMonthlyGET');
 const router = express.Router();
 
 /* GET users listing. */

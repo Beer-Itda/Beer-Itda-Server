@@ -1,6 +1,6 @@
 const express = require('express');
-const selectGET = require('../controller/select/selectGET');
-const selectPOST = require('../controller/select/selectPOST');
+const selectGET = require('../../controller/select/selectGET');
+const selectPOST = require('../../controller/select/selectPOST');
 const router = express.Router();
 
 /* GET users listing. */
