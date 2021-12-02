@@ -25,6 +25,12 @@ module.exports = {
   NO_USER_ID: '유저 아이디/정보가 없습니다.',
   NO_SOCIAL_INFO: '소셜 유저 정보가 없습니다',
 
+  /*정보관련*/
+  STYLE_INFO_OK: '모든 스타일 정보 불러오기 성공했습니다',
+  STYLE_INFO_FAIL: '모든 스타일 정보 불러오기 실패했습니다',
+  AROMA_INFO_OK: '모든 향 정보 불러오기 성공했습니다',
+  AROMA_INFO_FAIL: '모든 향 정보 불러오기 실패했습니다',
+
   NO_CURSOR: '커서 정보가 없습니다',
 
   /* 서버에러 */
