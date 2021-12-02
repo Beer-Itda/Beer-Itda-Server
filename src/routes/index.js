@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const v1 = require('./v1/index');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -8,9 +8,6 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.use('/user', require('./user'));
-router.use('/beer', require('./beer'));
-router.use('/level', require('./level'));
-router.use('/select', require('./select'));
+router.use('/v1', v1);
 
 module.exports = router;

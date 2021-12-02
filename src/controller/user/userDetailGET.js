@@ -1,25 +1,25 @@
-var express = require('express');
+const express = require('express');
 
 const {
   User,
   Level
-} = require('../../models');
+} = require('../../../models');
 
-const util = require('../../modules/util');
-const statusCode = require('../../modules/statusCode');
-const responseMessage = require('../../modules/responseMessage');
+const util = require('../../../modules/util');
+const statusCode = require('../../../modules/statusCode');
+const responseMessage = require('../../../modules/responseMessage');
 
 module.exports = {
   //파라미터 id값의 user의 정보 가져오기
   getOneUser: async (req, res) => {
-    const id = req.params.id;
+    //req.tokenData로 미들웨어에서 처리한 token verify 정보가 넘어온다.
     try {
       const users = await User.findOne({
         attributes: [
           'id', 'email', 'nickname', 'review_count', 'level_id'
         ],
         where: {
-          id: id,
+          id: req.tokenData.id,
         },
       });
 
