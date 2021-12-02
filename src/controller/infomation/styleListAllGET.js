@@ -13,11 +13,16 @@ module.exports = {
   /* 스타일 관련 리스트 전체 불러오기 */
   getAllStyleList: async (req, res) => {
     try {
-      const styleList = await Style_Small.findAll({});
+      const styleList = await Style_Big.findAll({
+        include: [{
+          model: Style_Mid,
+          include: [{
+            model: Style_Small,
+          }],
+        }],
+      });
 
-      const result = {};
-      result.styleList = styleList;
-      return res.status(statusCode.OK).send(util.success(responseMessage.STYLE_INFO_OK, result));
+      return res.status(statusCode.OK).send(util.success(responseMessage.STYLE_INFO_OK, styleList));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR));
