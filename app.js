@@ -21,7 +21,7 @@ sequelize.sync({
   })
 
 const indexRouter = require('./src/routes/index');
-const userRouter = require('./src/routes/user');
+const userRouter = require('./src/routes/v1/user');
 
 const app = express();
 
@@ -41,8 +41,7 @@ app.use(session({
   saveUninitialized: false,
 }))
 
-app.use('/', indexRouter);
-app.use('/user', userRouter);
+app.use('/api', indexRouter);
 
 //ejs(템플릿)으로 설정하기
 app.set('view engine', 'jade');
