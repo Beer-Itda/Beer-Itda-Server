@@ -14,7 +14,7 @@ router.get('/info', jwtModule.checkAuth, userDetailGET.getOneUser);
 router.get('/auth/kakao', userSocialLogin.userAuthKakao);
 
 //소셜 로그인
-router.get('/login/:social', userSocialLogin.userLoginSocial);
+router.post('/login/:social', userSocialLogin.userLoginSocial);
 
 //애플 로그인
 

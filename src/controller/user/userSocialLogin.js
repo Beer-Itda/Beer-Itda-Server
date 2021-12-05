@@ -42,6 +42,7 @@ module.exports = {
   //각 소셜에 맞추어 로그인 진행
   userLoginSocial: async (req, res) => {
     const social = req.params.social;
+    const kakao_token = req.body.kakao_token;
     if (!social)
       res.json({
         code: "NEED_SOCIAL_TYPE",
@@ -49,11 +50,11 @@ module.exports = {
       });
     switch (social) {
       case 'kakao':
-        const userData = await kakaoLogin(req, res);
-        const kakaoToken = await createToken(userData);
+        const userData = await kakaoLogin(req, res, kakao_token);
+        const beeritda_token = await createToken(userData);
         res.json({
-          access_token: kakaoToken.accessToken,
-          refresh_token: kakaoToken.refreshToken
+          access_token: beeritda_token.accessToken,
+          refresh_token: beeritda_token.refreshToken
         });
         break;
 
@@ -63,50 +64,50 @@ module.exports = {
   }
 };
 
-const kakaoLogin = async (req, res) => {
+const kakaoLogin = async (req, res, kakao_token) => {
   let kakaoToken;
   let kakaoUser;
-  try {
-    //   return await fetch(options.url, {
-    //     method: 'POST',
-    //     headers: {
-    //         'content-type':'application/x-www-form-urlencoded;charset=utf-8'
-    //     },
-    //     body: qs.stringify({
-    //         grant_type: 'authorization_code',//특정 스트링
-    //         client_id: options.clientID,
-    //         client_secret: options.clientSecret,
-    //         redirectUri: options.redirectUri,
-    //         code: options.code,
-    //     }),
-    // }).then(res => res.json());
+  // try {
+  //   return await fetch(options.url, {
+  //     method: 'POST',
+  //     headers: {
+  //         'content-type':'application/x-www-form-urlencoded;charset=utf-8'
+  //     },
+  //     body: qs.stringify({
+  //         grant_type: 'authorization_code',//특정 스트링
+  //         client_id: options.clientID,
+  //         client_secret: options.clientSecret,
+  //         redirectUri: options.redirectUri,
+  //         code: options.code,
+  //     }),
+  // }).then(res => res.json());
 
 
-    kakaoToken = await axios({
-      method: 'POST',
-      url: 'https://kauth.kakao.com/oauth/token',
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded'
-      }, // npm install qs
-      data: qs.stringify({
-        grant_type: 'authorization_code', // 특정 스트링 
-        client_id: kakaoAppInfo.clientID,
-        client_secret: kakaoAppInfo.clientSecret,
-        redirectUri: kakaoAppInfo.redirectUri,
-        code: req.query.code,
-      }) // 객체를 String으로 변환.
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.NO_USER_ID));
-  };
+  //   kakaoToken = await axios({
+  //     method: 'POST',
+  //     url: 'https://kauth.kakao.com/oauth/token',
+  //     headers: {
+  //       'content-type': 'application/x-www-form-urlencoded'
+  //     }, // npm install qs
+  //     data: qs.stringify({
+  //       grant_type: 'authorization_code', // 특정 스트링 
+  //       client_id: kakaoAppInfo.clientID,
+  //       client_secret: kakaoAppInfo.clientSecret,
+  //       redirectUri: kakaoAppInfo.redirectUri,
+  //       code: req.query.code,
+  //     }) // 객체를 String으로 변환.
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  //   return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.NO_USER_ID));
+  // };
 
   try {
     kakaoUser = await axios({
       method: 'GET',
       url: 'https://kapi.kakao.com/v2/user/me',
       headers: {
-        Authorization: `Bearer ${kakaoToken.data.access_token}`
+        Authorization: `Bearer ${kakao_token}`
       }
     });
 
