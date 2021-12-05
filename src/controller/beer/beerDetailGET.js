@@ -30,7 +30,6 @@ module.exports = {
       });
 
       const result = {};
-
       result.k_name = beers.k_name;
       result.e_name = beers.e_name;
       result.abv = beers.abv;
@@ -63,7 +62,7 @@ module.exports = {
       });
       result.style = styles.small_name;
 
-      // 향 불러오기 
+      // 향 불러오기 [수정필요]
       result.aroma = {};
 
       const aroma1 = await Aroma.findOne({
@@ -82,6 +81,8 @@ module.exports = {
           }
         });
         result.aroma.a2 = aroma2.aroma;
+      } else {
+        result.aroma.a2 = 0;
       }
 
       if (aroma_id_3) {
@@ -92,6 +93,8 @@ module.exports = {
           }
         });
         result.aroma.a3 = aroma3.aroma;
+      } else {
+        result.aroma.a3 = 0;
       }
 
       if (aroma_id_4) {
@@ -102,9 +105,33 @@ module.exports = {
           }
         });
         result.aroma.a4 = aroma4.aroma;
+      } else {
+        result.aroma.a4 = 0;
       }
+      //
+      // 스타일이 같은 맥주 불러오기 (5개)
+      const SameStyleBeers = await Beer.findAll({
+        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'],
+        where: {
+          style_id: style_id
+        },
+        limit: 5,
+      });
 
-      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
+      // 향이 같은 맥주 불러오기 (5개)
+      const SameAromaBeers = await Beer.findAll({
+        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'],
+        where: {
+          aroma_id_1: aroma_id_1
+        },
+        limit: 5,
+      });
+
+      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, {
+        result,
+        SameStyleBeers,
+        SameAromaBeers
+      }));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
