@@ -13,7 +13,19 @@ router.get('/info', jwtModule.checkAuth, userDetailGET.getOneUser);
 //카카오 권한 인가 받기
 router.get('/auth/kakao', userSocialLogin.userAuthKakao);
 
-//카카오계정으로 로그인
+//소셜 로그인
 router.get('/login/:social', userSocialLogin.userLoginSocial);
+
+//애플 로그인
+
+//refresh token 으로 access token 생성해주기
+
+//로그아웃
+
+//회원 탈퇴
+
+//닉네임 설정
+
+
 
 module.exports = router;
