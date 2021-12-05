@@ -24,7 +24,7 @@ const responseMessage = require('../../../modules/responseMessage');
 const kakaoAppInfo = {
   clientID: "ad045c61fe2f6609612eab4daaf5d54c",
   clientSecret: "Ldg6jTcHIJazwMDJmVzlLkZqlD5LGNiy",
-  redirectUri: "http://localhost:6060/api/v1/user/login/kakao"
+  redirectUri: "https://beeritda.com/api/v1/user/login/kakao"
 };
 
 module.exports = {
@@ -52,8 +52,8 @@ module.exports = {
         const userData = await kakaoLogin(req, res);
         const kakaoToken = await createToken(userData);
         res.json({
-          accessToken: kakaoToken.accessToken,
-          refreshToken: kakaoToken.refreshToken
+          access_token: kakaoToken.accessToken,
+          refresh_token: kakaoToken.refreshToken
         });
         break;
 
