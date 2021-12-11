@@ -7,11 +7,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     //설명
-    description: {
+    mid_description: {
       type: DataTypes.STRING(45),
       unique: false,
       allowNull: false,
     },
+    //설명 이미지
+    mid_image: {
+      type: DataTypes.STRING(200),
+      allowNull: false,
+    },
+
   }, {
     //옵션지정
     freezeTableName: true,
