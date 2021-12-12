@@ -24,7 +24,8 @@ db.Select = require('./select')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 // 사용자 레벨
 db.Level = require('./level')(sequelize, Sequelize);
-
+// 사용자 하트(찜하기)
+db.Heart = require('./heart')(sequelize, Sequelize);
 
 // Beer관계
 /** 1 : N  Country : Beer */
@@ -48,6 +49,7 @@ db.Style_Mid.hasMany(db.Style_Small);
 db.Style_Small.belongsTo(db.Style_Mid, {
   foreignKey: 'mid_style_id',
 });
+
 
 // User관계
 /** 1 : N  Level : User */
