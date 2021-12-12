@@ -17,10 +17,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(200),
       allowNull: false,
     },
+    //Style_Big 테이블 FK
+    big_style_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
 
   }, {
     //옵션지정
     freezeTableName: true,
     timestamps: false,
-  });
+  })
 };

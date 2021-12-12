@@ -6,6 +6,11 @@ module.exports = (sequelize, DataTypes) => {
       unique: 'compositeIndex',
       allowNull: false,
     },
+    //Style_Mid 테이블 FK
+    mid_style_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   }, {
     //옵션지정
     freezeTableName: true,

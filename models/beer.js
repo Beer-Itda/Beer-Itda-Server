@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     //리뷰 수
     review_count: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     //Aroma 테이블 FK
     aroma_id_1: {
