@@ -2,13 +2,13 @@ const express = require('express');
 
 const {
   Beer,
+  User
 } = require('../../../models');
 
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 
-//const beerService = require("../service/beerService");
 
 module.exports = {
   /* 전체 beer 불러오기 */
@@ -25,7 +25,19 @@ module.exports = {
 
       const result = {};
       result.beers = beers;
+
+
+      const users = await User.findOne({
+        attributes: [
+          'id', 'nickname'
+        ],
+        where: {
+          id: req.tokenData.id,
+        },
+      });
+      result.user = users.nickname;
       result.cursor = cursor;
+
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {
       console.error(error);
