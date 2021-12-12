@@ -17,4 +17,5 @@ router.get('/random', beerRandomGET.getRandomBeer);
 router.get('/style', jwtModule.checkAuth, beerChoiceStyleGET.getAllStyleBeer);
 router.get('/aroma', jwtModule.checkAuth, beerChoiceAromaGET.getAllAromaBeer);
 
+
 module.exports = router;
