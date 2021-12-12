@@ -24,8 +24,7 @@ db.Select = require('./select')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 // 사용자 레벨
 db.Level = require('./level')(sequelize, Sequelize);
-//db.Favorite = require('./favorite')(sequelize, Sequelize);
-//db.Review = require('./review')(sequelize, Sequelize);
+
 
 // Beer관계
 /** 1 : N  Country : Beer */
@@ -37,23 +36,18 @@ db.Beer.belongsTo(db.Country, {
   foreignKey: 'country_id',
   targetKey: 'id'
 });
-/*
-db.User.belongsTo(db.Select, {
-  foreignKey: 'select_id',
-  targetKey: 'id'
-});
-*/
+
 /** 1 : N  Style_Big : Style_Mid */
 db.Style_Big.hasMany(db.Style_Mid);
-db.Style_Mid.belongsTo(db.Style_Big);
+db.Style_Mid.belongsTo(db.Style_Big, {
+  foreignKey: 'big_style_id',
+});
 
 /** 1 : N  Style_Mid : Style_Small */
 db.Style_Mid.hasMany(db.Style_Small);
-db.Style_Small.belongsTo(db.Style_Mid);
-
-/** 1 : N  Style_Mid : Style_Small */
-db.Style_Mid.hasMany(db.Style_Small);
-db.Style_Small.belongsTo(db.Style_Mid);
+db.Style_Small.belongsTo(db.Style_Mid, {
+  foreignKey: 'mid_style_id',
+});
 
 // User관계
 /** 1 : N  Level : User */

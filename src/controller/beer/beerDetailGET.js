@@ -5,7 +5,8 @@ const {
   Style_Small,
   Aroma,
   Country,
-  Select
+  Select,
+  User
 } = require('../../../models');
 
 const util = require('../../../modules/util');
@@ -29,6 +30,15 @@ module.exports = {
         }
       });
 
+      const users = await User.findOne({
+        attributes: [
+          'id', 'nickname'
+        ],
+        where: {
+          id: req.tokenData.id,
+        },
+      });
+      const user = users.nickname;
       const result = {};
       result.k_name = beers.k_name;
       result.e_name = beers.e_name;
@@ -128,6 +138,7 @@ module.exports = {
       });
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, {
+        user,
         result,
         SameStyleBeers,
         SameAromaBeers
