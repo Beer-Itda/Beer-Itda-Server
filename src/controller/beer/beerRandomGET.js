@@ -10,6 +10,15 @@ const responseMessage = require('../../../modules/responseMessage');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+//paigination을 위한 데코레이터
+const withPagination = require('sequelize-cursor-pagination');
+const options = {
+  methodName: 'paginate',
+  primaryKeyField: 'id',
+};
+
+withPagination(options)(Beer);
+
 module.exports = {
   /* 이런 맥주는 어떠세요? */
   getRandomBeer: async (req, res) => {
