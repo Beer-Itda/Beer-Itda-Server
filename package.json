@@ -23,6 +23,7 @@
     "qs": "^6.10.1",
     "sequelize": "^6.9.0",
     "sequelize-cli": "^6.2.0",
+    "sequelize-cursor-pagination": "^2.3.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
