@@ -59,21 +59,9 @@ module.exports = {
 
       const result = {};
       result.user = users.nickname;
-      /*
-            const heart_ment = 'true'; //heart 목록에 있는 beer일 경우 heart_ment 반환
-            const beerArray = beers.map(function (obj) {
-              var beerIdList = {};
-              beerIdList = obj.value;
-              return beerIdList;
-            });
 
-            console.log(`---------------beerArray : ${beerArray}`);
-            result.beer = beers;
-            result.beer2 = beerArray;
-       */
       result.beer = beers;
       result.HeartList1 = heart;
-      result.HeartList2 = heart2;
       return res.status(statusCode.OK).send(util.success(responseMessage.OK, result));
     } catch (error) {
       console.error(error);
