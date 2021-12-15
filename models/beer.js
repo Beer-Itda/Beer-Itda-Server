@@ -59,11 +59,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    //Country 테이블 FK
-    country_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   }, {
     //옵션지정
     freezeTableName: true,
