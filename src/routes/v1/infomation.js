@@ -1,7 +1,7 @@
 const express = require('express');
-const styleListAllGET = require('../../controller/infomation/styleListAllGET');
-const aromaListAllGET = require('../../controller/infomation/aromaListAllGET');
-const tosContentGET = require('../../controller/infomation/tosContentGET');
+const styleListAllGET = require('../../controller/information/styleListAllGET');
+const aromaListAllGET = require('../../controller/information/aromaListAllGET');
+const tosContentGET = require('../../controller/information/tosContentGET');
 const router = express.Router();
 
 /* GET users listing. */
