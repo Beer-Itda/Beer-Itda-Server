@@ -10,6 +10,6 @@ router.get('/', jwtModule.checkAuth, selectGET.getSelect);
 router.post('/', jwtModule.checkAuth, selectPOST.postSelect);
 
 //router.get('/aroma', selectGET.getSelectedAroma);
-//router.get('/style', selectGET.getSelectedStyle);
+router.get('/style', jwtModule.checkAuth, selectGET.getSelectStyle);
 
 module.exports = router;
