@@ -65,5 +65,5 @@ db.Beer.belongsToMany(db.User, {
 /** 1 : N  Level : User */
 //db.User.belongsTo(db.Select);
 
-onDelete: 'cascade'
+//onDelete: 'cascade'
 module.exports = db;
