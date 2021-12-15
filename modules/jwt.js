@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const tokenConfig = require('../config/token');
+const token_config = require('../config/token');
+const statusCode = require('../modules/statusCode');
 
 const {
   User
@@ -10,11 +11,11 @@ module.exports = {
   checkAuth: async (req, res, next) => {
     try {
       const token = req.headers.authorization.split(' ')[1];
-      const tokenData = jwt.verify(token, tokenConfig.jwt.accessSecret);
-      req.tokenData = tokenData
+      const tokenData = jwt.verify(token, token_config.jwt.accessSecret);
+      req.token_data = tokenData
       next();
     } catch (error) {
-      return res.json({
+      return res.status(statusCode.UNAUTHORIZED).json({
         message: "Auth Error"
       })
     }

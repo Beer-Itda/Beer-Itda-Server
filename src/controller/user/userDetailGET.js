@@ -12,14 +12,14 @@ const responseMessage = require('../../../modules/responseMessage');
 module.exports = {
   //파라미터 id값의 user의 정보 가져오기
   getOneUser: async (req, res) => {
-    //req.tokenData로 미들웨어에서 처리한 token verify 정보가 넘어온다.
+    //req.token_data 미들웨어에서 처리한 token verify 정보가 넘어온다.
     try {
-      const users = await User.findOne({
+      const user = await User.findOne({
         attributes: [
           'id', 'email', 'nickname', 'review_count', 'level_id'
         ],
         where: {
-          id: req.tokenData.id,
+          id: req.token_data.id,
         },
       });
 
@@ -31,11 +31,11 @@ module.exports = {
       // result.review_count = users.review_count;
       // const level_id = users.level_id;
 
-      if (!users.value < 0) {
+      if (!user.value < 0) {
         console.log('존재하지 않는 아이디 입니다.');
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER_ID));
       }
-      return res.status(statusCode.OK).send(util.success(responseMessage.USER_OK, users));
+      return res.status(statusCode.OK).send(util.success(responseMessage.USER_OK, user));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.NO_USER_ID));
