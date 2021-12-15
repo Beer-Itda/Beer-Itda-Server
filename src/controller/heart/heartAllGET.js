@@ -16,7 +16,7 @@ module.exports = {
   getAllHeart: async (req, res) => {
     try {
       /* 찜한 맥주 모두 불러오기 */
-      //1. Heart 테이블에서 tokenData.id = user_id인 모든 beer_id찾기 (찜한 맥주)
+      //1. Heart 테이블에서 token_data.id = user_id인 모든 beer_id찾기 (찜한 맥주)
       //2. 찜한 beer_id만 담긴 Array 만들기
       //3. Array의 값을 Op.or을 사용해 불러오기
 
@@ -25,7 +25,7 @@ module.exports = {
       const heart = await Heart.findAll({
         attributes: ['beer_id'],
         where: {
-          user_id: req.tokenData.id,
+          user_id: req.token_data.id,
         },
       });
 
@@ -53,7 +53,7 @@ module.exports = {
           'id', 'nickname'
         ],
         where: {
-          id: req.tokenData.id,
+          id: req.token_data.id,
         },
       });
 
