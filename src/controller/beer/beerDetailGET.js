@@ -35,7 +35,7 @@ module.exports = {
           'id', 'nickname'
         ],
         where: {
-          id: req.tokenData.id,
+          id: req.token_data.id,
         },
       });
       const user = users.nickname;

@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('Select', {
-    //Select 테이블 FK
-    user_id: {
+    id: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
       allowNull: false,
     },
     //맥주 스타일

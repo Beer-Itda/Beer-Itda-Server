@@ -24,7 +24,7 @@ db.Select = require('./select')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 // 사용자 레벨
 db.Level = require('./level')(sequelize, Sequelize);
-// 사용자 하트(찜하기)
+// 찜 여부
 db.Heart = require('./heart')(sequelize, Sequelize);
 
 // Beer관계
@@ -50,11 +50,24 @@ db.Style_Small.belongsTo(db.Style_Mid, {
   foreignKey: 'mid_style_id',
 });
 
+/** [Select] 
+ * N : M  User : Style */
+db.Select.belongsTo(db.User, {
+  through: 'User',
+  foreignKey: 'user_id'
+});
 
-// User관계
-/** 1 : N  Level : User */
-//db.Level.hasMany(db.User);
-//db.User.belongsTo(db.Level);
+/** [Heart] 
+ * N : M  User : Beer */
+db.User.belongsToMany(db.Beer, {
+  through: 'Heart',
+  foreignKey: 'user_id'
+});
+
+db.Beer.belongsToMany(db.User, {
+  through: 'Heart',
+  foreignKey: 'beer_id'
+});
 
 /** 1 : N  Level : User */
 //db.User.belongsTo(db.Select);
