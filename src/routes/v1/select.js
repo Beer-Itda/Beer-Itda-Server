@@ -6,10 +6,10 @@ const router = express.Router();
 const jwtModule = require('../../../modules/jwt');
 
 /* GET users listing. */
-router.get('/', jwtModule.checkAuth, selectPOST.getCheckSelect);
+router.get('/', jwtModule.checkAuth, selectGET.getSelect);
 router.post('/', jwtModule.checkAuth, selectPOST.postSelect);
 
-router.get('/aroma', selectGET.getSelectedAroma);
-router.get('/style', selectGET.getSelectedStyle);
+//router.get('/aroma', selectGET.getSelectedAroma);
+//router.get('/style', selectGET.getSelectedStyle);
 
 module.exports = router;

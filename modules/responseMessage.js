@@ -20,6 +20,8 @@ module.exports = {
   SELECT_STYLE_OK: '스타일 선택에 성공했습니다',
   MODIFY_AROMA_OK: '향 수정에 성공했습니다',
   MODIFY_STYLE_OK: '스타일 수정에 성공했습니다',
+  SELECT_INFO_OK: '향, 스타일 불러오기 성공했습니다',
+  SELECT_INFO_FAIL: '선택된 향, 스타일이 없습니다',
 
   /*유저관련*/
   USER_OK: '유저정보 불러오기 성공했습니다.',
