@@ -141,6 +141,8 @@ const kakaoLogin = async (req, res, kakao_token) => {
     //   LevelId: null
     // }
 
+    //TODO : 이메일 없을경우
+    //TODO : 회원 이메일 중복 될 경우 
     //DB에 없다면 회원가입 - DB에 저장 후 정보를 return
     if (!beeritdaUser) {
       const newBeeritdaUser = await User.create({
