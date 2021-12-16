@@ -10,7 +10,6 @@ const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 const util = require('../../../modules/util');
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 
 module.exports = {
   /* 맥주 찜하기 */
@@ -44,27 +43,6 @@ module.exports = {
         });
         rm = '찜하기 성공했습니다';
       }
-      /*
-            const beers = await Beer.findAll({
-              attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image', 'brewery'],
-              where: {
-                id: {
-                  [Op.or]: [1, 2, 3]
-                },
-              }
-            });
-
-            const users = await User.findOne({
-              attributes: [
-                'id', 'nickname'
-              ],
-              where: {
-                id: req.token_data.id,
-              },
-            });
-      */
-
-      const result = {};
 
       return res.status(statusCode.OK).send(util.success(rm));
     } catch (error) {
