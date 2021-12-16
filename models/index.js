@@ -26,6 +26,8 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Level = require('./level')(sequelize, Sequelize);
 // 찜 여부
 db.Heart = require('./heart')(sequelize, Sequelize);
+//리뷰 
+db.Review = require('./review')(sequelize, Sequelize);
 
 // Beer관계
 /** 1 : N  Country : Beer */
@@ -59,6 +61,18 @@ db.User.belongsToMany(db.Beer, {
 
 db.Beer.belongsToMany(db.User, {
   through: 'Heart',
+  foreignKey: 'beer_id'
+});
+
+/**[Review] 
+ * M : M User : Review */
+db.User.belongsToMany(db.Beer, {
+  through: 'Review',
+  foreignKey: 'user_id'
+});
+
+db.Beer.belongsToMany(db.User, {
+  through: 'Review',
   foreignKey: 'beer_id'
 });
 
