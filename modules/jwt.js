@@ -15,6 +15,7 @@ module.exports = {
       req.token_data = tokenData
       next();
     } catch (error) {
+      console.log(error);
       return res.status(statusCode.UNAUTHORIZED).json({
         message: "Auth Error"
       })
