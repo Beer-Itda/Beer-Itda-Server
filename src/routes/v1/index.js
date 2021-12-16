@@ -7,7 +7,7 @@ const Level = require('./level');
 const Heart = require('./heart');
 const Beer = require('./beer');
 const Select = require('./select');
-const Infomation = require('./infomation');
+const Information = require('./information');
 
 //유저  관련
 router.use('/user', User);
@@ -25,6 +25,6 @@ router.use('/beer', Beer);
 router.use('/select', Select);
 
 //맥주 정보 관련
-router.use('/infomation', Infomation);
+router.use('/information', Information);
 
 module.exports = router;

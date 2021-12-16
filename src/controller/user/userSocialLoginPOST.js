@@ -41,26 +41,31 @@ module.exports = {
 
   //각 소셜에 맞추어 로그인 진행
   userLoginSocial: async (req, res) => {
-    const social = req.params.social;
-    const kakao_token = req.body.kakao_token;
-    if (!social)
-      res.json({
-        code: "NEED_SOCIAL_TYPE",
-        message: "nedd social type"
-      });
-    switch (social) {
-      case 'kakao':
-        const userData = await kakaoLogin(req, res, kakao_token);
-        const beeritda_token = await createToken(userData);
+    try {
+      const social = req.params.social;
+      const kakao_token = req.body.kakao_token;
+      if (!social)
         res.json({
-          access_token: beeritda_token.accessToken,
-          refresh_token: beeritda_token.refreshToken
+          code: "NEED_SOCIAL_TYPE",
+          message: "nedd social type"
         });
-        break;
+      switch (social) {
+        case 'kakao':
+          const userData = await kakaoLogin(req, res, kakao_token);
+          const beeritda_token = await createToken(userData);
+          res.json({
+            access_token: beeritda_token.accessToken,
+            refresh_token: beeritda_token.refreshToken
+          });
+          break;
 
-      case 'apple':
-        break;
-    }
+        case 'apple':
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+      return res.json(error)
+    };
   }
 };
 

@@ -13,12 +13,17 @@ module.exports = {
   BEER_READ_ALL_FAIL: '맥주정보 불러오기 실패했습니다.',
   MONTHLY_BEER_OK: '이달의 맥주 불러오기 성공했습니다.',
   BEER_RANDOM_OK: '맥주 랜덤으로 불러오기 성공했습니다.',
+  BEER_STYLE_OK: '선택한 스타일의 맥주정보 불러오기 성공했습니다.',
+  BEER_AROMA_OK: '선택한 향의 맥주정보 불러오기 성공했습니다.',
 
   /*필터관련*/
+  SELECT_OK: '향, 스타일 선택에 성공했습니다',
   SELECT_AROMA_OK: '향 선택에 성공했습니다',
   SELECT_STYLE_OK: '스타일 선택에 성공했습니다',
   MODIFY_AROMA_OK: '향 수정에 성공했습니다',
   MODIFY_STYLE_OK: '스타일 수정에 성공했습니다',
+  SELECT_INFO_OK: '향, 스타일 불러오기 성공했습니다',
+  SELECT_INFO_FAIL: '선택된 향, 스타일이 없습니다',
 
   /*유저관련*/
   USER_OK: '유저정보 불러오기 성공했습니다.',
