@@ -20,5 +20,26 @@ module.exports = {
         message: "Auth Error"
       })
     }
+  },
+  //유저 데이터 이용한 토큰 생성
+  create_token = async (user_data) => {
+    //access_token 생성
+    let access_token = await jwt.sign({
+      id: user_data.id
+    }, token_config.jwt.accessSecret, {
+      expiresIn: token_config
+        .jwt.accessExpiredIn
+    });
+    //refresh_token 생성
+    let refresh_token = await jwt.sign({
+      id: user_data.id
+    }, token_config.jwt.refreshSecret, {
+      expiresIn: token_config.jwt.refreshExpiredIn
+    });
+
+    return {
+      access_token: access_token,
+      refresh_token: refresh_token
+    }
   }
 };

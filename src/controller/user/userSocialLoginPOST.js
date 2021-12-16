@@ -1,24 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const winston = require('winston');
-const logger = winston.createLogger();
-const qs = require('qs');
 const axios = require('axios');
-const jwt = require('jsonwebtoken');
-
+const jwt_module = require('../../../modules/jwt');
 //계속되는 fetch import에 대한 문제로 인하여 검색하였더니 이런식으로 import 해야된다고 함
 const fetch = (...args) => import('node-fetch').then(({
   default: fetch
 }) => fetch(...args));
 
 const {
-  User,
-  Level
+  User
 } = require('../../../models');
 
-const tokenConfig = require('../../../config/token');
-const util = require('../../../modules/util');
-const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 
 const kakaoAppInfo = {
@@ -45,14 +35,14 @@ module.exports = {
       const social = req.params.social;
       const kakao_token = req.body.kakao_token;
       if (!social)
-        res.json({
+        return res.json({
           code: "NEED_SOCIAL_TYPE",
           message: "nedd social type"
         });
       switch (social) {
         case 'kakao':
-          const userData = await kakaoLogin(req, res, kakao_token);
-          const beeritda_token = await createToken(userData);
+          const user_data = await kakaoLogin(req, res, kakao_token);
+          const beeritda_token = await jwt_module.create_token(user_data);
           res.json({
             access_token: beeritda_token.accessToken,
             refresh_token: beeritda_token.refreshToken
@@ -166,27 +156,4 @@ const kakaoLogin = async (req, res, kakao_token) => {
   } catch (error) {
     console.log(error)
   }
-};
-
-//유저 데이터 이용한 토큰 생성
-const createToken = async (userData) => {
-  //accessToekn 생성
-  let accessToken = await jwt.sign({
-    id: userData.id
-  }, tokenConfig.jwt.accessSecret, {
-    expiresIn: tokenConfig
-      .jwt.accessExpiredIn
-  });
-  //refreshToken 생성
-  let refreshToken = await jwt.sign({
-    id: userData.id
-  }, tokenConfig.jwt.refreshSecret, {
-    expiresIn: tokenConfig.jwt.refreshExpiredIn
-  });
-
-  return {
-    accessToken: accessToken,
-    refreshToken: refreshToken
-  }
-
 };
