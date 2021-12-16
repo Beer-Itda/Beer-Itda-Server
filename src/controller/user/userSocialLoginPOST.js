@@ -42,10 +42,12 @@ module.exports = {
       switch (social) {
         case 'kakao':
           const user_data = await kakaoLogin(req, res, kakao_token);
-          const beeritda_token = await jwt_module.create_token(user_data);
+          const beeritda_access_token = await jwt_module.create_access_token(user_data);
+          const beeritda_refresh_token = await jwt_module.create_refresh_token(user_data);
+
           res.json({
-            access_token: beeritda_token.accessToken,
-            refresh_token: beeritda_token.refreshToken
+            access_token: beeritda_access_token,
+            refresh_token: beeritda_refresh_token
           });
           break;
 
