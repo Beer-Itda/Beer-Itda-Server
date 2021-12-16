@@ -9,13 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     //리뷰 내용
     content: {
-      type: DataTypes.STRING(300),
-      allowNull: false
+      type: DataTypes.STRING(300)
     },
     //별점
     star: {
-      type: DataTypes.FLOAT,
-      allowNull: false
+      type: DataTypes.FLOAT
     }
   }, {
     freezeTableName: true,
