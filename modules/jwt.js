@@ -22,7 +22,7 @@ module.exports = {
     }
   },
   //유저 데이터 이용한 엑세스 토큰 생성
-  create_access_token = async (user_data) => {
+  create_access_token: async (user_data) => {
     //access_token 생성
     let access_token = await jwt.sign({
       id: user_data.id
@@ -34,7 +34,7 @@ module.exports = {
     return access_token;
   },
   //유저 데이터 이용한 리프레시 토큰 생성
-  create_refresh_token = async (user_data) => {
+  create_refresh_token: async (user_data) => {
     //refresh_token 생성
     let refresh_token = await jwt.sign({
       id: user_data.id
