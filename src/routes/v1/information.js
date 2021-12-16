@@ -5,7 +5,7 @@ const jwt_module = require('../../../modules/jwt');
 const styleListAllGET = require('../../controller/information/styleListAllGET');
 const aromaListAllGET = require('../../controller/information/aromaListAllGET');
 const tosContentGET = require('../../controller/information/tosContentGET');
-const searchBeerBreweryGET = require('../../controller/information');
+const searchBeerBreweryGET = require('../../controller/information/searchBeerBreweryGET');
 
 /* GET users listing. */
 router.get('/style', styleListAllGET.getAllStyleList);
