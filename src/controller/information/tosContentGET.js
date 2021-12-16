@@ -8,7 +8,7 @@ module.exports = {
       if (!content)
         return res.json({
           code: "NEED_CONTENT_TYPE",
-          message: "nedd content type"
+          message: "need content type"
         });
 
       switch (content) {
