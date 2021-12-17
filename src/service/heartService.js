@@ -60,4 +60,26 @@ module.exports = {
       throw err;
     }
   },
+
+  //찜한 맥주 아이디 목록 배열로 반환
+  ChangeHeartArray: async ({
+    user_id,
+  }) => {
+    try {
+      const heart = await Heart.findAll({
+        attributes: ['beer_id'],
+        where: {
+          user_id: user_id,
+        },
+      });
+
+      //비어 아이디를 배열로 만들기
+      const heart_beer_ids = heart.map(x => x.dataValues.beer_id)
+
+      return heart_beer_ids;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
 };
