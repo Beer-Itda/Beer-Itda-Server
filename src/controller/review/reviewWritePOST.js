@@ -44,6 +44,9 @@ module.exports = {
           code: "BEER_REVIEW_ERROR",
           message: "리뷰를 불러오는 중 에러가 발생했습니다."
         });
+
+      //
+
       return res.json({
         message: "리뷰가 작성되었습니다",
         writeReview
