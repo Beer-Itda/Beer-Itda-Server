@@ -36,6 +36,10 @@ module.exports = {
   AROMA_INFO_OK: '모든 향 정보 불러오기 성공했습니다',
   AROMA_INFO_FAIL: '모든 향 정보 불러오기 실패했습니다',
 
+  /*레벨관련*/
+  LEVEL_OK: '전체 레벨 정보 불러오기 성공했습니다.',
+  LEVEL_READ_ALL_FAIL: '전체 레벨 정보 불러오기 실패했습니다.',
+
   NO_CURSOR: '커서 정보가 없습니다',
 
   /* 서버에러 */
