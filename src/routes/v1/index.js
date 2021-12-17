@@ -8,6 +8,7 @@ const Heart = require('./heart');
 const Beer = require('./beer');
 const Select = require('./select');
 const Information = require('./information');
+const Review = require('./review');
 
 //유저  관련
 router.use('/user', User);
@@ -26,5 +27,8 @@ router.use('/select', Select);
 
 //맥주 정보 관련
 router.use('/information', Information);
+
+//리뷰 관련
+router.use('/review', Review);
 
 module.exports = router;
