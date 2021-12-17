@@ -15,6 +15,7 @@ module.exports = {
   BEER_RANDOM_OK: '맥주 랜덤으로 불러오기 성공했습니다.',
   BEER_STYLE_OK: '선택한 스타일의 맥주정보 불러오기 성공했습니다.',
   BEER_AROMA_OK: '선택한 향의 맥주정보 불러오기 성공했습니다.',
+  BEER_HEART_OK: '찜한 맥주정보 불러오기 성공했습니다.',
 
   /*필터관련*/
   SELECT_OK: '향, 스타일 선택에 성공했습니다',
