@@ -6,6 +6,11 @@ module.exports = (sequelize, DataTypes) => {
       unique: 'compositeIndex',
       allowNull: false,
     },
+    //레벨충족조건
+    level_count: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   }, {
     //옵션지정
     freezeTableName: true,
