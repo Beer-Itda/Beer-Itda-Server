@@ -1,6 +1,6 @@
 const express = require('express');
 const heartAllGET = require('../../controller/heart/heartAllGET');
-const HeartPOST = require('../../controller/heart/HeartPOST');
+const heartPOST = require('../../controller/heart/heartPOST');
 const router = express.Router();
 
 const jwtModule = require('../../../modules/jwt');
