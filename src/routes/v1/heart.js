@@ -7,6 +7,6 @@ const jwtModule = require('../../../modules/jwt');
 
 /* GET users listing. */
 router.get('/', jwtModule.checkAuth, heartAllGET.getAllHeart);
-router.post('/', jwtModule.checkAuth, HeartPOST.postHeart);
+router.post('/', jwtModule.checkAuth, heartPOST.postHeart);
 
 module.exports = router;

@@ -19,6 +19,7 @@ module.exports = {
           beer_id: beer_id
         }
       });
+      console.log(reviewListAll)
       if (!reviewListAll)
         res.json({
           code: "BEER_REVIEW_ERROR",
