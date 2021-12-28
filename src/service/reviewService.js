@@ -26,7 +26,7 @@ module.exports = {
       //맥주 star 평균 계산
       const star_avg = reviewStarAddAll / reviewDataByBeer.length;
 
-      //해당 맥주 데이터에 입력  
+      //해당 맥주 데이터 업데이트  
       await Beer.update({
         star_avg: star_avg,
         review_count: reviewDataByBeer.length
@@ -40,10 +40,4 @@ module.exports = {
       return res.json(error);
     }
   }
-
-
-
-  //Beer에 별점 평균과 리뷰갯수 전송
-  //저장
-
 }
