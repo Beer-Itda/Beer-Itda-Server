@@ -19,12 +19,13 @@ module.exports = {
           beer_id: beer_id
         }
       });
-      console.log(reviewListAll)
+
       if (!reviewListAll)
         res.json({
           code: "BEER_REVIEW_ERROR",
           message: "리뷰를 불러오는 중 에러가 발생했습니다."
         });
+
       return res.json(reviewListAll);
       //모두 출력한다.
     } catch (error) {

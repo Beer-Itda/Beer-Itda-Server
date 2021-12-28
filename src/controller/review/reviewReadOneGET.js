@@ -8,7 +8,8 @@ module.exports = {
       const my_review = await Review.findAll({
         where: {
           user_id: req.token_data.id
-        }
+        },
+        raw: true
       });
 
       //없으면 없다.
@@ -17,6 +18,7 @@ module.exports = {
           code: "BEER_REVIEW_ERROR",
           message: "리뷰를 불러오는 중 에러가 발생했습니다."
         });
+
       //출력된 데이터 모두를 시간 내림 차순으로 출력한다.
       return res.json(my_review);
     } catch (error) {
