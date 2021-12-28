@@ -2,17 +2,17 @@ const express = require('express');
 const router = express.Router();
 const jwt_module = require('../../../modules/jwt');
 
-const reviewAllListGET = require('../../controller/review/reviewAllListGET');
-const reviewReadOneGET = require('../../controller/review/reviewReadOneGET');
+const reviewListByBeerGET = require('../../controller/review/reviewListByBeerGET');
+const reviewMyAllGET = require('../../controller/review/reviewMyAllGET');
 const reviewWritePOST = require('../../controller/review/reviewWritePOST');
 const reviewModifyPATCH = require('../../controller/review/reviewModifyPATCH');
 const reviewRemoveDELETE = require('../../controller/review/reviewRemoveDELETE');
 
 //개인 리뷰 불러오기
-router.get('/', jwt_module.checkAuth, reviewReadOneGET.readMyReviewList);
+router.get('/', jwt_module.checkAuth, reviewMyAllGET.readMyReviewList);
 
 //리뷰 전체 불러오기
-router.get('/:beer_id', reviewAllListGET.getAllReviewByBeer);
+router.get('/:beer_id', reviewListByBeerGET.getAllReviewByBeer);
 
 //개인 리뷰 작성하기
 router.post('/:beer_id', jwt_module.checkAuth, reviewWritePOST.writeMyReview);
