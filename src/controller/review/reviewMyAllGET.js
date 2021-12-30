@@ -23,7 +23,7 @@ module.exports = {
 
       //출력된 데이터 모두를 시간 내림 차순으로 출력한다.
       return res.json({
-        'my_reivew': reuslt_my_review
+        'my_review': reuslt_my_review
       });
     } catch (error) {
       console.log(error);
