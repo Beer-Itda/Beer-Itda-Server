@@ -1,4 +1,5 @@
-const { Review } = require("../../../models")
+const { Review } = require("../../../models");
+const reviewService = require("../../service/reviewService");
 
 module.exports = {
   //내가 작성한 리뷰를 삭제한다.
@@ -25,6 +26,10 @@ module.exports = {
           code: "BEER_REVIEW_ERROR",
           message: "리뷰를 불러오는 중 에러가 발생했습니다."
         });
+
+      //리뷰정보 삭제 후 beer 정보 업데이트
+      await reviewService.calcReviewData(beer_id);
+
       return res.json({
         message: "리뷰가 삭제되었습니다."
       })
