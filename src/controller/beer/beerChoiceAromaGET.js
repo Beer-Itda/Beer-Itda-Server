@@ -104,6 +104,7 @@ module.exports = {
 
       const result = {};
       result.aroma = aromaArray;
+      result.page_info = beers.pageInfo;
       result.beers = merge_aroma;
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_AROMA_OK, result));
