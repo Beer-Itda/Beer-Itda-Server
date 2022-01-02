@@ -6,24 +6,12 @@ const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 
-//const sequelize = new sequelize(url, opts);
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-
-//paigination을 위한 데코레이터
-const withPagination = require('sequelize-cursor-pagination');
-const options = {
-  methodName: 'paginate',
-  primaryKeyField: 'id',
-};
-
-withPagination(options)(Beer);
 
 module.exports = {
   /* 이런 맥주는 어떠세요? */
   getRandomBeer: async (req, res) => {
-    const cursor = req.body.cursor;
-    if (!cursor) return res.status(statusCode.BAD_REQUEST).send(util.fail(responseMessage.NO_CURSOR));
 
     try {
       const beers = await Beer.findAll({
@@ -36,7 +24,7 @@ module.exports = {
 
       const result = {};
       result.beers = beers;
-      result.cursor = cursor;
+
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_RANDOM_OK, result));
     } catch (error) {
       console.error(error);

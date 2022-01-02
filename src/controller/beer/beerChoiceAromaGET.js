@@ -24,7 +24,7 @@ module.exports = {
   // 좋아하는 향 beer 전체 불러오기 [전체보기 기준, id값 정렬할 것]
   getAllAromaBeer: async (req, res) => {
     const user_id = req.token_data.id;
-    const cursor = req.body.cursor;
+    const cursor = req.params.cursor;
 
     if (!cursor) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_CURSOR));
