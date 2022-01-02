@@ -5,6 +5,7 @@ const {
 } = require('../../../models');
 
 const selectService = require('../../service/selectService');
+const heartService = require('../../service/heartService');
 
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
@@ -66,11 +67,46 @@ module.exports = {
         after: cursor,
       });
 
+      var beers_ids = [];
+      for (var i = 0 in beers.data) {
+        beers_ids[i] = beers.data[i].id;
+      }
+
+      //console.log('-------------------------------\n', beers_ids); //[ 2, 11, 43, 111, 141 ]
+
+      var heart_list = []; //[ true, true, false, false, false ]
+      for (var i = 0 in beers_ids) {
+        const beer_id = beers_ids[i];
+        const alreadyHeart = await heartService.HeartCheck({
+          user_id,
+          beer_id
+        });
+        if (alreadyHeart == 'Y') {
+          heart_list.push(true);
+        }
+        if (alreadyHeart == 'N') {
+          heart_list.push(false);
+        }
+      }
+      //console.log('-------------------------------\n', heart_list);
+
+      function mergeObj(obj1, obj2) {
+        const newObj = [];
+        for (let i in obj1) {
+          newObj[i] = obj1[i];
+        }
+        for (let i in obj2) {
+          newObj[i].dataValues.heart = obj2[i];
+        }
+        return newObj;
+      }
+      const merge_aroma = mergeObj(beers.data, heart_list);
+
       const result = {};
       result.aroma = aromaArray;
-      result.aroma_beers = beers;
+      result.beers = merge_aroma;
 
-      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_AROMA_OK, beers));
+      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_AROMA_OK, result));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));

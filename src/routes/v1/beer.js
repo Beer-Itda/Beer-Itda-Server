@@ -15,7 +15,7 @@ const jwtModule = require('../../../modules/jwt');
 router.get('/', jwtModule.checkAuth, beerAllGET.getAllBeer);
 router.get('/detail/:id', jwtModule.checkAuth, beerDetailGET.getBeerDetail);
 router.get('/monthly', beerMonthlyGET.getMonthlyBeer);
-router.get('/random', beerRandomGET.getRandomBeer);
+router.get('/random', jwtModule.checkAuth, beerRandomGET.getRandomBeer);
 router.get('/style/:cursor', jwtModule.checkAuth, beerChoiceStyleGET.getAllStyleBeer);
 router.get('/aroma/:cursor', jwtModule.checkAuth, beerChoiceAromaGET.getAllAromaBeer);
 router.get('/heart/:cursor', jwtModule.checkAuth, beerHeartGET.getAllHeartBeer);
