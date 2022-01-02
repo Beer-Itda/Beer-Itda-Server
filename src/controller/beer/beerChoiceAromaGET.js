@@ -72,7 +72,7 @@ module.exports = {
         beers_ids[i] = beers.data[i].id;
       }
 
-      console.log('-------------------------------\n', beers_ids); //[ 2, 11, 43, 111, 141 ]
+      //console.log('-------------------------------\n', beers_ids); //[ 2, 11, 43, 111, 141 ]
 
       var heart_list = []; //[ true, true, false, false, false ]
       for (var i = 0 in beers_ids) {
@@ -88,7 +88,7 @@ module.exports = {
           heart_list.push(false);
         }
       }
-      console.log('-------------------------------\n', heart_list);
+      //console.log('-------------------------------\n', heart_list);
 
       function mergeObj(obj1, obj2) {
         const newObj = [];
