@@ -6,6 +6,12 @@ module.exports = (sequelize, DataTypes) => {
       unique: 'compositeIndex',
       allowNull: false,
     },
+    //등급 이미지
+    level_image: {
+      type: DataTypes.STRING(200),
+      allowNull: false,
+      defaultValue: 0
+    },
     //레벨충족조건
     level_count: {
       type: DataTypes.INTEGER,
