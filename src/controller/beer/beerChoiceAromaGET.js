@@ -100,11 +100,11 @@ module.exports = {
         }
         return newObj;
       }
-      const merge_style = mergeObj(beers.data, heart_list);
+      const merge_aroma = mergeObj(beers.data, heart_list);
 
       const result = {};
       result.aroma = aromaArray;
-      result.beers = merge_style;
+      result.beers = merge_aroma;
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_AROMA_OK, result));
     } catch (error) {
