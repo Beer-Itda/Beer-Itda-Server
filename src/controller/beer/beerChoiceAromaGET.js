@@ -104,9 +104,9 @@ module.exports = {
 
       const result = {};
       result.aroma = aromaArray;
-      result.aroma_beers = beers;
+      result.beers = merge_style;
 
-      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_AROMA_OK, beers));
+      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_AROMA_OK, result));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
