@@ -6,6 +6,7 @@ const beerDetailGET = require('../../controller/beer/beerDetailGET');
 const beerMonthlyGET = require('../../controller/beer/beerMonthlyGET');
 const beerRandomGET = require('../../controller/beer/beerRandomGET');
 const beerHeartGET = require('../../controller/beer/beerHeartGET');
+const beerTestGET = require('../../controller/beer/beerTestGET');
 const router = express.Router();
 
 const jwtModule = require('../../../modules/jwt');
@@ -15,8 +16,9 @@ router.get('/', jwtModule.checkAuth, beerAllGET.getAllBeer);
 router.get('/detail/:id', jwtModule.checkAuth, beerDetailGET.getBeerDetail);
 router.get('/monthly', beerMonthlyGET.getMonthlyBeer);
 router.get('/random', beerRandomGET.getRandomBeer);
-router.get('/style', jwtModule.checkAuth, beerChoiceStyleGET.getAllStyleBeer);
-router.get('/aroma', jwtModule.checkAuth, beerChoiceAromaGET.getAllAromaBeer);
-router.get('/heart', jwtModule.checkAuth, beerHeartGET.getAllHeartBeer);
+router.get('/style/:cursor', jwtModule.checkAuth, beerChoiceStyleGET.getAllStyleBeer);
+router.get('/aroma/:cursor', jwtModule.checkAuth, beerChoiceAromaGET.getAllAromaBeer);
+router.get('/heart/:cursor', jwtModule.checkAuth, beerHeartGET.getAllHeartBeer);
+router.get('/test', jwtModule.checkAuth, beerTestGET.getTestBeer);
 
 module.exports = router;
