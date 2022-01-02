@@ -95,9 +95,10 @@ module.exports = {
 
       const result = {};
       result.style = styleArray;
+      result.page_info = beers.pageInfo;
       result.beers = merge_style;
 
-      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_STYLE_OK, beers));
+      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_STYLE_OK, result));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
