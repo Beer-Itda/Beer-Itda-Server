@@ -132,7 +132,7 @@ module.exports = {
         beer_detail.aroma.a4 = 0;
       }
 
-      result.beer_detail = beer_detail;
+      result.beer = beer_detail;
 
       // 스타일이 같은 맥주 불러오기 (5개)
       const same_style_beers = await Beer.findAll({
@@ -156,7 +156,6 @@ module.exports = {
         limit: 5,
       });
 
-      //const value = same_style_ids[0].dataValues.id;
       const value = same_style_beers_ids.map(x => x.dataValues.id); //[ 2, 11, 43, 111, 141 ]
 
       var heart_list1 = []; //[ { heart: true }, ... ]
@@ -181,8 +180,6 @@ module.exports = {
         }
       }
 
-      //const same_style = same_style_beers.map((arr, index) => arr.concat(heart_list1[index]));
-
       function mergeObj(obj1, obj2) {
         const newObj = [];
         for (let i in obj1) {
@@ -194,7 +191,6 @@ module.exports = {
         return newObj;
       }
       const merge_style = mergeObj(same_style_beers, heart_list2);
-      //const merge_style = Object.assign(same_style_beers[0], heart_list1);
       result.same_style_beers = merge_style;
 
 

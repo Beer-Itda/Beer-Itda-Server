@@ -2,28 +2,20 @@ const express = require('express');
 const {
   Beer
 } = require('../../../models');
+
+const heartService = require('../../service/heartService');
+
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 
-//const sequelize = new sequelize(url, opts);
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-
-//paigination을 위한 데코레이터
-const withPagination = require('sequelize-cursor-pagination');
-const options = {
-  methodName: 'paginate',
-  primaryKeyField: 'id',
-};
-
-withPagination(options)(Beer);
 
 module.exports = {
   /* 이런 맥주는 어떠세요? */
   getRandomBeer: async (req, res) => {
-    const cursor = req.body.cursor;
-    if (!cursor) return res.status(statusCode.BAD_REQUEST).send(util.fail(responseMessage.NO_CURSOR));
+    const user_id = req.token_data.id;
 
     try {
       const beers = await Beer.findAll({
@@ -34,9 +26,38 @@ module.exports = {
         limit: 10,
       });
 
+      const beers_ids = beers.map(x => x.dataValues.id); //[ 2, 11, 43, 111, 141 ]
+
+      var heart_list = []; //[ true, true, false, false, false ]
+      for (var i = 0 in beers_ids) {
+        const beer_id = beers_ids[i];
+        const alreadyHeart = await heartService.HeartCheck({
+          user_id,
+          beer_id
+        });
+        if (alreadyHeart == 'Y') {
+          heart_list.push(true);
+        }
+        if (alreadyHeart == 'N') {
+          heart_list.push(false);
+        }
+      }
+
+      function mergeObj(obj1, obj2) {
+        const newObj = [];
+        for (let i in obj1) {
+          newObj[i] = obj1[i];
+        }
+        for (let i in obj2) {
+          newObj[i].dataValues.heart = obj2[i];
+        }
+        return newObj;
+      }
+      const merge_style = mergeObj(beers, heart_list);
+
       const result = {};
-      result.beers = beers;
-      result.cursor = cursor;
+      result.beers = merge_style;
+
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_RANDOM_OK, result));
     } catch (error) {
       console.error(error);
