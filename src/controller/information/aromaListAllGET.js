@@ -2,7 +2,7 @@ const express = require('express');
 const {
   Aroma
 } = require('../../../models');
-const router = express.Router();
+
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 const util = require('../../../modules/util');
