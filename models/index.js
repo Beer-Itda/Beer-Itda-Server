@@ -31,16 +31,25 @@ db.Review = require('./review')(sequelize, Sequelize);
 
 // Beer관계
 /** 1 : N  Country : Beer */
+db.Country.hasMany(db.Beer, {
+  foreignKey: 'country_id',
+});
 db.Beer.belongsTo(db.Country, {
   foreignKey: 'country_id',
 });
 
 /** 1 : N  Style_Big : Style_Mid */
+db.Style_Big.hasMany(db.Style_Mid, {
+  foreignKey: 'big_style_id',
+});
 db.Style_Mid.belongsTo(db.Style_Big, {
   foreignKey: 'big_style_id',
 });
 
 /** 1 : N  Style_Mid : Style_Small */
+db.Style_Mid.hasMany(db.Style_Small, {
+  foreignKey: 'mid_style_id',
+});
 db.Style_Small.belongsTo(db.Style_Mid, {
   foreignKey: 'mid_style_id',
 });

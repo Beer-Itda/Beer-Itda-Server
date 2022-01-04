@@ -5,6 +5,7 @@ const {
 } = require('../../../models');
 
 const heartService = require('../../service/heartService');
+const beerService = require('../../service/beerService');
 
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
@@ -35,16 +36,26 @@ module.exports = {
           },
         });
         rm = '찜 취소하기 성공했습니다';
+        return res.status(statusCode.OK).send(util.success(rm));
       }
       if (alreadyHeart == 'N') {
-        await Heart.create({
-          user_id: user_id,
-          beer_id: beer_id
+        // 없는 맥주 id일 때 에러메세지 추가
+        const isBeer = await beerService.BeerCheck({
+          beer_id,
         });
-        rm = '찜하기 성공했습니다';
+        if (isBeer == true) {
+          await Heart.create({
+            user_id: user_id,
+            beer_id: beer_id
+          });
+          rm = '찜하기 성공했습니다';
+          return res.status(statusCode.OK).send(util.success(rm));
+        }
+        if (isBeer == false) {
+          rm = '존재하지 않는 맥주 id 입니다';
+          return res.status(statusCode.OK).send(util.success(rm));
+        }
       }
-
-      return res.status(statusCode.OK).send(util.success(rm));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.FAIL));

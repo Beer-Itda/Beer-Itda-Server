@@ -3,10 +3,26 @@ const {
 } = require('../../models');
 
 module.exports = {
-  //맨 처음 스타일, 향 설정
+  //존재하는 맥주 아이디인지 확인
   BeerCheck: async ({
-    user_id
+    beer_id
   }) => {
+    try {
+      //Beer 테이블에서 동일한 id가 있다면 1 보내기
+      const isBeer = await Beer.findOne({
+        where: {
+          id: beer_id
+        }
+      });
+      if (isBeer) {
+        return true
+      } else {
+        return false
+      }
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
 
   },
 };
