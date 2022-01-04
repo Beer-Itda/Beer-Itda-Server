@@ -30,7 +30,7 @@ module.exports = {
       const beer_detail = {};
 
       const beers = await Beer.findOne({
-        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'brewery',
+        attributes: ['id', 'k_name', 'e_name', 'abv', 'star_avg', 'thumbnail_image', 'brewery',
           'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4',
           'style_id', 'country_id'
         ],
