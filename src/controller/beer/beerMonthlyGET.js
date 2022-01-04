@@ -24,7 +24,7 @@ module.exports = {
 
       //가져온 Beer id로부터 맥주정보 불러오기
       const beers = await Beer.findOne({
-        attributes: ['k_name', 'e_name', 'star_avg', 'thumbnail_image'],
+        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image'],
         where: {
           id: monthlyBeer_id
         }
