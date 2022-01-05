@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     //도수(abv)
     abv: {
-      type: DataTypes.STRING(7),
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     //맥주 이미지
@@ -53,11 +53,6 @@ module.exports = (sequelize, DataTypes) => {
     aroma_id_4: {
       type: DataTypes.INTEGER,
       allowNull: true,
-    },
-    //Style 테이블 FK
-    style_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
     },
   }, {
     //옵션지정
