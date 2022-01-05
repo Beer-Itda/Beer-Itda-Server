@@ -85,6 +85,14 @@ db.Beer.belongsToMany(db.User, {
   foreignKey: 'beer_id'
 });
 
+/** 1 : N  Beer : Style_Small */
+db.Style_Small.hasMany(db.Beer, {
+  foreignKey: 'style_id',
+});
+db.Beer.belongsTo(db.Style_Small, {
+  foreignKey: 'style_id',
+});
+
 /** 1 : N  Level : User */
 //db.User.belongsTo(db.Select);
 
