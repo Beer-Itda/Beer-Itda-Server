@@ -4,7 +4,7 @@ const Op = sequelize.Op;
 
 module.exports = {
   searchEveryBeerBrewery: async (req, res) => {
-    const word = req.params.word;
+    const word = req.query.word;
 
     if (!word)
       return res.json({
