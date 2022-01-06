@@ -5,6 +5,7 @@ const Op = sequelize.Op;
 module.exports = {
   searchEveryBeerBrewery: async (req, res) => {
     const word = req.query.word;
+    const limit = parseInt(req.query.limit);
 
     if (!word)
       return res.json({
@@ -27,6 +28,7 @@ module.exports = {
           }
         ]
       },
+      limit: limit,
       order: [
         ['k_name', 'ASC'],
         ['e_name', 'ASC']
