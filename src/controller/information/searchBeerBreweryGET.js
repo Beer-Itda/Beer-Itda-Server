@@ -13,7 +13,7 @@ module.exports = {
         message: "검색어가 필요합니다."
       });
 
-    Beer.findAll({
+    Beer.findAndCountAll({
       where: {
         [Op.or]: [
           {
@@ -34,6 +34,7 @@ module.exports = {
         ['e_name', 'ASC']
       ]
     }).then(result => {
+      console.log(result)
       return res.json(result);
     }).catch(error => {
       console.log(error);
