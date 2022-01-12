@@ -1,10 +1,12 @@
 const { Beer } = require("../../../models");
 const sequelize = require('sequelize');
+const informationService = require("../../service/informationService");
+const { informationServie } = require("../../service");
 const Op = sequelize.Op;
 
 module.exports = {
   searchEveryBeerBrewery: async (req, res) => {
-    const word = req.params.word;
+    const { page, size, word } = req.query;
 
     if (!word)
       return res.json({
@@ -12,7 +14,9 @@ module.exports = {
         message: "검색어가 필요합니다."
       });
 
-    Beer.findAll({
+    const { limit, offset } = await informationService.get_pagination(page, size);
+
+    Beer.findAndCountAll({
       where: {
         [Op.or]: [
           {
@@ -27,12 +31,16 @@ module.exports = {
           }
         ]
       },
+      limit: limit,
+      offset: offset,
       order: [
         ['k_name', 'ASC'],
         ['e_name', 'ASC']
-      ]
-    }).then(result => {
-      return res.json(result);
+      ],
+      raw: true
+    }).then(async result => {
+      const response = await informationServie.get_paging_data(result, page, limit);
+      return res.json(response);
     }).catch(error => {
       console.log(error);
       return res.json(error);

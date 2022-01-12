@@ -15,6 +15,6 @@ router.get('/aroma', aromaListAllGET.getAllAromaList);
 router.get('/ToS/:content', jwt_module.checkAuth, tosContentGET.getEachContent);
 
 //검색 관련
-router.get('/search/:word', jwt_module.checkAuth, searchBeerBreweryGET.searchEveryBeerBrewery);
+router.get('/search', jwt_module.checkAuth, searchBeerBreweryGET.searchEveryBeerBrewery);
 
 module.exports = router;
