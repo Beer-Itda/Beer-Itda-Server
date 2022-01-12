@@ -39,9 +39,7 @@ module.exports = {
       ],
       raw: true
     }).then(async result => {
-
       const response = await informationServie.get_paging_data(result, page, limit);
-
       return res.json(response);
     }).catch(error => {
       console.log(error);
