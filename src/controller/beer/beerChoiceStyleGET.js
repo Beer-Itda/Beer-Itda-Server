@@ -33,10 +33,7 @@ module.exports = {
     try {
       //스타일 배열로 불러오기
       const value = 'style';
-      const styleArray = await selectService.ChangeSelectArray({
-        user_id,
-        value
-      });
+      const styleArray = await selectService.ChangeSelectArray({ user_id, value });
       if (!styleArray) {
         return res.status(statusCode.NOT_FOUND).send(util.fail(statusCode.NOT_FOUND, responseMessage.SELECT_INFO_FAIL));
       };
@@ -58,43 +55,28 @@ module.exports = {
         after: cursor,
       });
 
-      var beers_ids = [];
+      var beers_ids = [];   //[ 2, 11, 43, 111, 141 ]
       for (var i = 0 in beers.data) {
         beers_ids[i] = beers.data[i].id;
       }
 
-      //console.log('-------------------------------\n', beers_ids); //[ 2, 11, 43, 111, 141 ]
-
-      var heart_list = []; //[ true, true, false, false, false ]
+      var heart_list = [];    //[ true, true, false, false, false ]
       for (var i = 0 in beers_ids) {
         const beer_id = beers_ids[i];
-        const alreadyHeart = await heartService.HeartCheck({
-          user_id,
-          beer_id
-        });
-        if (alreadyHeart == 'Y') {
-          heart_list.push(true);
-        }
-        if (alreadyHeart == 'N') {
-          heart_list.push(false);
-        }
+        const alreadyHeart = await heartService.HeartCheck({ user_id,beer_id });
+        if (alreadyHeart == 'Y') { heart_list.push(true); }
+        if (alreadyHeart == 'N') { heart_list.push(false); }
       }
-      //console.log('-------------------------------\n', heart_list);
 
       function mergeObj(obj1, obj2) {
         const newObj = [];
-        for (let i in obj1) {
-          newObj[i] = obj1[i];
-        }
-        for (let i in obj2) {
-          newObj[i].dataValues.heart = obj2[i];
-        }
+        for (let i in obj1) { newObj[i] = obj1[i]; }
+        for (let i in obj2) { newObj[i].dataValues.heart = obj2[i]; }
         return newObj;
       }
       const merge_style = mergeObj(beers.data, heart_list);
 
       const result = {};
-      result.style = styleArray;
       result.page_info = beers.pageInfo;
       result.beers = merge_style;
 

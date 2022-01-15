@@ -34,10 +34,7 @@ module.exports = {
     try {
       //향 배열로 불러오기
       const value = 'aroma';
-      const aromaArray = await selectService.ChangeSelectArray({
-        user_id,
-        value
-      });
+      const aromaArray = await selectService.ChangeSelectArray({ user_id, value });
       if (!aromaArray) {
         return res.status(statusCode.NOT_FOUND).send(util.fail(statusCode.NOT_FOUND, responseMessage.SELECT_INFO_FAIL));
       };
@@ -67,28 +64,18 @@ module.exports = {
         after: cursor,
       });
 
-      var beers_ids = [];
+      var beers_ids = [];   //[ 2, 11, 43, 111, 141 ]
       for (var i = 0 in beers.data) {
         beers_ids[i] = beers.data[i].id;
       }
 
-      //console.log('-------------------------------\n', beers_ids); //[ 2, 11, 43, 111, 141 ]
-
-      var heart_list = []; //[ true, true, false, false, false ]
+      var heart_list = [];    //[ true, true, false, false, false ]
       for (var i = 0 in beers_ids) {
         const beer_id = beers_ids[i];
-        const alreadyHeart = await heartService.HeartCheck({
-          user_id,
-          beer_id
-        });
-        if (alreadyHeart == 'Y') {
-          heart_list.push(true);
-        }
-        if (alreadyHeart == 'N') {
-          heart_list.push(false);
-        }
+        const alreadyHeart = await heartService.HeartCheck({ user_id, beer_id });
+        if (alreadyHeart == 'Y') { heart_list.push(true); }
+        if (alreadyHeart == 'N') { heart_list.push(false); }
       }
-      //console.log('-------------------------------\n', heart_list);
 
       function mergeObj(obj1, obj2) {
         const newObj = [];
@@ -103,7 +90,6 @@ module.exports = {
       const merge_aroma = mergeObj(beers.data, heart_list);
 
       const result = {};
-      result.aroma = aromaArray;
       result.page_info = beers.pageInfo;
       result.beers = merge_aroma;
 
