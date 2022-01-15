@@ -82,4 +82,25 @@ module.exports = {
       throw err;
     }
   },
+
+  //맥주 데이터에 하트 여부 추가하기
+  MergeHeart: async ({
+    user_id, obj1, obj2
+  }) => {
+    try {
+      function mergeObj(obj1, obj2) {
+        const newObj = [];
+        for (let i in obj1) {
+          newObj[i] = obj1[i];
+        }
+        for (let i in obj2) {
+          newObj[i].dataValues.heart = obj2[i];
+        }
+        return newObj;
+      };
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
 };
