@@ -19,7 +19,6 @@ module.exports = {
   getAllAromaBeer: async (req, res) => {
     const user_id = req.token_data.id;
     const { page, size } = req.query;
-
     if (!page || !size) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_PAGE_OR_SIZE));
     };
@@ -55,8 +54,6 @@ module.exports = {
         ],
         raw: true
       });
-
-      console.log('-----------------',beers);
 
       var beers_ids = [];   //[ 6, 7, 12, 28 ]
       for (var i = 0 in beers.rows) {

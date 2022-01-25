@@ -16,7 +16,7 @@ router.get('/', jwtModule.checkAuth, beerAllGET.getAllBeer);
 router.get('/detail/:id', jwtModule.checkAuth, beerDetailGET.getBeerDetail);
 router.get('/monthly', beerMonthlyGET.getMonthlyBeer);
 router.get('/random', jwtModule.checkAuth, beerRandomGET.getRandomBeer);
-router.get('/style/:cursor', jwtModule.checkAuth, beerChoiceStyleGET.getAllStyleBeer);
+router.get('/style', jwtModule.checkAuth, beerChoiceStyleGET.getAllStyleBeer);
 router.get('/aroma', jwtModule.checkAuth, beerChoiceAromaGET.getAllAromaBeer);
 router.get('/heart/:cursor', jwtModule.checkAuth, beerHeartGET.getAllHeartBeer);
 router.get('/test', jwtModule.checkAuth, beerTestGET.getTestBeer);
