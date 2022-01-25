@@ -1,11 +1,9 @@
-var express = require('express');
-
-const {
-  Beer
-} = require('../../../models');
+const { Beer } = require('../../../models');
 
 const selectService = require('../../service/selectService');
 const heartService = require('../../service/heartService');
+const informationService = require("../../service/informationService");
+const { informationServie } = require("../../service");
 
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
@@ -13,90 +11,69 @@ const responseMessage = require('../../../modules/responseMessage');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-//paigination을 위한 데코레이터
-const withPagination = require('sequelize-cursor-pagination');
-const options = {
-  methodName: 'paginate',
-  primaryKeyField: 'id',
-};
-withPagination(options)(Beer);
-
+/**
+ * @좋아하는_스타일_맥주_전체_불러오기
+ * @desc 좋아하는 스타일 beer 전체 불러오기 (오프셋 페이징)
+ */
 module.exports = {
-  // 좋아하는 스타일 beer 전체 불러오기(페이징 안됨) [전체보기 기준, id값 정렬할 것]
   getAllStyleBeer: async (req, res) => {
     const user_id = req.token_data.id;
-    const cursor = req.params.cursor;
-    if (!cursor) {
-      return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_CURSOR));
+    const { page, size } = req.query;
+    if (!page || !size) {
+      return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_PAGE_OR_SIZE));
     };
 
+    const { limit, offset } = await informationService.get_pagination(page, size);
+    
     try {
       //스타일 배열로 불러오기
       const value = 'style';
-      const styleArray = await selectService.ChangeSelectArray({
-        user_id,
-        value
-      });
+      const styleArray = await selectService.ChangeSelectArray({ user_id, value });
       if (!styleArray) {
         return res.status(statusCode.NOT_FOUND).send(util.fail(statusCode.NOT_FOUND, responseMessage.SELECT_INFO_FAIL));
       };
 
-      const beers = await Beer.paginate({
+      const beers = await Beer.findAndCountAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'style_id'],
         where: {
-          id: {
-            [Op.gt]: cursor
-          },
           style_id: {
             [Op.or]: styleArray
           }
         },
+        limit: limit,
+        offset: offset,
         order: [
           ['id', 'ASC']
         ],
-        limit: 10,
-        after: cursor,
+        raw: true
       });
 
-      var beers_ids = [];
-      for (var i = 0 in beers.data) {
-        beers_ids[i] = beers.data[i].id;
+      var beers_ids = [];   //[ 2, 11, 43, 111, 141 ]
+      for (var i = 0 in beers.rows) {
+        beers_ids[i] = beers.rows[i].id;
       }
 
-      //console.log('-------------------------------\n', beers_ids); //[ 2, 11, 43, 111, 141 ]
-
-      var heart_list = []; //[ true, true, false, false, false ]
+      var heart_list = [];    //[ true, true, false, false, false ]
       for (var i = 0 in beers_ids) {
         const beer_id = beers_ids[i];
-        const alreadyHeart = await heartService.HeartCheck({
-          user_id,
-          beer_id
-        });
-        if (alreadyHeart == 'Y') {
-          heart_list.push(true);
-        }
-        if (alreadyHeart == 'N') {
-          heart_list.push(false);
-        }
+        const alreadyHeart = await heartService.HeartCheck({ user_id,beer_id });
+        if (alreadyHeart == 'Y') { heart_list.push(true); }
+        if (alreadyHeart == 'N') { heart_list.push(false); }
       }
-      //console.log('-------------------------------\n', heart_list);
 
       function mergeObj(obj1, obj2) {
         const newObj = [];
-        for (let i in obj1) {
-          newObj[i] = obj1[i];
+        for (let i in obj1) { 
+          newObj[i] = obj1[i]; 
         }
-        for (let i in obj2) {
-          newObj[i].dataValues.heart = obj2[i];
+        for (let i in obj2) { 
+          newObj[i].heart = obj2[i];
         }
         return newObj;
       }
-      const merge_style = mergeObj(beers.data, heart_list);
+      const merge_style = mergeObj(beers.rows, heart_list);
 
-      const result = {};
-      result.style = styleArray;
-      result.page_info = beers.pageInfo;
-      result.beers = merge_style;
+      const result = await informationServie.get_paging_data(beers, page, limit);
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_STYLE_OK, result));
     } catch (error) {

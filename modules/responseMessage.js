@@ -42,6 +42,7 @@ module.exports = {
   LEVEL_READ_ALL_FAIL: '전체 레벨 정보 불러오기 실패했습니다.',
 
   NO_CURSOR: '커서 정보가 없습니다',
+  NO_PAGE_OR_SIZE: '페이징 정보가 없습니다',
 
   /* 서버에러 */
   INTERNAL_SERVER_ERROR: "서버 내부 오류",
