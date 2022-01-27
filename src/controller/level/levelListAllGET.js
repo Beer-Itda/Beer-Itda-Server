@@ -14,7 +14,7 @@ module.exports = {
   getLevelListAll: async (req, res) => {
     try {
       const levels = await Level.findAll({
-        attribute: ['id', 'level', 'level_count']
+        attribute: ['id', 'level', 'level_image', 'level_count']
       });
 
       const result = {};
