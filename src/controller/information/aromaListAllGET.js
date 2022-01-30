@@ -1,20 +1,33 @@
-const express = require('express');
-const {
-  Aroma
-} = require('../../../models');
+const selectService = require('../../service/selectService');
 
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 const util = require('../../../modules/util');
 
+/**
+ * @전체_향_불러오기
+ * @desc 향 관련 리스트 전체 불러오기(내가 선택한 향 확인)
+ */
 module.exports = {
-  /* 스타일 관련 리스트 전체 불러오기 */
   getAllAromaList: async (req, res) => {
+    const user_id = req.token_data.id;
+
     try {
-      const aromaList = await Aroma.findAll({});
+      const value = 'aroma';
+      const aroma_selected_ids = await selectService.ChangeSelectArray({
+        user_id, value
+      });
+      const selected_ids = aroma_selected_ids;
+      const select_list = await selectService.GetSelectList({ 
+        value, selected_ids
+      });
+      const aroma_list = await selectService.mergeData({ 
+        value, select_list
+      });
 
       const result = {};
-      result.aromaList = aromaList;
+      result.aromaList = aroma_list;
+
       return res.status(statusCode.OK).send(util.success(responseMessage.AROMA_INFO_OK, result));
     } catch (error) {
       console.error(error);
