@@ -8,6 +8,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// 맥주
 db.Beer = require('./beer')(sequelize, Sequelize);
 // 맥주 향
 db.Aroma = require('./aroma')(sequelize, Sequelize);
@@ -29,7 +30,7 @@ db.Heart = require('./heart')(sequelize, Sequelize);
 //리뷰 
 db.Review = require('./review')(sequelize, Sequelize);
 
-// Beer관계
+/** [Beer]
 /** 1 : N  Country : Beer */
 db.Country.hasMany(db.Beer, {
   foreignKey: 'country_id',
@@ -38,6 +39,7 @@ db.Beer.belongsTo(db.Country, {
   foreignKey: 'country_id',
 });
 
+/** [Style]
 /** 1 : N  Style_Big : Style_Mid */
 db.Style_Big.hasMany(db.Style_Mid, {
   foreignKey: 'big_style_id',
@@ -52,6 +54,14 @@ db.Style_Mid.hasMany(db.Style_Small, {
 });
 db.Style_Small.belongsTo(db.Style_Mid, {
   foreignKey: 'mid_style_id',
+});
+
+/** 1 : N  Beer : Style_Small */
+db.Style_Small.hasMany(db.Beer, {
+  foreignKey: 'style_id',
+});
+db.Beer.belongsTo(db.Style_Small, {
+  foreignKey: 'style_id',
 });
 
 /** [Select] 
@@ -84,17 +94,6 @@ db.Beer.belongsToMany(db.User, {
   through: 'Review',
   foreignKey: 'beer_id'
 });
-
-/** 1 : N  Beer : Style_Small */
-db.Style_Small.hasMany(db.Beer, {
-  foreignKey: 'style_id',
-});
-db.Beer.belongsTo(db.Style_Small, {
-  foreignKey: 'style_id',
-});
-
-/** 1 : N  Level : User */
-//db.User.belongsTo(db.Select);
 
 //onDelete: 'cascade'
 module.exports = db;
