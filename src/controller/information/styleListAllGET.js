@@ -4,8 +4,6 @@ const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 const util = require('../../../modules/util');
 
-const Sequelize = require('sequelize');
-
 module.exports = {
   /**
  * @전체_스타일_불러오기

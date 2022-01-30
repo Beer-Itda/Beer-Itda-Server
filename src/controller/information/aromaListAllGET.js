@@ -1,12 +1,8 @@
-const { Aroma, Select } = require('../../../models');
-
 const selectService = require('../../service/selectService');
 
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 const util = require('../../../modules/util');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 
 /**
  * @전체_향_불러오기
@@ -18,7 +14,6 @@ module.exports = {
 
     try {
       const value = 'aroma';
-      
       const aroma_selected_ids = await selectService.ChangeSelectArray({
         user_id, value
       });
@@ -32,6 +27,7 @@ module.exports = {
 
       const result = {};
       result.aromaList = aroma_list;
+
       return res.status(statusCode.OK).send(util.success(responseMessage.AROMA_INFO_OK, result));
     } catch (error) {
       console.error(error);

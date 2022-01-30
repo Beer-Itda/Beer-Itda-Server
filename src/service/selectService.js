@@ -24,28 +24,6 @@ module.exports = {
     }
   },
 
-  // 선택했는지 확인
-  SelectCheck: async ({
-    all_ids,
-    select_ids
-  }) => {
-    try {
-      //all_ids와 동일한 select_ids가 있다면 'Y' 보내기
-      
-      if (isSelected) {
-        //console.log('--------------', beer_id, 'Y');
-        return 'Y'
-      } else {
-        //console.log('--------------', beer_id, 'N');
-        return 'N'
-      }
-    } catch (err) {
-      //console.log('--------------', beer_id);
-      console.log(err);
-      throw err;
-    }
-  },
-
   //select한 style, aroma을 배열로 바꿔주기 (여기서 value는 style, aroma 값 중 1)
   ChangeSelectArray: async ({
     user_id,
