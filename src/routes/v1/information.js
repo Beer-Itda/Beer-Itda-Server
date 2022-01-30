@@ -8,8 +8,8 @@ const tosContentGET = require('../../controller/information/tosContentGET');
 const searchBeerBreweryGET = require('../../controller/information/searchBeerBreweryGET');
 
 /* GET users listing. */
-router.get('/style', styleListAllGET.getAllStyleList);
-router.get('/aroma', aromaListAllGET.getAllAromaList);
+router.get('/style', jwt_module.checkAuth, styleListAllGET.getAllStyleList);
+router.get('/aroma', jwt_module.checkAuth, aromaListAllGET.getAllAromaList);
 
 //공지사항,이용 약관, 개인정보처리방침 관련
 router.get('/ToS/:content', jwt_module.checkAuth, tosContentGET.getEachContent);

@@ -1,5 +1,5 @@
 const {
-  Select
+  Select, Aroma, Style_Small, Style_Mid, Style_Big,
 } = require('../../models');
 
 module.exports = {
@@ -19,6 +19,28 @@ module.exports = {
       }
       return 'first';
     } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
+
+  // 선택했는지 확인
+  SelectCheck: async ({
+    all_ids,
+    select_ids
+  }) => {
+    try {
+      //all_ids와 동일한 select_ids가 있다면 'Y' 보내기
+      
+      if (isSelected) {
+        //console.log('--------------', beer_id, 'Y');
+        return 'Y'
+      } else {
+        //console.log('--------------', beer_id, 'N');
+        return 'N'
+      }
+    } catch (err) {
+      //console.log('--------------', beer_id);
       console.log(err);
       throw err;
     }
@@ -48,6 +70,105 @@ module.exports = {
         const selectArray = select_value.split(',').map(Number);
         return selectArray
       }
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
+
+  //select여부에 따라 boolean 배열로 내보내기
+  GetSelectList: async ({
+    value, selected_ids
+  }) => {
+    //console.log('[service] : ', value, selected_ids);
+    try {
+      if (value == 'style') {
+        data = await Style_Small.findAll({});
+      }
+      if (value == 'aroma') {
+        data = await Aroma.findAll({});
+      }
+
+      var all_ids = [];
+      for (var i = 0 in data) {
+        all_ids[i] = data[i].id;
+      }
+
+      var select_list = [];
+      for (var i = 0 in all_ids) {
+        const alreadySelect = selected_ids.includes(all_ids[i]);
+        if (alreadySelect == true) { 
+          select_list.push(true);
+        }
+        if (alreadySelect == false) { 
+          select_list.push(false); 
+        }  
+      }
+
+      return select_list;
+
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  },
+
+  //전체 리스트에 isSelected값 추가하기
+  mergeData: async ({ 
+    value, select_list
+  }) => {
+    try {
+      if (value == 'style') {
+        data = await Style_Big.findAll({
+          include: [{
+            model: Style_Mid,
+            include: [{
+              model: Style_Small,
+            }],
+          }],
+        });
+
+        function mergeObj(obj1, obj2) {
+          const newObj = [];
+          let i, j, k, cnt = 0;
+
+          for (i in obj1) {
+            newObj[i] = obj1[i].dataValues;
+          }
+          i = 0;
+          for (i in obj1) { 
+            for (j in obj1[i].Style_Mids) {
+              for (k in obj1[i].Style_Mids[j].Style_Smalls) { //0~83
+                newObj[i].Style_Mids[j].Style_Smalls[k].dataValues.isSelected = obj2[cnt];
+                cnt += 1;
+              }
+            }
+          }
+          return newObj;
+        }
+
+        const merge_data = mergeObj(data, select_list);
+        return merge_data;
+      }
+
+      if (value == 'aroma') {
+        data = await Aroma.findAll({});
+
+        function mergeObj(obj1, obj2) {
+          const newObj = [];
+          for (let i in obj1) {
+            newObj[i] = obj1[i].dataValues;
+          }
+          for (let i in obj2) {
+            newObj[i].isSelected = obj2[i];
+          }
+          return newObj;
+        }
+      
+        const merge_data = mergeObj(data, select_list);
+        return merge_data;
+      }
+
     } catch (err) {
       console.log(err);
       throw err;
