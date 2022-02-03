@@ -1,5 +1,6 @@
 const { Review } = require("../../../models");
 const reviewService = require("../../service/reviewService");
+const statusCode = require("../../../modules/statusCode");
 
 module.exports = {
   //해당 맥주에 나의 리뷰 작성.
@@ -10,14 +11,14 @@ module.exports = {
       const beer_id = parseInt(req.params.beer_id);
 
       if (!beer_id)
-        return res.json({
+        return res.status(statusCode.NOT_FOUND).json({
           code: "NEED_BEER_ID",
           message: "BEER ID가 존재하지 않습니다."
         });
       //별점과 내용을 작성해야함.
       const { content, star } = req.body;
       if (!content || !star)
-        return res.json({
+        return res.status(statusCode.NO_CONTENT).json({
           code: "NEED_REVIEW_DATA",
           message: "리뷰데이터가 존재하지 않습니다."
         })
@@ -29,7 +30,7 @@ module.exports = {
       });
 
       if (alreadyReview.length !== 0)
-        return res.json({
+        return res.status(statusCode.CONFLICT).json({
           code: "ERROR_ALREADY_REVIEW",
           message: "이미 작성한 리뷰가 존재합니다."
         });
@@ -41,21 +42,21 @@ module.exports = {
       });
 
       if (!writeReview)
-        res.json({
+        res.status(statusCode.CONFLICT).json({
           code: "BEER_REVIEW_ERROR",
-          message: "리뷰를 불러오는 중 에러가 발생했습니다."
+          message: "리뷰를 작성하는 중 에러가 발생했습니다."
         });
 
       //리뷰 작성 후 맥주 정보 업데이트
       await reviewService.calcReviewData(beer_id);
 
-      return res.json({
+      return res.status(statusCode.OK).json({
         message: "리뷰가 작성되었습니다",
         writeReview
       })
     } catch (error) {
       console.log(error);
-      return res.json(error);
+      return res.status(statusCode.INTERNAL_SERVER_ERROR).json(error);
     }
   }
 }
