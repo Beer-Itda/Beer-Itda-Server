@@ -19,10 +19,10 @@
     "logger": "^0.0.1",
     "morgan": "~1.9.1",
     "mysql2": "^2.3.2",
-    "node-fetch": "^3.0.0",
+    "node-fetch": "^3.2.0",
     "qs": "^6.10.1",
     "sequelize": "^6.9.0",
-    "sequelize-cli": "^6.2.0",
+    "sequelize-cli": "^6.4.1",
     "sequelize-cursor-pagination": "^2.3.0",
     "winston": "^3.3.3"
   },
