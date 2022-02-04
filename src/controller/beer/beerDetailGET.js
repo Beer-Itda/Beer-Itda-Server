@@ -1,12 +1,4 @@
-var express = require('express');
-
-const {
-  Beer,
-  Style_Small,
-  Aroma,
-  Country,
-  Heart
-} = require('../../../models');
+const { Beer, Style_Small, Aroma, Country, Review } = require('../../../models');
 
 //const beerService = require("../service/beerService");
 const heartService = require('../../service/heartService');
@@ -57,9 +49,6 @@ module.exports = {
       beer_detail.star_avg = beers.star_avg;
       beer_detail.thumbnail_image = beers.thumbnail_image;
       beer_detail.brewery = beers.brewery;
-
-
-
 
       const aroma_id_1 = beers.aroma_id_1;
       const aroma_id_2 = beers.aroma_id_2;
@@ -243,6 +232,36 @@ module.exports = {
 
       const merge_aroma = mergeObj(same_aroma_beers, heart_list3);
       result.same_aroma_beers = merge_aroma;
+
+      // 내가 쓴 리뷰 있으면 불러오고 없으면 넘어가기
+      // 맥주에 대한 리뷰 5개 이하 간단히 불러오기
+      const userReview = await Review.findOne({
+        where: {
+          user_id: user_id,
+          beer_id: beer_id
+        }
+      });
+      
+      result.review = {};
+
+      if (!userReview) {
+        result.review.userReview = 0;
+      } else {
+        result.review.userReview = userReview;
+      }
+      
+      const beerReviews = await Review.findAll({
+        where: {
+          beer_id: beer_id
+        },
+        limit: 5,
+      });
+      
+      if (!userReview) {
+        result.review.userbeerReviewsReview = 0;
+      } else {
+        result.review.beerReviews = beerReviews;
+      }
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {
