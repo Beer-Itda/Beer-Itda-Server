@@ -20,6 +20,7 @@
     "morgan": "~1.9.1",
     "mysql2": "^2.3.2",
     "node-fetch": "^3.2.0",
+    "path": "^0.12.7",
     "qs": "^6.10.1",
     "sequelize": "^6.9.0",
     "sequelize-cli": "^6.4.1",
