@@ -49,6 +49,8 @@ module.exports = {
 
       //리뷰 작성 후 맥주 정보 업데이트
       await reviewService.calcReviewData(beer_id);
+      //리뷰 작성 후 유저 리뷰 카운트 업데이트제
+      await reviewService.user_review_calc('ADD');
 
       return res.status(statusCode.OK).json({
         message: "리뷰가 작성되었습니다",

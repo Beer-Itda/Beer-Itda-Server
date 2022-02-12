@@ -1,5 +1,6 @@
 const { reviewService } = require(".");
-const { Review, Beer } = require("../../models");
+const { Review, Beer, User } = require("../../models");
+const statusCode = require("../../modules/statusCode");
 
 module.exports = {
   calcReviewData: async (beer_id, res) => {
@@ -39,5 +40,28 @@ module.exports = {
       console.log(error);
       return res.json(error);
     }
+  },
+  user_review_calc: async(review_count_status, res) => {
+    try{
+      const user = await User.findOne({where: {
+        id: req.token_data.id
+        }, raw: true});
+      if(!user)
+        res.status(statusCode.CONFLICT).json({
+          code: "USER_INFO_ERROR",
+          message: "USER 정보를 불러오는데 실패하였습니다."
+        });
+
+      if(review_count_status === 'ADD'){
+       user.review_count++;
+      }
+      if(review_count_status === 'REMOVE'){
+       user.review_count--;
+      }
+    } catch(error){
+      console.log(error);
+      return res.json(error);
+    }
+
   }
 }

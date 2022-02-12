@@ -21,6 +21,7 @@ module.exports = {
         where: {
           id: req.token_data.id,
         },
+        raw: true
       });
 
       //유저 정보 모두 불러왔는데 result로 묶어서 보내는 형태가 아니라서 users만 내보내겠습니다.
