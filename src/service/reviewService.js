@@ -39,5 +39,14 @@ module.exports = {
       console.log(error);
       return res.json(error);
     }
+  },
+  user_review_calc: async(req, res) => {
+    try{
+
+    } catch(error){
+      console.log(error);
+      return res.json(error);
+    }
+
   }
 }
