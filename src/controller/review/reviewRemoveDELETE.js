@@ -30,6 +30,7 @@ module.exports = {
 
       //리뷰정보 삭제 후 beer 정보 업데이트
       await reviewService.calcReviewData(beer_id);
+      await reviewService.user_review_calc('REMOVE');
 
       return res.status(statusCode.OK).json({
         message: "리뷰가 삭제되었습니다."
