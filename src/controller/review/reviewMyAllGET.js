@@ -1,4 +1,5 @@
 const { Review, Beer } = require("../../../models");
+const statusCode = require("../../../modules/statusCode");
 
 module.exports = {
   //나의 페이지에서 내가 작성한 모든 리뷰를 불러온다.
@@ -14,16 +15,16 @@ module.exports = {
 
       //없으면 없다.
       if (!my_review)
-        return res.json({
+        return res.status(statusCode.CONFLICT).json({
           code: "BEER_REVIEW_ERROR",
           message: "리뷰를 불러오는 중 에러가 발생했습니다."
         });
       //맥주 데이터와 리뷰 데이터를 합쳐서 전체 출력
-      const reuslt_my_review = await review_plus_beer(my_review);
+      const result_my_review = await review_plus_beer(my_review);
 
       //출력된 데이터 모두를 시간 내림 차순으로 출력한다.
-      return res.json({
-        'my_review': reuslt_my_review
+      return res.status(statusCode.OK).json({
+        'my_review': result_my_review
       });
     } catch (error) {
       console.log(error);
@@ -43,9 +44,9 @@ async function review_plus_beer(my_review) {
       'review': my_review[i]
     };
     all_my_review.push(add_beer_review_data);
-  };
+  }
   return all_my_review;
-};
+}
 
 async function find_beer(beer_id) {
   return new Promise((resolve, reject) => {

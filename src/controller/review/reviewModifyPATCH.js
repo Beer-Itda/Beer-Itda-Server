@@ -1,5 +1,6 @@
 const { Review } = require("../../../models");
 const reviewService = require("../../service/reviewService");
+const statusCode = require("../../../modules/statusCode");
 
 module.exports = {
   //내가 작성한 리뷰를 수정한다.
@@ -8,7 +9,7 @@ module.exports = {
       const beer_id = parseInt(req.params.beer_id);
 
       if (!beer_id)
-        return res.json({
+        return res.status(statusCode.NOT_FOUND).json({
           code: "NEED_BEER_ID",
           message: "BEER ID가 존재하지 않습니다."
         });
@@ -27,14 +28,14 @@ module.exports = {
       //별점도 수정해 준다.
       //저장하고 출력한다.
       if (!my_review)
-        res.json({
+        res.status(statusCode.CONFLICT).json({
           code: "BEER_REVIEW_ERROR",
           message: "리뷰를 불러오는 중 에러가 발생했습니다."
         });
 
       await reviewService.calcReviewData(beer_id);
 
-      return res.json({
+      return res.status(statusCode.OK).json({
         message: "리뷰가 수정되었습니다."
       });
     } catch (error) {
