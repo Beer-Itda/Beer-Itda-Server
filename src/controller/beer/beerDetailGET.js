@@ -12,7 +12,7 @@ const Op = Sequelize.Op;
 module.exports = {
   // beer 세부사항 불러오기
   getBeerDetail: async (req, res) => {
-    const beer_id = req.params.id;
+    const beer_id = parseInt(req.params.id);
     const user_id = req.token_data.id;
 
     const result = {};
@@ -20,7 +20,6 @@ module.exports = {
     try {
       // 맥주정보 불러오기
       const beer_detail = {};
-
       const beers = await Beer.findOne({
         attributes: ['id', 'k_name', 'e_name', 'abv', 'star_avg', 'thumbnail_image', 'brewery',
           'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4',
@@ -30,6 +29,7 @@ module.exports = {
           id: beer_id,
         },
       });
+
       // 찜 여부
       const alreadyHeart = await heartService.HeartCheck({
         user_id,
@@ -43,7 +43,6 @@ module.exports = {
       beer_detail.star_avg = beers.star_avg;
       beer_detail.thumbnail_image = beers.thumbnail_image;
       beer_detail.brewery = beers.brewery;
-      beers.country_id = undefined;
 
       const aroma_id_1 = beers.aroma_id_1;
       const aroma_id_2 = beers.aroma_id_2;
@@ -51,7 +50,7 @@ module.exports = {
       const aroma_id_4 = beers.aroma_id_4;
       const style_id = beers.style_id;
       const country_id = beers.country_id;
-
+      
       // 제조국가 불러오기 
       const country = await Country.findOne({
         attributes: ['country'],
@@ -69,7 +68,6 @@ module.exports = {
         }
       });
       beer_detail.style = styles.small_name;
-
       // 향 불러오기
       beer_detail.aroma = {};
 
@@ -230,23 +228,26 @@ module.exports = {
         }
       });
       result.review = {};
-      if (!userReview) {
-        result.review.userReview = 0;
-      } else {
-        result.review.userReview = userReview;
-      }
+
+      result.review.userReview = !userReview ? [] : userReview;
+      // if (!userReview) {
+      //   result.review.userReview = [];
+      // } else {
+      //   result.review.userReview = userReview;
+      // }
       const beerReviews = await Review.findAll({
         where: {
           beer_id: beer_id
         },
         limit: 5,
       });
-      
-      if (!userReview) {
-        result.review.userbeerReviewsReview = 0;
-      } else {
-        result.review.beerReviews = beerReviews;
-      }
+
+      result.review.beerReviews = !beerReviews ? [] : beerReviews;
+      // if (!beerReviews) {
+      //   result.review.beerReviews = [];
+      // } else {
+      //   result.review.beerReviews = beerReviews;
+      // }
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {
