@@ -229,12 +229,8 @@ module.exports = {
       });
       result.review = {};
 
-      result.review.user_review = !userReview ? [] : userReview;
-      // if (!userReview) {
-      //   result.review.userReview = [];
-      // } else {
-      //   result.review.userReview = userReview;
-      // }
+      result.review.user_review = !userReview ? {} : userReview;
+
       const beerReviews = await Review.findAll({
         where: {
           beer_id: beer_id
@@ -243,11 +239,6 @@ module.exports = {
       });
 
       result.review.beer_reivew = !beerReviews ? [] : beerReviews;
-      // if (!beerReviews) {
-      //   result.review.beerReviews = [];
-      // } else {
-      //   result.review.beerReviews = beerReviews;
-      // }
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {
