@@ -28,7 +28,7 @@ module.exports = {
         }, raw: true
       });
       //유저 다음 레벨 계산
-      const next_level_data = levels.find(level_data => level_data.id === user.level_id + 1);
+      const next_level_data = levels.find(level_data => level_data.id === (user.level_id + 1));
       //남은 리뷰 갯수 계산
       const need_review_count = next_level_data.level_count - user.review_count;
       //current_level - 유저 현재 레벨
