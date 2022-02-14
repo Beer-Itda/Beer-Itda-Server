@@ -229,7 +229,7 @@ module.exports = {
       });
       result.review = {};
 
-      result.review.userReview = !userReview ? [] : userReview;
+      result.review.user_review = !userReview ? [] : userReview;
       // if (!userReview) {
       //   result.review.userReview = [];
       // } else {
@@ -242,7 +242,7 @@ module.exports = {
         limit: 5,
       });
 
-      result.review.beerReviews = !beerReviews ? [] : beerReviews;
+      result.review.beer_reivew = !beerReviews ? [] : beerReviews;
       // if (!beerReviews) {
       //   result.review.beerReviews = [];
       // } else {
