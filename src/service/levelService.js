@@ -31,7 +31,7 @@ module.exports = {
             });
             //유저 레벨
             const user_current_level = await Level.findOne({
-                attributes: ['id', 'level', 'level_count'],
+                attributes: ['id', 'level', 'level_count','level_image'],
                 where: {
                     id: user.level_id
                 }, raw: true
@@ -47,6 +47,7 @@ module.exports = {
             user_result_data.current_level_id = user_current_level.id;
             user_result_data.current_review_count = user.review_count;
             user_result_data.current_level = user_current_level.level;
+            user_result_data.current_level_image = user_current_level.level_image;
             user_result_data.need_review_count = need_review_count;
             user_result_data.next_level = next_level_data.level;
 
