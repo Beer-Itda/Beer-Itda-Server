@@ -35,6 +35,7 @@ module.exports = {
       //need_review_count - 다음 리뷰까지 필요한 리뷰 갯수
       //next_level - 유저 다음 레벨
       const user_result_data = {};
+      user_result_data.current_level_id = user_current_level.id;
       user_result_data.current_level = user_current_level.level;
       user_result_data.need_review_count = need_review_count;
       user_result_data.next_level = next_level_data.level;
