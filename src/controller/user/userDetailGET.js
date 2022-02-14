@@ -8,6 +8,7 @@ const {
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
+const levelService = require("../../service/levelService");
 
 module.exports = {
   //파라미터 id값의 user의 정보 가져오기
@@ -24,19 +25,20 @@ module.exports = {
         raw: true
       });
 
-      //유저 정보 모두 불러왔는데 result로 묶어서 보내는 형태가 아니라서 users만 내보내겠습니다.
-      //행여나 불필요한 정보는 제외하고 내보낼 수 있으니 우선은 주석처리 합니다.
-      //const result = {};
-      //result.email = users.email;
-      // result.nickname = users.nickname;
-      // result.review_count = users.review_count;
-      // const level_id = users.level_id;
-
       if (!user.value < 0) {
         console.log('존재하지 않는 아이디 입니다.');
         return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_USER_ID));
       }
-      return res.status(statusCode.OK).send(util.success(responseMessage.USER_OK, user));
+      //유저 관련 리뷰와 레벨 데이터 출력
+      const user_review_level_data = await levelService.calc_user_review_and_level(user.id);
+      //데이터 바인딩
+      const user_data = {
+        'id': user.id,
+        'email': user.email,
+        'nickname': user.nickname,
+        'review_data': user_review_level_data
+      };
+      return res.status(statusCode.OK).send(util.success(responseMessage.USER_OK, user_data));
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.NO_USER_ID));
