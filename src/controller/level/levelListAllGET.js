@@ -3,9 +3,6 @@ const { Level, User } = require('../../../models');
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
-
 /**
  * @등급_정보_전체_불러오기
  * @desc 전체 등급 정보 불러오기
@@ -14,43 +11,36 @@ module.exports = {
   getLevelListAll: async (req, res) => {
     const user_id = req.token_data.id;
     try {
-      const levels = await Level.findAll({});
-
-      const user1 = await User.findOne({
+      //level 전체
+      const levels = await Level.findAll({raw: true});
+      //user 데이터
+      const user = await User.findOne({
         attributes: ['review_count', 'level_id'],
         where: {
           id: user_id
-        }
+        }, raw: true
       });
-
-      const user_next_level_id = user1.level_id + 1;
-      
-      const user_level = await Level.findOne({
-        attributes: ['level'],
+      //유저 레벨
+      const user_current_level = await Level.findOne({
+        attributes: ['id', 'level', 'level_count'],
         where: {
-          id: user1.level_id
-        }
+          id: user.level_id
+        }, raw: true
       });
-
-      const next_level = await Level.findOne({
-        attributes: ['level', 'level_count'],
-        where: {
-          id: user_next_level_id
-        }
-      });
-
-      //next_level.level_count: 유저의 다음 레벨에 정해진 리뷰 개수
-      //user.review_count: 현재 유저가 작성한 리뷰 개수
-      //user_count: 다음 레벨까지 남은 리뷰 개수
-      const user_count = next_level.level_count - user1.review_count;
-
-      const user = {};
-      user.level = user_level.level;
-      user.count = user_count;
-      user.nextLevel = next_level.level;
+      //유저 다음 레벨 계산
+      const next_level_data = levels.find(level_data => level_data.id === user.level_id + 1);
+      //남은 리뷰 갯수 계산
+      const need_review_count = next_level_data.level_count - user.review_count;
+      //current_level - 유저 현재 레벨
+      //need_review_count - 다음 리뷰까지 필요한 리뷰 갯수
+      //next_level - 유저 다음 레벨
+      const user_result_data = {};
+      user_result_data.current_level = user_current_level.level;
+      user_result_data.need_review_count = need_review_count;
+      user_result_data.next_level = next_level_data.level;
 
       const result = {};
-      result.user = user;
+      result.user = user_result_data;
       result.levels = levels;
       return res.status(statusCode.OK).send(util.success(responseMessage.LEVEL_OK, result));
     } catch (error) {
