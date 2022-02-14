@@ -30,18 +30,12 @@ module.exports = {
           id: beer_id,
         },
       });
-
       // 찜 여부
       const alreadyHeart = await heartService.HeartCheck({
         user_id,
         beer_id,
       });
-      if (alreadyHeart == 'Y') {
-        beer_detail.heart = true;
-      } else {
-        beer_detail.heart = false;
-      }
-
+      beer_detail.heart = (alreadyHeart === 'Y');
       beer_detail.id = beers.id;
       beer_detail.k_name = beers.k_name;
       beer_detail.e_name = beers.e_name;
@@ -49,6 +43,7 @@ module.exports = {
       beer_detail.star_avg = beers.star_avg;
       beer_detail.thumbnail_image = beers.thumbnail_image;
       beer_detail.brewery = beers.brewery;
+      beers.country_id = undefined;
 
       const aroma_id_1 = beers.aroma_id_1;
       const aroma_id_2 = beers.aroma_id_2;
@@ -58,13 +53,13 @@ module.exports = {
       const country_id = beers.country_id;
 
       // 제조국가 불러오기 
-      const countrys = await Country.findOne({
+      const country = await Country.findOne({
         attributes: ['country'],
         where: {
           id: country_id,
         }
       });
-      beer_detail.country = countrys.country;
+      beer_detail.country = country.country;
 
       // 스타일 불러오기 
       const styles = await Style_Small.findOne({
@@ -134,7 +129,7 @@ module.exports = {
       });
 
       /**
-       * style에 맞는 맥주 아이디만 받아서 배열로 가져오기
+       * style 에 맞는 맥주 아이디만 받아서 배열로 가져오기
        * heartCheck 후 결과 배열만 가져오기 [{"heart": true}, ...] 형식으루!
        * same_style_beers, heart Array map 하기
        * */
@@ -148,21 +143,21 @@ module.exports = {
 
       const value = same_style_beers_ids.map(x => x.dataValues.id); //[ 2, 11, 43, 111, 141 ]
 
-      var heart_list1 = []; //[ { heart: true }, ... ]
-      var heart_list2 = []; //[ true, true, false, false, false ]
-      for (var i = 0 in value) {
+      const heart_list1 = []; //[ { heart: true }, ... ]
+      const heart_list2 = []; //[ true, true, false, false, false ]
+      for (let i in value) {
         const beer_id = value[i];
         const alreadyHeart = await heartService.HeartCheck({
           user_id,
           beer_id
         });
-        if (alreadyHeart == 'Y') {
+        if (alreadyHeart === 'Y') {
           heart_list1.push({
             "heart": true
           });
           heart_list2.push(true);
         }
-        if (alreadyHeart == 'N') {
+        if (alreadyHeart === 'N') {
           heart_list1.push({
             "heart": false
           });
@@ -180,11 +175,7 @@ module.exports = {
         }
         return newObj;
       }
-      const merge_style = mergeObj(same_style_beers, heart_list2);
-      result.same_style_beers = merge_style;
-
-
-
+      result.same_style_beers = mergeObj(same_style_beers, heart_list2);
 
       // 향이 같은 맥주 불러오기 (5개)
       const same_aroma_beers = await Beer.findAll({
@@ -198,7 +189,7 @@ module.exports = {
         limit: 5,
       });
       /**
-       * aroma에 맞는 맥주 아이디만 받아서 배열로 가져오기
+       * aroma 에 맞는 맥주 아이디만 받아서 배열로 가져오기
        * heartCheck 후 결과 배열만 가져오기 [true,false, ...] 형식으루!
        * same_aroma_beers, heart Array map 하기
        * */
@@ -215,24 +206,21 @@ module.exports = {
 
       const value2 = same_aroma_beers_ids.map(x => x.dataValues.id); //[ 2, 11, 43, 111, 141 ]
 
-      var heart_list3 = [];
-      for (var i = 0 in value2) {
+      const heart_list3 = [];
+      for (let i in value2) {
         const beer_id = value2[i];
         const alreadyHeart = await heartService.HeartCheck({
           user_id,
           beer_id
         });
-        if (alreadyHeart == 'Y') {
+        if (alreadyHeart === 'Y') {
           heart_list3.push(true);
         }
-        if (alreadyHeart == 'N') {
+        if (alreadyHeart === 'N') {
           heart_list3.push(false);
         }
       }
-
-      const merge_aroma = mergeObj(same_aroma_beers, heart_list3);
-      result.same_aroma_beers = merge_aroma;
-
+      result.same_aroma_beers = mergeObj(same_aroma_beers, heart_list3);
       // 내가 쓴 리뷰 있으면 불러오고 없으면 넘어가기
       // 맥주에 대한 리뷰 5개 이하 간단히 불러오기
       const userReview = await Review.findOne({
@@ -241,15 +229,12 @@ module.exports = {
           beer_id: beer_id
         }
       });
-      
       result.review = {};
-
       if (!userReview) {
         result.review.userReview = 0;
       } else {
         result.review.userReview = userReview;
       }
-      
       const beerReviews = await Review.findAll({
         where: {
           beer_id: beer_id
