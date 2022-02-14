@@ -225,7 +225,8 @@ module.exports = {
         where: {
           user_id: user_id,
           beer_id: beer_id
-        }
+        },
+        raw: true
       });
       result.review = {};
 
@@ -235,10 +236,11 @@ module.exports = {
         where: {
           beer_id: beer_id
         },
+        raw: true,
         limit: 5,
       });
-
       result.review.beer_review = !beerReviews ? [] : beerReviews;
+      result.review.beer_review_count = beerReviews.length
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {
