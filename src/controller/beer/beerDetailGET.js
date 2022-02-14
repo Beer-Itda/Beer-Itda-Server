@@ -238,7 +238,7 @@ module.exports = {
         limit: 5,
       });
 
-      result.review.beer_reivew = !beerReviews ? [] : beerReviews;
+      result.review.beer_review = !beerReviews ? [] : beerReviews;
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
     } catch (error) {
