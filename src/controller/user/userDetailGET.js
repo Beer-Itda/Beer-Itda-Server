@@ -11,7 +11,7 @@ const responseMessage = require('../../../modules/responseMessage');
 const levelService = require("../../service/levelService");
 
 module.exports = {
-  //파라미터 id값의 user의 정보 가져오기
+  //파라미터 id 값의 user 의 정보 가져오기
   getOneUser: async (req, res) => {
     //req.token_data 미들웨어에서 처리한 token verify 정보가 넘어온다.
     try {
@@ -36,7 +36,7 @@ module.exports = {
         'id': user.id,
         'email': user.email,
         'nickname': user.nickname,
-        'review_data': user_review_level_data
+        'review_level': user_review_level_data
       };
       return res.status(statusCode.OK).send(util.success(responseMessage.USER_OK, user_data));
     } catch (error) {

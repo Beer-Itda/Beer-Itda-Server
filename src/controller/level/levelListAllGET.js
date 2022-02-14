@@ -18,7 +18,7 @@ module.exports = {
       const user_result_data = await levelService.calc_user_review_and_level(user_id);
       //최종 출력 데이터
       const result = {};
-      result.user = user_result_data;
+      result.review_level = user_result_data;
       result.levels = levels;
       return res.status(statusCode.OK).send(util.success(responseMessage.LEVEL_OK, result));
     } catch (error) {
