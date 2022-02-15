@@ -2,9 +2,9 @@ module.exports = {
   get_pagination: async (page, size) => {
     //표시할 사이즈를 정하고 디폴트는 5개
     const limit = size ? +size : 5;
-    //넘어가는 item을 offset이라고 표현한다.
-    //페이지가 없으면 0번째라고 판단하여 넘기는 item이 없는 0
-    //페이지가 있다면 표시할 item과 페이지를 곱하여 그만큼 넘기고 그때부터 출력 시작
+    //넘어가는 item 을 offset 이라고 표현한다.
+    //페이지가 없으면 0번째라고 판단하여 넘김
+    //페이지가 있다면 표시할 item 과 페이지를 곱하여 그만큼 넘기고 그때부터 출력 시작
     const offset = page ? page * limit : 0;
 
     return { limit, offset };

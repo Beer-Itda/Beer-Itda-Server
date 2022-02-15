@@ -2,6 +2,7 @@ const { Beer } = require("../../../models");
 const sequelize = require('sequelize');
 const informationService = require("../../service/informationService");
 const { informationServie } = require("../../service");
+const statusCode = require("../../../modules/statusCode");
 const Op = sequelize.Op;
 
 module.exports = {
@@ -40,7 +41,14 @@ module.exports = {
       raw: true
     }).then(async result => {
       const response = await informationServie.get_paging_data(result, page, limit);
-      return res.json(response);
+      //paginate 오류일 경우
+      if(!response)
+        res.status(statusCode.CONFLICT).json({
+          code: "SEARCH_ERROR",
+          message: "결과를 불러오는 중 에러가 발생했습니다."
+        })
+      //paginate 정상
+      return res.status(statusCode.OK).json(response);
     }).catch(error => {
       console.log(error);
       return res.json(error);
