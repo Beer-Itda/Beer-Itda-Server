@@ -33,7 +33,7 @@ module.exports = {
       console.log(heart_beer_ids);
 
       const beers = await Beer.findAndCountAll({
-        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4'],
+        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'brewery','thumbnail_image', 'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4'],
         where: {
           [Op.and]: [
             {
