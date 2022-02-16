@@ -9,9 +9,9 @@ module.exports = {
 
     return { limit, offset };
   },
-  get_paging_data: async (data, page, limit) => {
+  get_paging_data: async (finding_data, page, limit) => {
     //쿼리 결과 전달
-    const { count: total_data, rows: beer_data } = data;
+    const { count: total_data, rows: data } = finding_data;
     //현재 페이지 출력
     const current_page = page ? +page : 0;
     //총 페이지는 정수로 올림하기
@@ -28,6 +28,6 @@ module.exports = {
     //다음 페이지는 총 페이지를 넘을 수 없어서 넘는다 하더라도 총 페이지 출력
     const next_page = (current_page < total_page) ? current_page + 1 : total_page;
 
-    return { total_data, beer_data, total_page, current_page, previous_page, next_page };
+    return { total_data, data, total_page, current_page, previous_page, next_page };
   }
 }

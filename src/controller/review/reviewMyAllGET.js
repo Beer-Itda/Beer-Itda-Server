@@ -37,7 +37,7 @@ module.exports = {
       return res.status(statusCode.OK).json(util.paginate_result_response(paginate_data, result_my_review));
     } catch (error) {
       console.log(error);
-      return res.json(error);
+      return res.status(statusCode.INTERNAL_SERVER_ERROR).json(error);
     }
   }
 };
@@ -46,8 +46,7 @@ async function review_plus_beer(my_review) {
   const all_my_review = [];
   for (let i = 0; i < my_review.length; i++) {
     const beer_id = my_review[i].beer_id;
-    const beer_data_by_review = await find_beer(beer_id);
-
+    const beer_data_by_review = await Beer.findOne({where:{id: beer_id}, raw: true});
     const add_beer_review_data = {
       'beer': beer_data_by_review,
       'review': my_review[i]
@@ -55,18 +54,4 @@ async function review_plus_beer(my_review) {
     all_my_review.push(add_beer_review_data);
   }
   return all_my_review;
-}
-
-async function find_beer(beer_id) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const result = Beer.findOne({
-        where: {
-          id: beer_id
-        },
-        raw: true
-      });
-      resolve(result)
-    }, 5)
-  })
 }
