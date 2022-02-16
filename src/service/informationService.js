@@ -2,16 +2,16 @@ module.exports = {
   get_pagination: async (page, size) => {
     //표시할 사이즈를 정하고 디폴트는 5개
     const limit = size ? +size : 5;
-    //넘어가는 item을 offset이라고 표현한다.
-    //페이지가 없으면 0번째라고 판단하여 넘기는 item이 없는 0
-    //페이지가 있다면 표시할 item과 페이지를 곱하여 그만큼 넘기고 그때부터 출력 시작
+    //넘어가는 item 을 offset 이라고 표현한다.
+    //페이지가 없으면 0번째라고 판단하여 넘김
+    //페이지가 있다면 표시할 item 과 페이지를 곱하여 그만큼 넘기고 그때부터 출력 시작
     const offset = page ? page * limit : 0;
 
     return { limit, offset };
   },
-  get_paging_data: async (data, page, limit) => {
+  get_paging_data: async (finding_data, page, limit) => {
     //쿼리 결과 전달
-    const { count: total_data, rows: beer_data } = data;
+    const { count: total_data, rows: data } = finding_data;
     //현재 페이지 출력
     const current_page = page ? +page : 0;
     //총 페이지는 정수로 올림하기
@@ -28,6 +28,6 @@ module.exports = {
     //다음 페이지는 총 페이지를 넘을 수 없어서 넘는다 하더라도 총 페이지 출력
     const next_page = (current_page < total_page) ? current_page + 1 : total_page;
 
-    return { total_data, beer_data, total_page, current_page, previous_page, next_page };
+    return { total_data, data, total_page, current_page, previous_page, next_page };
   }
 }

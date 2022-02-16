@@ -7,7 +7,7 @@ const aromaListAllGET = require('../../controller/information/aromaListAllGET');
 const tosContentGET = require('../../controller/information/tosContentGET');
 const searchBeerBreweryGET = require('../../controller/information/searchBeerBreweryGET');
 
-/* GET users listing. */
+//모든 스타일과 향 정보 불러오기
 router.get('/style', jwt_module.checkAuth, styleListAllGET.getAllStyleList);
 router.get('/aroma', jwt_module.checkAuth, aromaListAllGET.getAllAromaList);
 

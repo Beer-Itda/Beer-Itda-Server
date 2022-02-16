@@ -14,10 +14,9 @@ module.exports = {
 
     try {
       const value = 'aroma';
-      const aroma_selected_ids = await selectService.ChangeSelectArray({
+      const selected_ids = await selectService.ChangeSelectArray({
         user_id, value
       });
-      const selected_ids = aroma_selected_ids;
       const select_list = await selectService.GetSelectList({ 
         value, selected_ids
       });
@@ -26,7 +25,7 @@ module.exports = {
       });
 
       const result = {};
-      result.aromaList = aroma_list;
+      result.aroma_list = aroma_list;
 
       return res.status(statusCode.OK).send(util.success(responseMessage.AROMA_INFO_OK, result));
     } catch (error) {
