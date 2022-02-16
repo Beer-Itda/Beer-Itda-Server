@@ -2,7 +2,6 @@ const { Beer } = require('../../../models');
 
 const heartService = require('../../service/heartService');
 const informationService = require("../../service/informationService");
-const { informationServie } = require("../../service");
 
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
@@ -61,7 +60,7 @@ module.exports = {
 
       const beers_merge = mergeObj(beers.rows, heart_status);
 
-      const result = await informationServie.get_paging_data(beers, page, limit);
+      const result = await informationService.get_paging_data(beers, page, limit);
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_STYLE_OK, result));
     } catch (error) {
