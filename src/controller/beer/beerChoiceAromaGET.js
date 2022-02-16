@@ -3,7 +3,6 @@ const { Beer } = require('../../../models');
 const selectService = require('../../service/selectService');
 const heartService = require('../../service/heartService');
 const informationService = require("../../service/informationService");
-//const { informationServie } = require("../../service");
 
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');

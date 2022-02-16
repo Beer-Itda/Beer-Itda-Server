@@ -1,7 +1,6 @@
 const { Beer } = require("../../../models");
 const sequelize = require('sequelize');
 const informationService = require("../../service/informationService");
-const { informationServie } = require("../../service");
 const statusCode = require("../../../modules/statusCode");
 const Op = sequelize.Op;
 
@@ -40,7 +39,7 @@ module.exports = {
       ],
       raw: true
     }).then(async result => {
-      const response = await informationServie.get_paging_data(result, page, limit);
+      const response = await informationService.get_paging_data(result, page, limit);
       //paginate 오류일 경우
       if(!response)
         res.status(statusCode.CONFLICT).json({
