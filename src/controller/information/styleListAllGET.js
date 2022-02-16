@@ -14,10 +14,9 @@ module.exports = {
 
     try {
       const value = 'style';
-      const style_selected_ids = await selectService.ChangeSelectArray({
+      const selected_ids = await selectService.ChangeSelectArray({
         user_id, value
       });
-      const selected_ids = style_selected_ids;
       const select_list = await selectService.GetSelectList({ 
         value, selected_ids
       });
@@ -26,7 +25,7 @@ module.exports = {
       });
 
       const result = {};
-      result.styleList = style_list;
+      result.style_list = style_list;
 
       return res.status(statusCode.OK).send(util.success(responseMessage.STYLE_INFO_OK, result));
     } catch (error) {

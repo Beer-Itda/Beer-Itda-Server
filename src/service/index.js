@@ -3,5 +3,5 @@ module.exports = {
   selectService: require('./selectService'),
   heartService: require('./heartService'),
   reviewService: require('./reviewService'),
-  informationServie: require('./informationService')
+  informationService: require('./informationService')
 };

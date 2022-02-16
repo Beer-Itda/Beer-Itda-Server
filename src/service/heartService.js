@@ -72,11 +72,8 @@ module.exports = {
           user_id: user_id,
         },
       });
-
       //비어 아이디를 배열로 만들기
-      const heart_beer_ids = heart.map(x => x.dataValues.beer_id)
-
-      return heart_beer_ids;
+      return heart.map(x => x.dataValues.beer_id);
     } catch (err) {
       console.log(err);
       throw err;
