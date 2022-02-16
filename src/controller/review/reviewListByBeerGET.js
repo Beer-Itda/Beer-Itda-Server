@@ -31,7 +31,7 @@ module.exports = {
       });
       //계산 과정 에러
       if (!reviewListAll)
-        res.json({
+        res.status(statusCode.CONFLICT).json({
           code: "BEER_REVIEW_ERROR",
           message: "리뷰를 불러오는 중 에러가 발생했습니다."
         });

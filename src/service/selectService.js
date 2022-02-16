@@ -24,7 +24,7 @@ module.exports = {
     }
   },
 
-  //select한 style, aroma을 배열로 바꿔주기 (여기서 value는 style, aroma 값 중 1)
+  //select 한 style, aroma 을 배열로 바꿔주기 (여기서 value 는 style, aroma 값 중 1)
   ChangeSelectArray: async ({
     user_id,
     value
@@ -38,15 +38,13 @@ module.exports = {
       });
 
       //값을 배열로 바꾸는 로직
-      if (value == 'style') {
+      if (value === 'style') {
         const select_value = select.dataValues.style;
-        const selectArray = select_value.split(',').map(Number);
-        return selectArray
+        return select_value.split(',').map(Number)
       }
-      if (value == 'aroma') {
+      if (value === 'aroma') {
         const select_value = select.dataValues.aroma;
-        const selectArray = select_value.split(',').map(Number);
-        return selectArray
+        return select_value.split(',').map(Number)
       }
     } catch (err) {
       console.log(err);
@@ -54,49 +52,49 @@ module.exports = {
     }
   },
 
-  //select여부에 따라 boolean 배열로 내보내기
+  //select 여부에 따라 boolean 배열로 내보내기
   GetSelectList: async ({
     value, selected_ids
   }) => {
     //console.log('[service] : ', value, selected_ids);
+    let data;
     try {
-      if (value == 'style') {
+      if (value === 'style') {
         data = await Style_Small.findAll({});
       }
-      if (value == 'aroma') {
+      if (value === 'aroma') {
         data = await Aroma.findAll({});
       }
 
-      var all_ids = [];
-      for (var i = 0 in data) {
+      const all_ids = [];
+      for (let i in data) {
         all_ids[i] = data[i].id;
       }
 
-      var select_list = [];
-      for (var i = 0 in all_ids) {
+      const select_list = [];
+      for (let i in all_ids) {
         const alreadySelect = selected_ids.includes(all_ids[i]);
-        if (alreadySelect == true) { 
+        if (alreadySelect === true) {
           select_list.push(true);
         }
-        if (alreadySelect == false) { 
-          select_list.push(false); 
-        }  
+        if (alreadySelect === false) {
+          select_list.push(false);
+        }
       }
-
       return select_list;
-
     } catch (err) {
       console.log(err);
       throw err;
     }
   },
 
-  //전체 리스트에 isSelected값 추가하기
+  //전체 리스트에 is_selected 값 추가하기
   mergeData: async ({ 
     value, select_list
   }) => {
+    let data;
     try {
-      if (value == 'style') {
+      if (value === 'style') {
         data = await Style_Big.findAll({
           include: [{
             model: Style_Mid,
@@ -106,7 +104,7 @@ module.exports = {
           }],
         });
 
-        function mergeObj(obj1, obj2) {
+        function style_merge_object(obj1, obj2) {
           const newObj = [];
           let i, j, k, cnt = 0;
 
@@ -114,39 +112,34 @@ module.exports = {
             newObj[i] = obj1[i].dataValues;
           }
           i = 0;
-          for (i in obj1) { 
+          for (i in obj1) {
             for (j in obj1[i].Style_Mids) {
               for (k in obj1[i].Style_Mids[j].Style_Smalls) { //0~83
-                newObj[i].Style_Mids[j].Style_Smalls[k].dataValues.isSelected = obj2[cnt];
+                newObj[i].Style_Mids[j].Style_Smalls[k].dataValues.is_selected = obj2[cnt];
                 cnt += 1;
               }
             }
           }
           return newObj;
         }
-
-        const merge_data = mergeObj(data, select_list);
-        return merge_data;
+        return style_merge_object(data, select_list);
       }
 
-      if (value == 'aroma') {
+      if (value === 'aroma') {
         data = await Aroma.findAll({});
 
-        function mergeObj(obj1, obj2) {
+        function aroma_merge_object(obj1, obj2) {
           const newObj = [];
           for (let i in obj1) {
             newObj[i] = obj1[i].dataValues;
           }
           for (let i in obj2) {
-            newObj[i].isSelected = obj2[i];
+            newObj[i].is_selected = obj2[i];
           }
           return newObj;
         }
-      
-        const merge_data = mergeObj(data, select_list);
-        return merge_data;
+        return aroma_merge_object(data, select_list);
       }
-
     } catch (err) {
       console.log(err);
       throw err;
