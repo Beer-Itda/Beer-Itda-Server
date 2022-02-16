@@ -73,7 +73,7 @@ module.exports = {
       }
       const merge_style = mergeObj(beers.rows, heart_list);
 
-      const result = await informationServie.get_paging_data(beers, page, limit);
+      const result = await informationService.get_paging_data(beers, page, limit);
 
       return res.status(statusCode.OK).send(util.success(responseMessage.BEER_STYLE_OK, result));
     } catch (error) {
