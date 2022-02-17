@@ -20,7 +20,7 @@ module.exports = {
       const result = {};
       result.review_level = user_result_data;
       result.levels = levels;
-      return res.status(statusCode.OK).send(util.success(responseMessage.LEVEL_OK, result));
+      return res.status(statusCode.OK).send(result);
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.LEVEL_READ_ALL_FAIL));

@@ -88,7 +88,7 @@ module.exports = {
         });
         beer_detail.aroma.a2 = aroma2.aroma;
       } else {
-        beer_detail.aroma.a2 = 0;
+        beer_detail.aroma.a2 = "";
       }
 
       if (aroma_id_3) {
@@ -100,7 +100,7 @@ module.exports = {
         });
         beer_detail.aroma.a3 = aroma3.aroma;
       } else {
-        beer_detail.aroma.a3 = 0;
+        beer_detail.aroma.a3 = "";
       }
 
       if (aroma_id_4) {
@@ -112,7 +112,7 @@ module.exports = {
         });
         beer_detail.aroma.a4 = aroma4.aroma;
       } else {
-        beer_detail.aroma.a4 = 0;
+        beer_detail.aroma.a4 = "";
       }
 
       result.beer = beer_detail;
