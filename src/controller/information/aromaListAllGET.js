@@ -27,7 +27,7 @@ module.exports = {
       const result = {};
       result.aroma_list = aroma_list;
 
-      return res.status(statusCode.OK).send(util.success(responseMessage.AROMA_INFO_OK, result));
+      return res.status(statusCode.OK).send(result);
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.AROMA_INFO_FAIL));
