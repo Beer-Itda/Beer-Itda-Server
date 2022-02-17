@@ -29,8 +29,6 @@ module.exports = {
         user_id,
       });
 
-      console.log(heart_beer_ids);
-
       const beers = await Beer.findAndCountAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'brewery','thumbnail_image', 'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4'],
         where: {
@@ -59,10 +57,9 @@ module.exports = {
       }
 
       const beers_merge = mergeObj(beers.rows, heart_status);
-
       const result = await informationService.get_paging_data(beers, page, limit);
 
-      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_STYLE_OK, result));
+      return res.status(statusCode.OK).send(result);
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
@@ -81,8 +78,6 @@ module.exports = {
       const heart_beer_ids = await heartService.ChangeHeartArray({
         user_id,
       });
-
-      console.log(heart_beer_ids);
 
       const beers = await Beer.findAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4'],
