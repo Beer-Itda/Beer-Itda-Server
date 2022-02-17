@@ -71,10 +71,9 @@ module.exports = {
         return newObj;
       }
       const merge_style = mergeObj(beers.rows, heart_list);
-
       const result = await informationService.get_paging_data(beers, page, limit);
 
-      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_STYLE_OK, result));
+      return res.status(statusCode.OK).send(result);
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
