@@ -242,7 +242,7 @@ module.exports = {
       result.review.beer_review = !beerReviews ? [] : beerReviews;
       result.review.beer_review_count = beerReviews.length
 
-      return res.status(statusCode.OK).send(util.success(responseMessage.BEER_OK, result));
+      return res.status(statusCode.OK).send(result);
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
