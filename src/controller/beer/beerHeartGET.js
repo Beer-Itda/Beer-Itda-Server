@@ -1,4 +1,4 @@
-const { Beer } = require('../../../models');
+const { Beer, Style_Small } = require('../../../models');
 
 const heartService = require('../../service/heartService');
 const informationService = require("../../service/informationService");
@@ -30,13 +30,18 @@ module.exports = {
       });
 
       const beers = await Beer.findAndCountAll({
-        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'brewery','thumbnail_image', 'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4'],
+        attributes: ['id', 'k_name', 'e_name', 'star_avg', 'brewery','thumbnail_image', 'style_id', 'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4'],
         where: {
           [Op.and]: [
             {
             id: heart_beer_ids
           }]
         },
+        include: [{
+          model: Style_Small,
+          attribute: ['id','small_name'],
+          required: true
+        }],
         limit: limit,
         offset: offset,
         order: [

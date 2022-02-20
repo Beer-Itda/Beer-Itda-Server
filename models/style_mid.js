@@ -12,10 +12,30 @@ module.exports = (sequelize, DataTypes) => {
       unique: false,
       allowNull: false,
     },
-    //설명 이미지
-    mid_image: {
-      type: DataTypes.STRING(200),
-      allowNull: false,
+    //스타일 별 향 점수
+    aroma_1: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    aroma_2: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    aroma_3: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    aroma_4: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    aroma_5: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    aroma_6: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
   }, {
     //옵션지정
