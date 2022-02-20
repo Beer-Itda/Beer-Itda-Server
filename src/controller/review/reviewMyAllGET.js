@@ -34,7 +34,7 @@ module.exports = {
       const result_my_review = await review_plus_beer(my_review.rows);
 
       //출력된 데이터 모두를 출력한다.
-      return res.status(statusCode.OK).json(util.paginate_result_response(paginate_data, result_my_review));
+      return res.status(statusCode.OK).json(result_my_review);
     } catch (error) {
       console.log(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).json(error);
