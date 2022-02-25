@@ -31,6 +31,10 @@ db.Heart = require('./heart')(sequelize, Sequelize);
 db.Review = require('./review')(sequelize, Sequelize);
 // 맥주-향 선택
 db.Beer_Aroma = require('./beer_aroma')(sequelize, Sequelize);
+// 스타일-맛 연결
+db.Style_Taste = require('./style_taste')(sequelize, Sequelize);
+// 맛
+db.Taste = require('./taste')(sequelize, Sequelize);
 
 /** [Beer]
 /** 1 : N  Country : Beer */
@@ -107,6 +111,18 @@ db.Aroma.belongsToMany(db.Beer, {
 db.Beer.belongsToMany(db.Aroma, {
   through: 'Beer_Aroma',
   foreignKey: 'beer_id'
+});
+
+/**[Style_Taste] 
+ * N : M Style_Mid : Taste */
+db.Style_Mid.belongsToMany(db.Taste, {
+  through: 'Style_Taste',
+  foreignKey: 'style_id'
+});
+
+db.Taste.belongsToMany(db.Style_Mid, {
+  through: 'Style_Taste',
+  foreignKey: 'taste_id'
 });
 
 //onDelete: 'cascade'
