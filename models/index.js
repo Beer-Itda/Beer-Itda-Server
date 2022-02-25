@@ -27,8 +27,10 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Level = require('./level')(sequelize, Sequelize);
 // 찜 여부
 db.Heart = require('./heart')(sequelize, Sequelize);
-//리뷰 
+// 리뷰 
 db.Review = require('./review')(sequelize, Sequelize);
+// 맥주-향 선택
+db.Beer_Aroma = require('./beer_aroma')(sequelize, Sequelize);
 
 /** [Beer]
 /** 1 : N  Country : Beer */
@@ -92,6 +94,18 @@ db.User.belongsToMany(db.Beer, {
 
 db.Beer.belongsToMany(db.User, {
   through: 'Review',
+  foreignKey: 'beer_id'
+});
+
+/**[Beer_Aroma] 
+ * N : M Beer : Beer_Aroma */
+db.Aroma.belongsToMany(db.Beer, {
+  through: 'Beer_Aroma',
+  foreignKey: 'aroma_id'
+});
+
+db.Beer.belongsToMany(db.Aroma, {
+  through: 'Beer_Aroma',
   foreignKey: 'beer_id'
 });
 
