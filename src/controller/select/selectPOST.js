@@ -12,7 +12,7 @@ const responseMessage = require('../../../modules/responseMessage');
 const selectService = require('../../service/selectService');
 
 module.exports = {
-  //1. Select 테이블에 user_id가 있는지 확인(serivce)
+  //1. Select 테이블에 user_id가 있는지 확인(service)
   //1-1. user_id가 없다면 생성(create table)
   //1-2. user_id가 있다면 수정(update table)
 
@@ -33,8 +33,8 @@ module.exports = {
       const alreadySelect = await selectService.FirstSelectCheck({
         user_id,
       });
-      if (alreadySelect == 'first') {
-        //select한적이 없으므로 create
+      if (alreadySelect === 'first') {
+        //select 한적이 없으므로 create
         await Select.create({
           style: style_ids,
           aroma: aroma_ids,
@@ -43,8 +43,8 @@ module.exports = {
         rm = '향, 스타일 최초선택에 성공했습니다';
 
       }
-      if (alreadySelect == 'selected') {
-        //이미 select한적이 있으므로 update
+      if (alreadySelect === 'selected') {
+        //이미 select 한적이 있으므로 update
         await Select.update({
           style: style_ids,
           aroma: aroma_ids,

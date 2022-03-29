@@ -54,17 +54,17 @@ module.exports = {
         raw: true
       });
 
-      var beers_ids = [];   //[ 6, 7, 12, 28 ]
-      for (var i = 0 in beers.rows) {
+      let beers_ids = [];   //[ 6, 7, 12, 28 ]
+      for (let i in beers.rows) {
         beers_ids[i] = beers.rows[i].id;
       }
 
-      var heart_list = [];    //[ true, true, false, false, false ]
-      for (var i = 0 in beers_ids) {
+      let heart_list = [];    //[ true, true, false, false, false ]
+      for (let i in beers_ids) {
         const beer_id = beers_ids[i];
         const alreadyHeart = await heartService.HeartCheck({ user_id, beer_id });
-        if (alreadyHeart == 'Y') { heart_list.push(true); }
-        if (alreadyHeart == 'N') { heart_list.push(false); }
+        if (alreadyHeart === 'Y') { heart_list.push(true); }
+        if (alreadyHeart === 'N') { heart_list.push(false); }
       }
 
       function mergeObj(obj1, obj2) {

@@ -26,7 +26,7 @@ module.exports = {
       const alreadySelect = await selectService.FirstSelectCheck({
         user_id,
       });
-      if (alreadySelect == 'first') {
+      if (alreadySelect === 'first') {
         //select한적이 없으므로 create
         await Select.create({
           aroma: aroma_ids,
@@ -34,7 +34,7 @@ module.exports = {
         });
         rm = '향 최초선택에 성공했습니다';
       }
-      if (alreadySelect == 'selected') {
+      if (alreadySelect === 'selected') {
         //이미 select한적이 있으므로 update
         await Select.update({
           aroma: aroma_ids,
@@ -46,14 +46,12 @@ module.exports = {
         rm = '향 수정에 성공했습니다';
       }
 
-      const select = await Select.findOne({
+      const result = await Select.findOne({
         attributes: ['aroma'],
         where: {
           user_id: user_id
         }
       });
-
-      const result = select;
       return res.status(statusCode.OK).send(util.success(rm, result));
     } catch (err) {
       console.log(err);

@@ -12,7 +12,7 @@ module.exports = {
       //임시 monthlyBeer
       const monthlyBeer_id = 10;
 
-      //가져온 Beer id로부터 맥주정보 불러오기
+      //가져온 Beer id 로 부터 맥주정보 불러오기
       const beers = await Beer.findOne({
         attributes: ['id', 'k_name', 'star_avg', 'thumbnail_image'],
         where: {
