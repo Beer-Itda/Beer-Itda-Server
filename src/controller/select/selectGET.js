@@ -23,8 +23,10 @@ module.exports = {
       const alreadySelect = await selectService.FirstSelectCheck({
         user_id,
       });
-      if (!alreadySelect == 'selected') {
-        return res.status(statusCode.NOT_FOUND).send(util.fail(statusCode.NOT_FOUND, responseMessage.SELECT_INFO_FAIL));
+      if (alreadySelect === 'selected') {
+        return res.status(statusCode.NOT_FOUND).send({
+          message : "이미 선택 하셨습니다"
+        });
       }
 
       const select = await Select.findOne({

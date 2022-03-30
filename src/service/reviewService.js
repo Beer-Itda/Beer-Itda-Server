@@ -78,6 +78,6 @@ module.exports = {calcReviewData: async (beer_id, res) => {
       }
     } catch(error){
       console.log(error);
-      return res.json(error);
+      return res.status(statusCode.INTERNAL_SERVER_ERROR).json(error);
     }
   }}

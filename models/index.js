@@ -19,6 +19,8 @@ db.Style_Big = require('./style_big')(sequelize, Sequelize);
 db.Style_Mid = require('./style_mid')(sequelize, Sequelize);
 db.Style_Small = require('./style_small')(sequelize, Sequelize);
 
+db.Style = require('./style')(sequelize, Sequelize);
+
 //사용자의 맥주 스타일/향 선택
 db.Select = require('./select')(sequelize, Sequelize);
 // 사용자
@@ -63,10 +65,10 @@ db.Style_Small.belongsTo(db.Style_Mid, {
 });
 
 /** 1 : N  Beer : Style_Small */
-db.Style_Small.hasMany(db.Beer, {
+db.Style.hasMany(db.Beer, {
   foreignKey: 'style_id',
 });
-db.Beer.belongsTo(db.Style_Small, {
+db.Beer.belongsTo(db.Style, {
   foreignKey: 'style_id',
 });
 

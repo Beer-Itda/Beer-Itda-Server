@@ -17,25 +17,23 @@ module.exports = {
     const { aroma_ids } = req.body;
     if (!aroma_ids) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.SELECT_INFO_FAIL));
-    };
-
-    var rm = '최초선택인지 수정인지 확인하는 메시지';
-
+    }
+    let rm = '최초선택인지 수정인지 확인하는 메시지';
     try {
       //1. Select 테이블에 user_id가 있는지 확인
       const alreadySelect = await selectService.FirstSelectCheck({
         user_id,
       });
-      if (alreadySelect == 'first') {
-        //select한적이 없으므로 create
+      if (alreadySelect === 'first') {
+        //select 한적이 없으므로 create
         await Select.create({
           aroma: aroma_ids,
           user_id: user_id
         });
         rm = '향 최초선택에 성공했습니다';
       }
-      if (alreadySelect == 'selected') {
-        //이미 select한적이 있으므로 update
+      if (alreadySelect === 'selected') {
+        //이미 select 한적이 있으므로 update
         await Select.update({
           aroma: aroma_ids,
         }, {
@@ -46,15 +44,16 @@ module.exports = {
         rm = '향 수정에 성공했습니다';
       }
 
-      const select = await Select.findOne({
+      const result = await Select.findOne({
         attributes: ['aroma'],
         where: {
           user_id: user_id
         }
       });
-
-      const result = select;
-      return res.status(statusCode.OK).send(util.success(rm, result));
+      return res.status(statusCode.OK).send({
+        message: rm,
+        aroma : result.aroma
+      });
     } catch (err) {
       console.log(err);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(responseMessage.INTERNAL_SERVER_ERROR));

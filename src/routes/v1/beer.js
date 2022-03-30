@@ -10,7 +10,7 @@ const router = express.Router();
 
 const jwtModule = require('../../../modules/jwt');
 
-/* GET users listing. */
+//맥주 전체 정보 불러오기
 router.get('/', jwtModule.checkAuth, beerAllGET.getAllBeer);
 router.get('/detail/:id', jwtModule.checkAuth, beerDetailGET.getBeerDetail);
 router.get('/monthly', beerMonthlyGET.getMonthlyBeer);
