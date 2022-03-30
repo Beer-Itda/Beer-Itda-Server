@@ -71,9 +71,10 @@ module.exports = {
         where: {
           user_id: user_id,
         },
+        raw: true
       });
       //비어 아이디를 배열로 만들기
-      return heart.map(x => x.dataValues.beer_id);
+      return heart.map(x => x.beer_id);
     } catch (err) {
       console.log(err);
       throw err;
