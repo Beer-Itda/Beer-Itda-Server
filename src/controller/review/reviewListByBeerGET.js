@@ -6,7 +6,7 @@ module.exports = {
   //각 맥주에서 보여질 해당 맥주에 대한 리뷰 전체
   getAllReviewByBeer: async (req, res) => {
     try {
-      const { page, size, word} = req.query;
+      const { page, size} = req.query;
       const { limit, offset } = await informationService.get_pagination(page, size);
       //맥주에 대한 파라미터 beer_id 를 받는다.
       //해당 파라미터로 리뷰 테이블을 검색한다.

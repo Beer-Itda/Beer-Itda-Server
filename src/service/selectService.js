@@ -12,7 +12,8 @@ module.exports = {
       const alreadySelect = await Select.findOne({
         where: {
           user_id: user_id,
-        }
+        },
+        raw: true
       });
       if (alreadySelect) {
         return 'selected'
@@ -34,16 +35,17 @@ module.exports = {
         attribute: ['id', 'style', 'aroma'],
         where: {
           user_id: user_id,
-        }
+        },
+        raw: true
       });
 
       //값을 배열로 바꾸는 로직
       if (value === 'style') {
-        const select_value = select.dataValues.style;
+        const select_value = select.style;
         return select_value.split(',').map(Number)
       }
       if (value === 'aroma') {
-        const select_value = select.dataValues.aroma;
+        const select_value = select.aroma;
         return select_value.split(',').map(Number)
       }
     } catch (err) {
@@ -60,10 +62,10 @@ module.exports = {
     let data;
     try {
       if (value === 'style') {
-        data = await Style_Small.findAll({});
+        data = await Style_Small.findAll({raw: true});
       }
       if (value === 'aroma') {
-        data = await Aroma.findAll({});
+        data = await Aroma.findAll({raw: true});
       }
 
       const all_ids = [];
@@ -102,6 +104,7 @@ module.exports = {
               model: Style_Small,
             }],
           }],
+          raw: true
         });
 
         function style_merge_object(obj1, obj2) {
@@ -109,13 +112,13 @@ module.exports = {
           let i, j, k, cnt = 0;
 
           for (i in obj1) {
-            newObj[i] = obj1[i].dataValues;
+            newObj[i] = obj1[i];
           }
           i = 0;
           for (i in obj1) {
             for (j in obj1[i].Style_Mids) {
               for (k in obj1[i].Style_Mids[j].Style_Smalls) { //0~83
-                newObj[i].Style_Mids[j].Style_Smalls[k].dataValues.is_selected = obj2[cnt];
+                newObj[i].Style_Mids[j].Style_Smalls[k].is_selected = obj2[cnt];
                 cnt += 1;
               }
             }
@@ -131,7 +134,7 @@ module.exports = {
         function aroma_merge_object(obj1, obj2) {
           const newObj = [];
           for (let i in obj1) {
-            newObj[i] = obj1[i].dataValues;
+            newObj[i] = obj1[i];
           }
           for (let i in obj2) {
             newObj[i].is_selected = obj2[i];

@@ -30,7 +30,9 @@ module.exports = {
           },
         });
         rm = '찜 하기를 취소했습니다';
-        return res.status(statusCode.OK).send(util.success(rm));
+        return res.status(statusCode.OK).json({
+          message: rm
+        });
       }
       if (alreadyHeart === 'N') {
         // 없는 맥주 id일 때 에러메세지 추가
@@ -43,11 +45,15 @@ module.exports = {
             beer_id: beer_id
           });
           rm = '찜 하기를 했습니다';
-          return res.status(statusCode.OK).send(util.success(rm));
+          return res.status(statusCode.OK).json({
+            message: rm
+          });
         }
         if (isBeer === false) {
-          rm = '존재하지 않는 맥주 id 입니다';
-          return res.status(statusCode.OK).send(util.success(rm));
+          rm = '존재하지 않는 맥주 입니다';
+          return res.status(statusCode.OK).json({
+            message: rm
+          });
         }
       }
     } catch (error) {
