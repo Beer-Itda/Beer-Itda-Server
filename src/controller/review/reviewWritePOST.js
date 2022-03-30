@@ -52,10 +52,7 @@ module.exports = {
       //리뷰 작성 후 유저 리뷰 카운트 업데이트제
       await reviewService.user_review_calc('ADD', req.token_data.id);
 
-      return res.status(statusCode.OK).json({
-        message: "리뷰가 작성되었습니다",
-        writeReview
-      })
+      return res.status(statusCode.OK).json(writeReview)
     } catch (error) {
       console.log(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).json(error);
