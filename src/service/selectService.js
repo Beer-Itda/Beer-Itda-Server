@@ -12,7 +12,8 @@ module.exports = {
       const alreadySelect = await Select.findOne({
         where: {
           user_id: user_id,
-        }
+        },
+        raw: true
       });
       if (alreadySelect) {
         return 'selected'

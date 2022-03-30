@@ -18,10 +18,7 @@ module.exports = {
       user.nickname = req.body.nickname;
       await user.save({ fields: ['nickname'] });
 
-      return res.json({
-        message: "닉네임이 변경되었습니다",
-        user
-      });
+      return res.json(user);
     } catch (error) {
       console.log(error);
       return res.json(error);

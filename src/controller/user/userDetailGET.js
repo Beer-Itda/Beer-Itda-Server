@@ -38,7 +38,7 @@ module.exports = {
         'nickname': user.nickname,
         'review_level': user_review_level_data
       };
-      return res.status(statusCode.OK).send(util.success(responseMessage.USER_OK, user_data));
+      return res.status(statusCode.OK).send(user_data);
     } catch (error) {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.NO_USER_ID));

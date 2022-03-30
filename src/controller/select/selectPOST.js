@@ -16,7 +16,6 @@ module.exports = {
   //1-1. user_id가 없다면 생성(create table)
   //1-2. user_id가 있다면 수정(update table)
 
-
   /* 스타일,향 선택하기 */
   postSelect: async (req, res) => {
     const {
@@ -26,7 +25,7 @@ module.exports = {
 
     const user_id = req.token_data.id;
 
-    var rm = '최초선택인지 수정인지 확인하는 메시지';
+    let rm = '최초선택인지 수정인지 확인하는 메시지';
 
     try {
       //1. Select 테이블에 user_id가 있는지 확인
@@ -41,7 +40,6 @@ module.exports = {
           user_id: user_id
         });
         rm = '향, 스타일 최초선택에 성공했습니다';
-
       }
       if (alreadySelect === 'selected') {
         //이미 select 한적이 있으므로 update
@@ -55,7 +53,6 @@ module.exports = {
         });
         rm = '향, 스타일 수정에 성공했습니다';
       }
-
       const select = await Select.findOne({
         attribute: ['id', 'style', 'aroma'],
         where: {

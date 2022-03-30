@@ -17,10 +17,8 @@ module.exports = {
     const { style_ids } = req.body;
     if (!style_ids) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.SELECT_INFO_FAIL));
-    };
-
+    }
     let rm = '최초선택인지 수정인지 확인하는 메시지';
-
     try {
       //1. Select 테이블에 user_id가 있는지 확인
       const alreadySelect = await selectService.FirstSelectCheck({
@@ -46,14 +44,17 @@ module.exports = {
         });
         rm = '스타일 수정에 성공했습니다';
       }
-
       const result = await Select.findOne({
         attributes: ['style'],
         where: {
           user_id: user_id
-        }
+        },
+        raw: true
       });
-      return res.status(statusCode.OK).send(util.success(rm, result));
+      return res.status(statusCode.OK).send({
+        message: rm,
+        style : result.style
+      });
     } catch (err) {
       console.log(err);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(responseMessage.INTERNAL_SERVER_ERROR));
