@@ -1,4 +1,4 @@
-const { Beer } = require('../../../models');
+const { Beer, Aroma} = require('../../../models');
 
 const selectService = require('../../service/selectService');
 const heartService = require('../../service/heartService');
@@ -53,7 +53,55 @@ module.exports = {
         ],
         raw: true
       });
-
+      const beer_data = [];
+      for await (let beer_detail of beers.rows) {
+        beer_detail.aroma = []
+        if (beer_detail.aroma_id_1) {
+          const aroma_name_1 = await Aroma.findOne({
+            attributes: ['aroma'],
+            where: {
+              id: beer_detail.aroma_id_1
+            },
+            raw: true
+          })
+          beer_detail.aroma.push(aroma_name_1.aroma)
+        }
+        if (beer_detail.aroma_id_2) {
+          const aroma_name_2 = await Aroma.findOne({
+            attributes: ['aroma'],
+            where: {
+              id: beer_detail.aroma_id_2
+            },
+            raw: true
+          })
+          beer_detail.aroma.push(aroma_name_2.aroma)
+        }
+        if (beer_detail.aroma_id_3) {
+          const aroma_name_3 = await Aroma.findOne({
+            attributes: ['aroma'],
+            where: {
+              id: beer_detail.aroma_id_3
+            },
+            raw: true
+          })
+          beer_detail.aroma.push(aroma_name_3.aroma)
+        }
+        if (beer_detail.aroma_id_4) {
+          const aroma_name_4 = await Aroma.findOne({
+            attributes: ['aroma'],
+            where: {
+              id: beer_detail.aroma_id_4
+            },
+            raw: true
+          })
+          beer_detail.aroma.push(aroma_name_4.aroma)
+        }
+        beer_data.push(beer_detail)
+        delete beer_detail.aroma_id_1
+        delete beer_detail.aroma_id_2
+        delete beer_detail.aroma_id_3
+        delete beer_detail.aroma_id_4
+      }
       let beers_ids = [];   //[ 6, 7, 12, 28 ]
       for (let i in beers.rows) {
         beers_ids[i] = beers.rows[i].id;
