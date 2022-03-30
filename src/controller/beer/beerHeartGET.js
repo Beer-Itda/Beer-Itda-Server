@@ -19,7 +19,7 @@ module.exports = {
     const { page, size } = req.query;
     if (!page || !size) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_PAGE_OR_SIZE));
-    };
+    }
 
     const { limit, offset } = await informationService.get_pagination(page, size);
     

@@ -18,6 +18,7 @@ module.exports = {
         where: {
           id: monthlyBeer_id
         },
+        raw: true
       });
       return res.status(statusCode.OK).send(beers);
     } catch (error) {

@@ -65,10 +65,10 @@ db.Style_Small.belongsTo(db.Style_Mid, {
 });
 
 /** 1 : N  Beer : Style_Small */
-db.Style_Small.hasMany(db.Beer, {
+db.Style.hasMany(db.Beer, {
   foreignKey: 'style_id',
 });
-db.Beer.belongsTo(db.Style_Small, {
+db.Beer.belongsTo(db.Style, {
   foreignKey: 'style_id',
 });
 

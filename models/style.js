@@ -1,10 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Style', {
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true
-        },
         level: {
             type: DataTypes.INTEGER,
             allowNull: false
