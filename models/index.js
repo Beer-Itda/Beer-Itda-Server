@@ -117,12 +117,12 @@ db.Beer.belongsToMany(db.Aroma, {
 
 /**[Style_Taste] 
  * N : M Style_Mid : Taste */
-db.Style_Mid.belongsToMany(db.Taste, {
+db.Style.belongsToMany(db.Taste, {
   through: 'Style_Taste',
   foreignKey: 'style_id'
 });
 
-db.Taste.belongsToMany(db.Style_Mid, {
+db.Taste.belongsToMany(db.Style, {
   through: 'Style_Taste',
   foreignKey: 'taste_id'
 });

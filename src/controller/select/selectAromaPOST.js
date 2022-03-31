@@ -16,7 +16,9 @@ module.exports = {
     const user_id = req.token_data.id;
     const { aroma_ids } = req.body;
     if (!aroma_ids) {
-      return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.SELECT_INFO_FAIL));
+      return res.status(statusCode.BAD_REQUEST).send({
+        message: responseMessage.SELECT_INFO_FAIL
+      });
     }
     let rm = '최초선택인지 수정인지 확인하는 메시지';
     try {
@@ -43,7 +45,6 @@ module.exports = {
         });
         rm = '향 수정에 성공했습니다';
       }
-
       const result = await Select.findOne({
         attributes: ['aroma'],
         where: {
@@ -52,7 +53,7 @@ module.exports = {
       });
       return res.status(statusCode.OK).send({
         message: rm,
-        aroma : result.aroma
+        aroma : result.aroma.split(',').map(Number)
       });
     } catch (err) {
       console.log(err);
