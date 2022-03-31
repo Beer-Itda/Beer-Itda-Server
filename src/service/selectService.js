@@ -1,5 +1,5 @@
 const {
-  Select, Aroma, Style_Small, Style_Mid, Style_Big,
+  Select, Aroma, Style_Small, Style_Mid, Style_Big, Style
 } = require('../../models');
 
 module.exports = {
@@ -63,7 +63,11 @@ module.exports = {
     let data;
     try {
       if (value === 'style') {
-        data = await Style_Small.findAll({raw: true});
+        data = await Style.findAll({
+          where: {
+            level:3
+          },
+          raw: true});
       }
       if (value === 'aroma') {
         data = await Aroma.findAll({raw: true});
