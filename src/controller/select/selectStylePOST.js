@@ -3,7 +3,6 @@ const { Select } = require('../../../models');
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
-
 const selectService = require('../../service/selectService');
 
 module.exports = {
@@ -16,7 +15,9 @@ module.exports = {
     const user_id = req.token_data.id;
     const { style_ids } = req.body;
     if (!style_ids) {
-      return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.SELECT_INFO_FAIL));
+      return res.status(statusCode.BAD_REQUEST).send({
+        message: responseMessage.SELECT_INFO_FAIL
+      });
     }
     let rm = '최초선택인지 수정인지 확인하는 메시지';
     try {
@@ -28,7 +29,6 @@ module.exports = {
         //select 한적이 없으므로 create
         await Select.create({
           style: style_ids,
-          aroma: aroma_ids,
           user_id: user_id
         });
         rm = '스타일 최초선택에 성공했습니다';
@@ -53,7 +53,7 @@ module.exports = {
       });
       return res.status(statusCode.OK).send({
         message: rm,
-        style : result.style
+        style : result.style.split(',').map(Number)
       });
     } catch (err) {
       console.log(err);

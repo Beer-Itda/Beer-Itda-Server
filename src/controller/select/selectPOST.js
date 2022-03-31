@@ -1,5 +1,3 @@
-var express = require('express');
-
 const {
   Select,
   User
@@ -8,7 +6,6 @@ const {
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
-
 const selectService = require('../../service/selectService');
 
 module.exports = {
@@ -22,11 +19,8 @@ module.exports = {
       style_ids,
       aroma_ids
     } = req.body;
-
     const user_id = req.token_data.id;
-
     let rm = '최초선택인지 수정인지 확인하는 메시지';
-
     try {
       //1. Select 테이블에 user_id가 있는지 확인
       const alreadySelect = await selectService.FirstSelectCheck({
