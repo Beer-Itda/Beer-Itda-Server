@@ -38,7 +38,8 @@ module.exports = {
         },
         raw: true
       });
-
+      if(!select)
+        return null;
       //값을 배열로 바꾸는 로직
       if (value === 'style') {
         const select_value = select.style;

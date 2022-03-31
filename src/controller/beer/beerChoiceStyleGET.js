@@ -20,18 +20,17 @@ module.exports = {
     const { page, size } = req.query;
     if (!page || !size) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_PAGE_OR_SIZE));
-    };
-
+    }
     const { limit, offset } = await informationService.get_pagination(page, size);
-    
     try {
       //스타일 배열로 불러오기
       const value = 'style';
       const styleArray = await selectService.ChangeSelectArray({ user_id, value });
       if (!styleArray) {
-        return res.status(statusCode.NOT_FOUND).send(util.fail(statusCode.NOT_FOUND, responseMessage.SELECT_INFO_FAIL));
-      };
-
+        return res.status(statusCode.NOT_FOUND).send({
+          message: "선택하신 스타일이 없습니다"
+        });
+      }
       const beers = await Beer.findAndCountAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'style_id'],
         where: {
@@ -46,7 +45,6 @@ module.exports = {
         ],
         raw: true
       });
-
       let beers_ids = [];   //[ 2, 11, 43, 111, 141 ]
       for (let i in beers.rows) {
         beers_ids[i] = beers.rows[i].id;
@@ -70,7 +68,7 @@ module.exports = {
         }
         return newObj;
       }
-      const merge_style = mergeObj(beers.rows, heart_list);
+      mergeObj(beers.rows, heart_list);
       const result = await informationService.get_paging_data(beers, page, limit);
 
       return res.status(statusCode.OK).send(result);
