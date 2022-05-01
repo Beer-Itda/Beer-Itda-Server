@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { QueryTypes } = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config.json')[env];
 const db = {};
@@ -125,6 +126,14 @@ db.Style.belongsToMany(db.Taste, {
 db.Taste.belongsToMany(db.Style, {
   through: 'Style_Taste',
   foreignKey: 'taste_id'
+});
+
+db.Style.belongsTo(db.Style, {
+  as: 'B'
+});
+
+db.Style.belongsTo(db.Style, {
+  as: 'C'
 });
 
 //onDelete: 'cascade'
