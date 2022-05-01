@@ -20,7 +20,7 @@ module.exports = {
     const { page, size } = req.query;
     if (!page || !size) {
       return res.status(statusCode.BAD_REQUEST).send(util.fail(statusCode.BAD_REQUEST, responseMessage.NO_PAGE_OR_SIZE));
-    };
+    }
 
     const { limit, offset } = await informationService.get_pagination(page, size);
     try {
@@ -29,7 +29,7 @@ module.exports = {
       const aromaArray = await selectService.ChangeSelectArray({ user_id, value });
       if (!aromaArray) {
         return res.status(statusCode.NOT_FOUND).send(util.fail(statusCode.NOT_FOUND, responseMessage.SELECT_INFO_FAIL));
-      };
+      }
 
       const beers = await Beer.findAndCountAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'aroma_id_1', 'aroma_id_2', 'aroma_id_3', 'aroma_id_4'],

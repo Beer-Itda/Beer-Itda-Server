@@ -5,32 +5,105 @@ const responseMessage = require('../../../modules/responseMessage');
 const util = require('../../../modules/util');
 
 module.exports = {
-  /**
- * @전체_스타일_불러오기
- * @desc 스타일 관련 리스트 전체 불러오기(내가 선택한 스타일 확인)
- */
-  getAllStyleList: async (req, res) => {
-    const user_id = req.token_data.id;
+    /**
+     * @전체_스타일_불러오기
+     * @desc 스타일 관련 리스트 전체 불러오기(내가 선택한 스타일 확인)
+     */
+    getAllStyleList: async (req, res) => {
+        try {
+            const result = await selectService.getStyleAllInformation();
+            let a1, a2, a3, a4, a5, a6, a7, a8;
+            [a1, a2, a3, a4, a5, a6, a7, a8 ] = [[], [], [], [], [], [], [], []]
 
-    try {
-      const value = 'style';
-      const selected_ids = await selectService.ChangeSelectArray({
-        user_id, value
-      });
-      const select_list = await selectService.GetSelectList({ 
-        value, selected_ids
-      });
-      const style_list = await selectService.mergeData({ 
-        value, select_list
-      });
+            let b1, b2, b3, b4, b5, b6, b7, b8;
+            [b1, b2, b3, b4, b5, b6, b7, b8] = [[], [], [], [], [], [], [], []]
 
-      const result = {};
-      result.style_list = style_list;
+            let c1, c2, c3, c4, c5, c6, c7, c8;
+            [c1, c2, c3, c4, c5, c6, c7, c8] = [[], [], [], [], [], [], [], []]
 
-      return res.status(statusCode.OK).send(result);
-    } catch (error) {
-      console.error(error);
-      return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR));
+            let obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8, obj9, obj10;
+            [obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8, obj9, obj10] = [{},{},{},{},{},{},{},{},{},{}];
+
+
+            result.forEach((row) => {
+                //style big 1 번째 에서 style mid 1 번째
+                if((row.data.A_id === 1) && (row.data.B_id === 5)){
+                    a1.push(row.c)
+                    row.b.style_small = a1;
+                    b1 = [row.b]
+                    row.a.style_mid = b1;
+                    c1 = [row.a]
+                }
+                //style big 1 번째 에서 style mid 2 번째
+                if((row.data.A_id === 1) && (row.data.B_id === 6)){
+                    a2.push(row.c)
+                    row.b.style_small = a2;
+                    b2 = [row.b]
+                    row.a.style_mid = b2;
+                    c2 = [row.a]
+                }
+                //style big 1 번째 에서 style mid 3 번째
+                if((row.data.A_id === 1) && (row.data.B_id === 7)){
+                    a3.push(row.c)
+                    row.b.style_small = a3;
+                    b3 = [row.b]
+                    row.a.style_mid = b3;
+                    c3 = [row.a]
+                }
+                //style big 1 번째 에서 style mid 4 번째
+                if((row.data.A_id === 1) && (row.data.B_id === 8)){
+                    a4.push(row.c)
+                    row.b.style_small = a4;
+                    b4 = [row.b]
+                    row.a.style_mid = b4;
+                    c4 = [row.a]
+                }
+                //style big 2 번째 에서 style mid 1 번째
+                if((row.data.A_id === 2) && (row.data.B_id === 9)){
+                    a5.push(row.c)
+                    row.b.style_small = a5;
+                    b5 = [row.b]
+                    row.a.style_mid = b5;
+                    c5 = [row.a]
+                }
+                //style big 2 번째 에서 style mid 2 번째
+                if((row.data.A_id === 2) && (row.data.B_id === 10)){
+                    a6.push(row.c)
+                    row.b.style_small = a6;
+                    b6 = [row.b]
+                    row.a.style_mid = b6;
+                    c6 = [row.a]
+                }
+                //style big 3 번째 에서 style mid 1 번째
+                if((row.data.A_id === 3) && (row.data.B_id === 11)){
+                    a7.push(row.c)
+                    row.b.style_small = a7;
+                    b7 = [row.b]
+                    row.a.style_mid = b7;
+                    c7 = [row.a]
+                }
+                //style big 4 번째 에서 style mid 1 번째
+                if((row.data.A_id === 4) && (row.data.B_id === 12)){
+                    a8.push(row.c)
+                    row.b.style_small = a8;
+                    b8 = [row.b]
+                    row.a.style_mid = b8;
+                    c8 = [row.a]
+                }
+            })
+            c1[0].style_mid.push(c2[0].style_mid[0])
+            c1[0].style_mid.push(c3[0].style_mid[0])
+            c1[0].style_mid.push(c4[0].style_mid[0])
+
+            c5[0].style_mid.push(c6[0].style_mid[0])
+
+            c1.push(c5[0])
+            c1.push(c7[0])
+            c1.push(c8[0])
+            return res.status(statusCode.OK).send(c1);
+        } catch (error) {
+            console.error(error);
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR));
+        }
     }
-  }
 };
