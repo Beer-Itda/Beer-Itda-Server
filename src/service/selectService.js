@@ -136,7 +136,7 @@ module.exports = {
             }
 
             if (value === 'aroma') {
-                data = await Aroma.findAll({});
+                data = await Aroma.findAll({raw:true});
 
                 function aroma_merge_object(obj1, obj2) {
                     const newObj = [];

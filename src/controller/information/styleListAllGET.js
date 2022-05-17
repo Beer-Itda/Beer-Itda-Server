@@ -104,7 +104,6 @@ module.exports = {
             c1[0].style_mid.push(c2[0].style_mid[0])
             c1[0].style_mid.push(c3[0].style_mid[0])
             c1[0].style_mid.push(c4[0].style_mid[0])
-
             c5[0].style_mid.push(c6[0].style_mid[0])
 
             c1.push(c5[0])
