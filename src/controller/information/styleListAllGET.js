@@ -12,6 +12,8 @@ module.exports = {
     getAllStyleList: async (req, res) => {
         try {
             const result = await selectService.getStyleAllInformation();
+            const select = await selectService.ChangeSelectArray({user_id: req.token_data.id, value: 'style'});
+
             let a1, a2, a3, a4, a5, a6, a7, a8;
             [a1, a2, a3, a4, a5, a6, a7, a8 ] = [[], [], [], [], [], [], [], []]
 
@@ -24,10 +26,11 @@ module.exports = {
             let obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8, obj9, obj10;
             [obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8, obj9, obj10] = [{},{},{},{},{},{},{},{},{},{}];
 
-
+            //TODO 쿼리 결과를 억지로 끼워놓음 미친놈 김재환
             result.forEach((row) => {
                 //style big 1 번째 에서 style mid 1 번째
                 if((row.data.A_id === 1) && (row.data.B_id === 5)){
+                    row.c.is_selected = select.includes(row.c.id)
                     a1.push(row.c)
                     row.b.style_small = a1;
                     b1 = [row.b]
@@ -36,6 +39,7 @@ module.exports = {
                 }
                 //style big 1 번째 에서 style mid 2 번째
                 if((row.data.A_id === 1) && (row.data.B_id === 6)){
+                    row.c.is_selected = select.includes(row.c.id)
                     a2.push(row.c)
                     row.b.style_small = a2;
                     b2 = [row.b]
@@ -44,6 +48,7 @@ module.exports = {
                 }
                 //style big 1 번째 에서 style mid 3 번째
                 if((row.data.A_id === 1) && (row.data.B_id === 7)){
+                    row.c.is_selected = select.includes(row.c.id)
                     a3.push(row.c)
                     row.b.style_small = a3;
                     b3 = [row.b]
@@ -52,6 +57,7 @@ module.exports = {
                 }
                 //style big 1 번째 에서 style mid 4 번째
                 if((row.data.A_id === 1) && (row.data.B_id === 8)){
+                    row.c.is_selected = select.includes(row.c.id)
                     a4.push(row.c)
                     row.b.style_small = a4;
                     b4 = [row.b]
@@ -60,6 +66,7 @@ module.exports = {
                 }
                 //style big 2 번째 에서 style mid 1 번째
                 if((row.data.A_id === 2) && (row.data.B_id === 9)){
+                    row.c.is_selected = select.includes(row.c.id)
                     a5.push(row.c)
                     row.b.style_small = a5;
                     b5 = [row.b]
@@ -68,6 +75,7 @@ module.exports = {
                 }
                 //style big 2 번째 에서 style mid 2 번째
                 if((row.data.A_id === 2) && (row.data.B_id === 10)){
+                    row.c.is_selected = select.includes(row.c.id)
                     a6.push(row.c)
                     row.b.style_small = a6;
                     b6 = [row.b]
@@ -76,6 +84,7 @@ module.exports = {
                 }
                 //style big 3 번째 에서 style mid 1 번째
                 if((row.data.A_id === 3) && (row.data.B_id === 11)){
+                    row.c.is_selected = select.includes(row.c.id)
                     a7.push(row.c)
                     row.b.style_small = a7;
                     b7 = [row.b]
@@ -84,6 +93,7 @@ module.exports = {
                 }
                 //style big 4 번째 에서 style mid 1 번째
                 if((row.data.A_id === 4) && (row.data.B_id === 12)){
+                    row.c.is_selected = select.includes(row.c.id)
                     a8.push(row.c)
                     row.b.style_small = a8;
                     b8 = [row.b]
@@ -94,13 +104,12 @@ module.exports = {
             c1[0].style_mid.push(c2[0].style_mid[0])
             c1[0].style_mid.push(c3[0].style_mid[0])
             c1[0].style_mid.push(c4[0].style_mid[0])
-
             c5[0].style_mid.push(c6[0].style_mid[0])
 
             c1.push(c5[0])
             c1.push(c7[0])
             c1.push(c8[0])
-            return res.status(statusCode.OK).send(c1);
+            return res.status(statusCode.OK).json({data: c1});
         } catch (error) {
             console.error(error);
             return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR));
