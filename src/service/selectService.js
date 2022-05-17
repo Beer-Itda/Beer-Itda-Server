@@ -172,18 +172,15 @@ module.exports = {
            ) as data,
        JSON_OBJECT(
                'id', A.id,
-               'level', A.level,
                'name', A.name
            ) as a,
        JSON_OBJECT(
                'id', B.id,
-               'level', B.level,
                'name', B.name,
                'description', B.description
            ) as b,
        JSON_OBJECT(
                'id', C.id,
-               'level', C.level,
                'name', C.name
            ) as c
 FROM Style A
