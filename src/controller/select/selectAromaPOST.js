@@ -29,7 +29,7 @@ module.exports = {
       if (alreadySelect === 'first') {
         //select 한적이 없으므로 create
         await Select.create({
-          aroma: aroma_ids,
+          aroma: aroma_ids.toString(),
           user_id: user_id
         });
         rm = '향 최초선택에 성공했습니다';
@@ -37,7 +37,7 @@ module.exports = {
       if (alreadySelect === 'selected') {
         //이미 select 한적이 있으므로 update
         await Select.update({
-          aroma: aroma_ids,
+          aroma: aroma_ids.toString(),
         }, {
           where: {
             user_id: user_id
@@ -52,7 +52,6 @@ module.exports = {
         }
       });
       return res.status(statusCode.OK).send({
-        message: rm,
         aroma : result.aroma.split(',').map(Number)
       });
     } catch (err) {

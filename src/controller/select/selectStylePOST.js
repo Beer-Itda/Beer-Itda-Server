@@ -28,7 +28,7 @@ module.exports = {
       if (alreadySelect === 'first') {
         //select 한적이 없으므로 create
         await Select.create({
-          style: style_ids,
+          style: style_ids.toString(),
           user_id: user_id
         });
         rm = '스타일 최초선택에 성공했습니다';
@@ -36,7 +36,7 @@ module.exports = {
       if (alreadySelect === 'selected') {
         //이미 select 한적이 있으므로 update
         await Select.update({
-          style: style_ids,
+          style: style_ids.toString(),
         }, {
           where: {
             user_id: user_id
@@ -52,7 +52,6 @@ module.exports = {
         raw: true
       });
       return res.status(statusCode.OK).send({
-        message: rm,
         style : result.style.split(',').map(Number)
       });
     } catch (err) {
