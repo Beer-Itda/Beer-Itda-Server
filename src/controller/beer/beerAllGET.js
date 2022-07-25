@@ -1,16 +1,8 @@
-const express = require('express');
-
-const {
-    Beer,
-    Style_Small,
-    Style
-} = require('../../../models');
-
+const {Beer} = require('../../../models');
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 const {informationService} = require("../../service");
-
 
 module.exports = {
     /* 전체 beer 불러오기 */

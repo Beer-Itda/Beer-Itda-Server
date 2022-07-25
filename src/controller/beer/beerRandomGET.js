@@ -1,8 +1,6 @@
-const {Beer, Style_Small, Aroma, Style} = require('../../../models');
-
+const {Beer, Aroma, Style} = require('../../../models');
 const heartService = require('../../service/heartService');
 const informationService = require("../../service/informationService");
-
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');

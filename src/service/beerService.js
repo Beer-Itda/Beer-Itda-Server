@@ -14,11 +14,7 @@ module.exports = {
           id: beer_id
         }
       });
-      if (isBeer) {
-        return true
-      } else {
-        return false
-      }
+      return !!isBeer;
     } catch (err) {
       console.log(err);
       throw err;
