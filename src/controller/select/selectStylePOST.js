@@ -21,7 +21,7 @@ module.exports = {
             //TODO - 그냥 저는 미친놈입니다
             //992
             //13~40 인데 level 3, level_parent 2, level_parent_detail 1
-            if(style_ids.includes(992)){
+            if (style_ids.includes(992)) {
                 const styleAllData = await Style.findAll({
                     attributes: ['id'],
                     where: {
@@ -31,23 +31,22 @@ module.exports = {
                     }, raw: true
                 })
                 const style_992 = styleAllData.map(item => item.id)
-                if(style_ids.length > 1){
-                    for(let i = 0; i < style_ids.length; i++){
-                        for(let j = 0; j < style_992.length; j++){
-                            if(style_ids[i] === style_992[j]){
-                                style_992.splice(j, 1);
-                                j--;
-                            }
+
+                for (let i = 0; i < style_ids.length; i++) {
+                    for (let j = 0; j < style_992.length; j++) {
+                        if (style_ids[i] === style_992[j]) {
+                            style_ids.splice(i, 1)
+                            style_992.splice(j, 1);
+                            j--;
                         }
                     }
-                    style_992.push(992);
-                    style_ids = style_992;
                 }
-                style_ids = style_992;
+                style_992.unshift(992)
+                style_ids.push(...style_992)
             }
             //993
             //41~53 인데 level 3, level_parent 2, level_parent_detail 2
-            if(style_ids.includes(993)){
+            if (style_ids.includes(993)) {
                 const styleAllData = await Style.findAll({
                     attributes: ['id'],
                     where: {
@@ -57,23 +56,23 @@ module.exports = {
                     }, raw: true
                 })
                 const style_993 = styleAllData.map(item => item.id)
-                if(style_ids.length > 1){
-                    for(let i = 0; i < style_ids.length; i++){
-                        for(let j = 0; j < style_993.length; j++){
-                            if(style_ids[i] === style_993[j]){
-                                style_993.splice(j, 1);
-                                j--;
-                            }
+
+                for (let i = 0; i < style_ids.length; i++) {
+                    for (let j = 0; j < style_993.length; j++) {
+                        if (style_ids[i] === style_993[j]) {
+                            style_ids.splice(i, 1)
+                            style_993.splice(j, 1);
+                            j--;
                         }
                     }
-                    style_993.push(993);
-                    style_ids = style_993;
                 }
-                style_ids = style_993;
+                style_993.unshift(993)
+                style_ids.push(...style_993)
             }
+
             //994
             //54~61 인데 level 3, level_parent 2, level_parent_detail 3
-            if(style_ids.includes(994)){
+            if (style_ids.includes(994)) {
                 const styleAllData = await Style.findAll({
                     attributes: ['id'],
                     where: {
@@ -83,23 +82,22 @@ module.exports = {
                     }, raw: true
                 })
                 const style_994 = styleAllData.map(item => item.id)
-                if(style_ids.length > 1){
-                    for(let i = 0; i < style_ids.length; i++){
-                        for(let j = 0; j < style_994.length; j++){
-                            if(style_ids[i] === style_994[j]){
-                                style_994.splice(j, 1);
-                                j--;
-                            }
+
+                for (let i = 0; i < style_ids.length; i++) {
+                    for (let j = 0; j < style_994.length; j++) {
+                        if (style_ids[i] === style_994[j]) {
+                            style_ids.splice(i, 1)
+                            style_994.splice(j, 1);
+                            j--;
                         }
                     }
-                    style_994.push(994);
-                    style_ids = style_994;
                 }
-                style_ids = style_994;
+                style_994.unshift(994)
+                style_ids.push(...style_994)
             }
             //995
             //62~68 인데 level 3, level_parent 2, level_parent_detail 4
-            if(style_ids.includes(995)){
+            if (style_ids.includes(995)) {
                 const styleAllData = await Style.findAll({
                     attributes: ['id'],
                     where: {
@@ -109,23 +107,22 @@ module.exports = {
                     }, raw: true
                 })
                 const style_995 = styleAllData.map(item => item.id)
-                if(style_ids.length > 1){
-                    for(let i = 0; i < style_ids.length; i++){
-                        for(let j = 0; j < style_995.length; j++){
-                            if(style_ids[i] === style_995[j]){
-                                style_995.splice(j, 1);
-                                j--;
-                            }
+
+                for (let i = 0; i < style_ids.length; i++) {
+                    for (let j = 0; j < style_995.length; j++) {
+                        if (style_ids[i] === style_995[j]) {
+                            style_ids.splice(i, 1)
+                            style_995.splice(j, 1);
+                            j--;
                         }
                     }
-                    style_995.push(995);
-                    style_ids = style_995;
                 }
-                style_ids = style_995;
+                style_995.unshift(995)
+                style_ids.push(...style_995)
             }
             //996
             //69~81 인데 level 3, level_parent 2, level_parent_detail 5
-            if(style_ids.includes(996)){
+            if (style_ids.includes(996)) {
                 const styleAllData = await Style.findAll({
                     attributes: ['id'],
                     where: {
@@ -135,23 +132,22 @@ module.exports = {
                     }, raw: true
                 })
                 const style_996 = styleAllData.map(item => item.id)
-                if(style_ids.length > 1){
-                    for(let i = 0; i < style_ids.length; i++){
-                        for(let j = 0; j < style_996.length; j++){
-                            if(style_ids[i] === style_996[j]){
-                                style_996.splice(j, 1);
-                                j--;
-                            }
+
+                for (let i = 0; i < style_ids.length; i++) {
+                    for (let j = 0; j < style_996.length; j++) {
+                        if (style_ids[i] === style_996[j]) {
+                            style_ids.splice(i, 1)
+                            style_996.splice(j, 1);
+                            j--;
                         }
                     }
-                    style_996.push(996);
-                    style_ids = style_996;
                 }
-                style_ids = style_996;
+                style_996.unshift(996)
+                style_ids.push(...style_996)
             }
             //997
             //82~85 인데 level 3, level_parent 2, level_parent_detail 6
-            if(style_ids.includes(997)){
+            if (style_ids.includes(997)) {
                 const styleAllData = await Style.findAll({
                     attributes: ['id'],
                     where: {
@@ -161,23 +157,22 @@ module.exports = {
                     }, raw: true
                 })
                 const style_997 = styleAllData.map(item => item.id)
-                if(style_ids.length > 1){
-                    for(let i = 0; i < style_ids.length; i++){
-                        for(let j = 0; j < style_997.length; j++){
-                            if(style_ids[i] === style_997[j]){
-                                style_997.splice(j, 1);
-                                j--;
-                            }
+
+                for (let i = 0; i < style_ids.length; i++) {
+                    for (let j = 0; j < style_997.length; j++) {
+                        if (style_ids[i] === style_997[j]) {
+                            style_ids.splice(i, 1)
+                            style_997.splice(j, 1);
+                            j--;
                         }
                     }
-                    style_997.push(997);
-                    style_ids = style_997;
                 }
-                style_ids = style_997;
+                style_997.unshift(997)
+                style_ids.push(...style_997)
             }
             //998
             //86~87 인데 level 3, level_parent 2, level_parent_detail 7
-            if(style_ids.includes(998)){
+            if (style_ids.includes(998)) {
                 const styleAllData = await Style.findAll({
                     attributes: ['id'],
                     where: {
@@ -187,23 +182,22 @@ module.exports = {
                     }, raw: true
                 })
                 const style_998 = styleAllData.map(item => item.id)
-                if(style_ids.length > 1){
-                    for(let i = 0; i < style_ids.length; i++){
-                        for(let j = 0; j < style_998.length; j++){
-                            if(style_ids[i] === style_998[j]){
-                                style_998.splice(j, 1);
-                                j--;
-                            }
+
+                for (let i = 0; i < style_ids.length; i++) {
+                    for (let j = 0; j < style_998.length; j++) {
+                        if (style_ids[i] === style_998[j]) {
+                            style_ids.splice(i, 1)
+                            style_998.splice(j, 1);
+                            j--;
                         }
                     }
-                    style_998.push(998);
-                    style_ids = style_998;
                 }
-                style_ids = style_998;
+                style_998.unshift(998)
+                style_ids.push(...style_998)
             }
             //999
             //88~96 인데 level 3, level_parent 2, level_parent_detail 8
-            if(style_ids.includes(999)){
+            if (style_ids.includes(999)) {
                 const styleAllData = await Style.findAll({
                     attributes: ['id'],
                     where: {
@@ -213,19 +207,18 @@ module.exports = {
                     }, raw: true
                 })
                 const style_999 = styleAllData.map(item => item.id)
-                if(style_ids.length > 1){
-                    for(let i = 0; i < style_ids.length; i++){
-                        for(let j = 0; j < style_999.length; j++){
-                            if(style_ids[i] === style_999[j]){
-                                style_999.splice(j, 1);
-                                j--;
-                            }
+
+                for (let i = 0; i < style_ids.length; i++) {
+                    for (let j = 0; j < style_999.length; j++) {
+                        if (style_ids[i] === style_999[j]) {
+                            style_ids.splice(i, 1)
+                            style_999.splice(j, 1);
+                            j--;
                         }
                     }
-                    style_999.push(999);
-                    style_ids = style_999;
                 }
-                style_ids = style_999;
+                style_999.unshift(999)
+                style_ids.push(...style_999)
             }
             //1. Select 테이블에 user_id가 있는지 확인
             const alreadySelect = await selectService.FirstSelectCheck({user_id});

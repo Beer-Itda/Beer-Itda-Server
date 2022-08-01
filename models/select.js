@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     //맥주 스타일
     style: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(300),
       allowNull: true,
     },
     //맥주 향
