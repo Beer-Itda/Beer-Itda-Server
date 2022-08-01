@@ -101,9 +101,29 @@ module.exports = {
                     c8 = [row.a]
                 }
             })
+
+            let tmp0 = c1[0].style_mid[0].style_small[c1[0].style_mid[0].style_small.length - 1]
+            c1[0].style_mid[0].style_small.splice(c1[0].style_mid[0].style_small.length - 1, 1)
+            c1[0].style_mid[0].style_small.unshift(tmp0)
+
+            let tmp1 = c2[0].style_mid[0].style_small[c2[0].style_mid[0].style_small.length - 1]
+            c2[0].style_mid[0].style_small.splice(c2[0].style_mid[0].style_small.length - 1, 1)
+            c2[0].style_mid[0].style_small.unshift(tmp1)
             c1[0].style_mid.push(c2[0].style_mid[0])
+
+            let tmp2 = c3[0].style_mid[0].style_small[c3[0].style_mid[0].style_small.length - 1]
+            c3[0].style_mid[0].style_small.splice(c3[0].style_mid[0].style_small.length - 1, 1)
+            c3[0].style_mid[0].style_small.unshift(tmp2)
             c1[0].style_mid.push(c3[0].style_mid[0])
+
+            let tmp3 = c4[0].style_mid[0].style_small[c4[0].style_mid[0].style_small.length - 1]
+            c4[0].style_mid[0].style_small.splice(c4[0].style_mid[0].style_small.length - 1, 1)
+            c4[0].style_mid[0].style_small.unshift(tmp3)
             c1[0].style_mid.push(c4[0].style_mid[0])
+
+            let tmp4 = c6[0].style_mid[0].style_small[c6[0].style_mid[0].style_small.length - 1]
+            c6[0].style_mid[0].style_small.splice(c6[0].style_mid[0].style_small.length - 1, 1)
+            c6[0].style_mid[0].style_small.unshift(tmp4)
             c5[0].style_mid.push(c6[0].style_mid[0])
 
             c1.push(c5[0])
