@@ -28,7 +28,7 @@ module.exports = {
       const value = 'aroma';
       const aromaArray = await selectService.ChangeSelectArray({ user_id, value });
       if (!aromaArray) {
-        return res.status(statusCode.NOT_FOUND).send(util.fail(statusCode.NOT_FOUND, responseMessage.SELECT_INFO_FAIL));
+        return res.status(statusCode.OK).json([]);
       }
 
       const beers = await Beer.findAndCountAll({

@@ -3,11 +3,9 @@ const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 
-
 module.exports = {
   // 이달의 beer 불러오기(1개)
   getMonthlyBeer: async (req, res) => {
-
     try {
       //임시 monthlyBeer
       const monthlyBeer_id = 10;

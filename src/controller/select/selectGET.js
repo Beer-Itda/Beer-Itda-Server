@@ -22,7 +22,7 @@ module.exports = {
         user_id,
       });
       if (alreadySelect === 'selected') {
-        return res.status(statusCode.NOT_FOUND).send({
+        return res.status(statusCode.CONFLICT).send({
           message : "이미 선택 하셨습니다"
         });
       }

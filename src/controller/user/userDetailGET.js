@@ -1,10 +1,4 @@
-const express = require('express');
-
-const {
-  User,
-  Level
-} = require('../../../models');
-
+const {User} = require('../../../models');
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');

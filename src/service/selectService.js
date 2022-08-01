@@ -1,20 +1,17 @@
 const {
     Select, Aroma, Style_Small, Style_Mid, Style_Big, Style
 } = require('../../models');
-const {sequelize, QueryTypes} = require('../../models/index');
+const {sequelize} = require('../../models/index');
 
 module.exports = {
     //맨 처음 스타일, 향 설정
-    FirstSelectCheck: async ({
-                                 user_id
-                             }) => {
+    FirstSelectCheck: async ({user_id}) => {
         try {
             //있으면 첫 선택이 아님
             const alreadySelect = await Select.findOne({
                 where: {
                     user_id: user_id,
-                },
-                raw: true
+                }, raw: true
             });
             if (alreadySelect) {
                 return 'selected'
@@ -27,20 +24,14 @@ module.exports = {
     },
 
     //select 한 style, aroma 을 배열로 바꿔주기 (여기서 value 는 style, aroma 값 중 1)
-    ChangeSelectArray: async ({
-                                  user_id,
-                                  value
-                              }) => {
+    ChangeSelectArray: async ({user_id, value}) => {
         try {
             const select = await Select.findOne({
-                attribute: ['id', 'style', 'aroma'],
-                where: {
+                attribute: ['id', 'style', 'aroma'], where: {
                     user_id: user_id,
-                },
-                raw: true
+                }, raw: true
             });
-            if (!select)
-                return null;
+            if (!select) return null;
             //값을 배열로 바꾸는 로직
             if (value === 'style') {
                 const select_value = select.style;
@@ -57,9 +48,7 @@ module.exports = {
     },
 
     //select 여부에 따라 boolean 배열로 내보내기
-    GetSelectList: async ({
-                              value, selected_ids
-                          }) => {
+    GetSelectList: async ({value, selected_ids}) => {
         //console.log('[service] : ', value, selected_ids);
         let data;
         try {
@@ -67,8 +56,7 @@ module.exports = {
                 data = await Style.findAll({
                     where: {
                         level: 3
-                    },
-                    raw: true
+                    }, raw: true
                 });
             }
             if (value === 'aroma') {
@@ -97,20 +85,16 @@ module.exports = {
     },
 
     //전체 리스트에 is_selected 값 추가하기
-    mergeData: async ({
-                          value, select_list
-                      }) => {
+    mergeData: async ({value, select_list}) => {
         let data;
         try {
             if (value === 'style') {
                 data = await Style_Big.findAll({
                     include: [{
-                        model: Style_Mid,
-                        include: [{
+                        model: Style_Mid, include: [{
                             model: Style_Small,
                         }],
-                    }],
-                    raw: true
+                    }], raw: true
                 });
 
                 function style_merge_object(obj1, obj2) {
@@ -131,7 +115,6 @@ module.exports = {
                     }
                     return newObj;
                 }
-
                 return style_merge_object(data, select_list);
             }
 
