@@ -27,9 +27,7 @@ module.exports = {
       const value = 'style';
       const styleArray = await selectService.ChangeSelectArray({ user_id, value });
       if (!styleArray) {
-        return res.status(statusCode.NOT_FOUND).send({
-          message: "선택하신 스타일이 없습니다"
-        });
+        return res.status(statusCode.OK).json([]);
       }
       const beers = await Beer.findAndCountAll({
         attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'style_id'],

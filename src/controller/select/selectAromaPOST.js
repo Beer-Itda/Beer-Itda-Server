@@ -1,4 +1,4 @@
-const { Select } = require('../../../models');
+const { Select, Style, Aroma} = require('../../../models');
 
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
@@ -14,14 +14,34 @@ module.exports = {
  */
   postAroma: async (req, res) => {
     const user_id = req.token_data.id;
-    const { aroma_ids } = req.body;
+    let { aroma_ids } = req.body;
     if (!aroma_ids) {
       return res.status(statusCode.BAD_REQUEST).send({
         message: responseMessage.SELECT_INFO_FAIL
       });
     }
-    let rm = '최초선택인지 수정인지 확인하는 메시지';
     try {
+      //TODO - 그냥 저는 미친놈입니다
+      if(aroma_ids.includes(999)){
+        const aromaAllData = await Aroma.findAll({
+          attributes: ['id'],
+          raw: true
+        })
+        const aroma_999 = aromaAllData.map(item => item.id)
+        if(aroma_ids.length > 1){
+          for(let i = 0; i < aroma_ids.length; i++){
+            for(let j = 0; j < aroma_999.length; j++){
+              if(aroma_ids[i] === aroma_999[j]){
+                aroma_999.splice(j, 1);
+                j--;
+              }
+            }
+          }
+          aroma_999.push(999);
+          aroma_ids = aroma_999;
+        }
+        aroma_ids = aroma_999;
+      }
       //1. Select 테이블에 user_id가 있는지 확인
       const alreadySelect = await selectService.FirstSelectCheck({
         user_id,
@@ -32,7 +52,6 @@ module.exports = {
           aroma: aroma_ids.toString(),
           user_id: user_id
         });
-        rm = '향 최초선택에 성공했습니다';
       }
       if (alreadySelect === 'selected') {
         //이미 select 한적이 있으므로 update
@@ -43,7 +62,6 @@ module.exports = {
             user_id: user_id
           },
         });
-        rm = '향 수정에 성공했습니다';
       }
       const result = await Select.findOne({
         attributes: ['aroma'],

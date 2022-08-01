@@ -1,6 +1,4 @@
-const {
-  Heart,
-} = require('../../models');
+const {Heart} = require('../../models');
 
 module.exports = {
   //하트 눌렀는지 확인
@@ -31,10 +29,7 @@ module.exports = {
   },
 
   //가져온 beer_id값 value(Array)로 하트 눌렀는지 확인하고 배열 반영
-  HeartArrayCheck: async ({
-    user_id,
-    value
-  }) => {
+  HeartArrayCheck: async ({user_id, value}) => {
     try {
       const heart = await Heart.findAll({
         attributes: ['beer_id'],
