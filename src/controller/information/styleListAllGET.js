@@ -126,8 +126,19 @@ module.exports = {
             c6[0].style_mid[0].style_small.unshift(tmp4)
             c5[0].style_mid.push(c6[0].style_mid[0])
 
+            let tmp5 = c5[0].style_mid[0].style_small[c5[0].style_mid[0].style_small.length - 1]
+            c5[0].style_mid[0].style_small.splice(c5[0].style_mid[0].style_small.length - 1, 1)
+            c5[0].style_mid[0].style_small.unshift(tmp5)
             c1.push(c5[0])
+
+            let tmp6 = c7[0].style_mid[0].style_small[c7[0].style_mid[0].style_small.length - 1]
+            c7[0].style_mid[0].style_small.splice(c7[0].style_mid[0].style_small.length - 1, 1)
+            c7[0].style_mid[0].style_small.unshift(tmp6)
             c1.push(c7[0])
+
+            let tmp7 = c8[0].style_mid[0].style_small[c8[0].style_mid[0].style_small.length - 1]
+            c8[0].style_mid[0].style_small.splice(c8[0].style_mid[0].style_small.length - 1, 1)
+            c8[0].style_mid[0].style_small.unshift(tmp7)
             c1.push(c8[0])
             return res.status(statusCode.OK).json({data: c1});
         } catch (error) {
