@@ -1,4 +1,4 @@
-const {Beer, Aroma, Style} = require('../../../models');
+const { Beer, Aroma, Style } = require('../../../models');
 const heartService = require('../../service/heartService');
 const informationService = require("../../service/informationService");
 const util = require('../../../modules/util');

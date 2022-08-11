@@ -1,4 +1,4 @@
-const { Level, User } = require('../../../models');
+const { Level } = require('../../../models');
 
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
