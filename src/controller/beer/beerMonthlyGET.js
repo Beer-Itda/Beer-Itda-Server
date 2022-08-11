@@ -3,14 +3,16 @@ const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 
+/**
+ * @이달의_맥주_정보_불러오기
+ * @desc 이달의 맥주 정보 불러오기
+ */
 module.exports = {
-  // 이달의 beer 불러오기(1개)
   getMonthlyBeer: async (req, res) => {
     try {
       //임시 monthlyBeer
       const monthlyBeer_id = 10;
 
-      //가져온 Beer id 로 부터 맥주정보 불러오기
       const beers = await Beer.findOne({
         attributes: ['id', 'k_name', 'star_avg', 'thumbnail_image'],
         where: {

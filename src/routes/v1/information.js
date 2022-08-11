@@ -14,7 +14,7 @@ router.get('/aroma', jwt_module.checkAuth, aromaListAllGET.getAllAromaList);
 //공지사항,이용 약관, 개인정보처리방침 관련
 router.get('/ToS/:content', jwt_module.checkAuth, tosContentGET.getEachContent);
 
-//검색 관련
+//맥주 및 브루어리 검색하기
 router.get('/search', jwt_module.checkAuth, searchBeerBreweryGET.searchEveryBeerBrewery);
 
 module.exports = router;

@@ -10,10 +10,10 @@ const responseMessage = require('../../../modules/responseMessage');
 
 
 module.exports = {
-  //1. Select 테이블에 user_id가 있는지 확인(service)
-  //2. user_id가 있다면 불러오기
-
-  /* 기존에 선택한 향, 스타일 불러오기*/
+  /**
+ * @선택한_정보_불러오기
+ * @desc 선택한 스타일,향 불러오기
+ */
   getSelect: async (req, res) => {
     const user_id = req.token_data.id;
 
@@ -39,36 +39,5 @@ module.exports = {
       console.error(error);
       return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
     }
-  },
-
-  /* 기존에 선택한 스타일 불러오기*/
-  getSelectStyle: async (req, res) => {
-    const user_id = req.token_data.id;
-    try {
-      //배열로만들고
-      //[:]로 불러오기
-      const value = 'style';
-      const styleArray = await selectService.ChangeSelectArray({
-        user_id,
-        value
-      });
-      if (!styleArray) {
-        return res.status(statusCode.NOT_FOUND).send({
-          message: responseMessage.SELECT_INFO_FAIL
-        });
-      }
-      const result = {};
-      result.style = styleArray;
-
-      return res.status(statusCode.OK).send(result);
-    } catch (error) {
-      console.error(error);
-      return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.BEER_READ_ALL_FAIL));
-    }
-  },
-
-  /* 기존에 선택한 Style 불러오기*/
-  getSelectCheck: async (req, res) => {
-    res.send('기존에 선택한 Style, Aroma 불러오기');
   }
 }

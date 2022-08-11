@@ -1,13 +1,14 @@
-const {
-  Heart,
-} = require('../../../models');
+const { Heart } = require('../../../models');
 const heartService = require('../../service/heartService');
 const beerService = require('../../service/beerService');
 const statusCode = require('../../../modules/statusCode');
 const util = require('../../../modules/util');
 
+/**
+ * @맥주_찜하기_찜취소하기
+ * @desc 맥주 찜하기 찜취소하기
+ */
 module.exports = {
-  /* 맥주 찜하기 */
   postHeart: async (req, res) => {
     const {
       beer_id,

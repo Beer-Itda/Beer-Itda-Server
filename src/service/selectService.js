@@ -49,7 +49,6 @@ module.exports = {
 
     //select 여부에 따라 boolean 배열로 내보내기
     GetSelectList: async ({value, selected_ids}) => {
-        //console.log('[service] : ', value, selected_ids);
         let data;
         try {
             if (value === 'style') {
@@ -144,33 +143,33 @@ module.exports = {
     getStyleAllInformation: async () => {
         try {
             const query = `
-      SELECT JSON_OBJECT(
-               'A_id', A.id,
-               'A_name', A.name,
-               'B_id', B.id,
-               'B_description', B.description,
-               'B_name', B.name,
-               'C_id', C.id,
-               'C_name', C.name
-           ) as data,
-       JSON_OBJECT(
-               'id', A.id,
-               'name', A.name
-           ) as a,
-       JSON_OBJECT(
-               'id', B.id,
-               'name', B.name,
-               'description', B.description
-           ) as b,
-       JSON_OBJECT(
-               'id', C.id,
-               'name', C.name
-           ) as c
-FROM Style A
-         INNER JOIN Style B ON A.level = B.level_parent AND A.level_detail = B.level_detail_parent
-         INNER JOIN Style C ON B.level = C.level_parent AND B.level_detail = C.level_detail_parent
-GROUP BY A.id, B.id, C.id, data, a, b, c;
-      `;
+                SELECT JSON_OBJECT(
+                        'A_id', A.id,
+                        'A_name', A.name,
+                        'B_id', B.id,
+                        'B_description', B.description,
+                        'B_name', B.name,
+                        'C_id', C.id,
+                        'C_name', C.name
+                    ) as data,
+                JSON_OBJECT(
+                        'id', A.id,
+                        'name', A.name
+                    ) as a,
+                JSON_OBJECT(
+                        'id', B.id,
+                        'name', B.name,
+                        'description', B.description
+                    ) as b,
+                JSON_OBJECT(
+                        'id', C.id,
+                        'name', C.name
+                    ) as c
+                FROM Style A
+                    INNER JOIN Style B ON A.level = B.level_parent AND A.level_detail = B.level_detail_parent
+                    INNER JOIN Style C ON B.level = C.level_parent AND B.level_detail = C.level_detail_parent
+                GROUP BY A.id, B.id, C.id, data, a, b, c;
+                `;
             return await sequelize.query(query, {
                 type: sequelize.QueryTypes.SELECT
             })

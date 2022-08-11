@@ -1,11 +1,14 @@
-const {Beer} = require('../../../models');
+const { Beer } = require('../../../models');
 const util = require('../../../modules/util');
 const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
-const {informationService} = require("../../service");
+const { informationService } = require("../../service");
 
+/**
+ * @맥주_전체_정보_불러오기
+ * @desc 맥주 전체 정보 불러오기 (오프셋 페이징)
+ */
 module.exports = {
-    /* 전체 beer 불러오기 */
     getAllBeer: async (req, res) => {
         const {page, size} = req.query;
         const {limit, offset} = await informationService.get_pagination(page, size);
