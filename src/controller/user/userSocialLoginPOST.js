@@ -1,3 +1,4 @@
+const statusCode = require('../../../modules/statusCode');
 const axios = require('axios');
 const jwt_module = require('../../../modules/jwt');
 //계속되는 fetch import에 대한 문제로 인하여 검색하였더니 이런식으로 import 해야된다고 함
@@ -57,48 +58,42 @@ module.exports = {
     } catch (error) {
       console.log(error);
       return res.json(error)
-    };
+    }
+  },
+
+  userWithdraw: async (req, res) => {
+    try {
+      const token = req.headers.authorization.split(' ')[1];
+      const result = await axios({
+        method: 'POST',
+        url: 'https://kapi.kakao.com/v1/user/unlink',
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if(result.status === 200 && result.statusText === 'OK'){
+        //유저 정보 삭제
+        await User.destroy({where:{token}})
+        return res.status(statusCode.OK).json({
+          message: 'success'
+        })
+
+      }
+      return res.status(statusCode.CONFLICT).json({
+        code: "WITHDRAW_ERROR",
+        message: "탈퇴 처리 중 에러가 발생했습니다."
+      })
+    } catch(error) {
+      console.log(error);
+      return res.json(error)
+    }
   }
 };
 
 const kakaoLogin = async (req, res, kakao_token) => {
   let kakaoToken;
   let kakaoUser;
-  // try {
-  //   return await fetch(options.url, {
-  //     method: 'POST',
-  //     headers: {
-  //         'content-type':'application/x-www-form-urlencoded;charset=utf-8'
-  //     },
-  //     body: qs.stringify({
-  //         grant_type: 'authorization_code',//특정 스트링
-  //         client_id: options.clientID,
-  //         client_secret: options.clientSecret,
-  //         redirectUri: options.redirectUri,
-  //         code: options.code,
-  //     }),
-  // }).then(res => res.json());
-
-
-  //   kakaoToken = await axios({
-  //     method: 'POST',
-  //     url: 'https://kauth.kakao.com/oauth/token',
-  //     headers: {
-  //       'content-type': 'application/x-www-form-urlencoded'
-  //     }, // npm install qs
-  //     data: qs.stringify({
-  //       grant_type: 'authorization_code', // 특정 스트링 
-  //       client_id: kakaoAppInfo.clientID,
-  //       client_secret: kakaoAppInfo.clientSecret,
-  //       redirectUri: kakaoAppInfo.redirectUri,
-  //       code: req.query.code,
-  //     }) // 객체를 String으로 변환.
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  //   return res.status(statusCode.INTERNAL_SERVER_ERROR).send(util.fail(statusCode.INTERNAL_SERVER_ERROR, responseMessage.NO_USER_ID));
-  // };
-
   try {
     kakaoUser = await axios({
       method: 'GET',
@@ -107,7 +102,6 @@ const kakaoLogin = async (req, res, kakao_token) => {
         Authorization: `Bearer ${kakao_token}`
       }
     });
-
     //카카오 계정의 문제가 있을 경우
     if (!kakaoUser)
       res.json({
@@ -124,8 +118,7 @@ const kakaoLogin = async (req, res, kakao_token) => {
         email: userKakaoEmail
       }
     });
-
-    //sequelize query처리하고 난 dataValues를 풀어보았다.
+    //sequelize query 처리 후 dataValues
     // {
     //   id: 11,
     //   email: 'hello_kjh@naver.com',
