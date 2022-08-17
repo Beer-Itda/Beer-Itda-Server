@@ -23,7 +23,7 @@ router.post('/token', renewalTokenPOST.renewalWithRefresh);
 //로그아웃
 
 //회원 탈퇴
-router.post('/withdraw', userSocialLoginPOST.userWithdraw);
+router.post('/withdraw', jwtModule.checkAuth, userSocialLoginPOST.userWithdraw);
 
 //닉네임 설정
 router.patch('/nickname', jwtModule.checkAuth, userNicknameChangePATCH.userNicknameChange);
