@@ -1,8 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('User', {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
       comment: "고유번호 ID",
     },
