@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const { QueryTypes } = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config.json')[env];
 const db = {};
