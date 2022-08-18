@@ -48,7 +48,8 @@ module.exports = {
 
                     res.json({
                         access_token: beeritda_access_token,
-                        refresh_token: beeritda_refresh_token
+                        refresh_token: beeritda_refresh_token,
+                        is_first_signup_user: user_data.is_first_signup_user
                     });
                     break;
 
