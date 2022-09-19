@@ -16,6 +16,12 @@ module.exports = {
       const levels = await Level.findAll({raw: true});
       //user 정보를 바탕으로 review 와 level 데이터 출력
       const user_result_data = await levelService.calc_user_review_and_level(user_id);
+      if(user_result_data==='user_not_found'){
+        return res.status(statusCode.NOT_FOUND).json({
+          code: "USER_NOT_FOUND",
+          message: "USER 정보가 없습니다."
+        })
+      }
       //최종 출력 데이터
       const result = {};
       result.review_level = user_result_data;

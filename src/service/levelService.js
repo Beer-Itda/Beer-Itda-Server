@@ -1,4 +1,5 @@
 const {Level, User} = require("../../models");
+const statusCode = require("../../modules/statusCode");
 module.exports = {
     calc_user_review_level: async(review_count, req, res) => {
         try{
@@ -29,6 +30,7 @@ module.exports = {
                     id: user_id
                 }, raw: true
             });
+            if(!user) return 'user_not_found';
             //유저 레벨
             const user_current_level = await Level.findOne({
                 attributes: ['id', 'level', 'level_count','level_image'],
