@@ -30,6 +30,14 @@ module.exports = {
             result.forEach((row) => {
                 //style big 1 번째 에서 style mid 1 번째
                 if((row.data.A_id === 1) && (row.data.B_id === 5)){
+                    if(select === null){
+                        row.c.is_selected = false
+                        a1.push(row.c)
+                        row.b.style_small = a1;
+                        b1 = [row.b]
+                        row.a.style_mid = b1;
+                        return c1 = [row.a]
+                    }
                     row.c.is_selected = select.includes(row.c.id)
                     a1.push(row.c)
                     row.b.style_small = a1;
@@ -39,6 +47,14 @@ module.exports = {
                 }
                 //style big 1 번째 에서 style mid 2 번째
                 if((row.data.A_id === 1) && (row.data.B_id === 6)){
+                    if(select === null){
+                        row.c.is_selected = false
+                        a2.push(row.c)
+                        row.b.style_small = a2;
+                        b2 = [row.b]
+                        row.a.style_mid = b2;
+                        return c2 = [row.a]
+                    }
                     row.c.is_selected = select.includes(row.c.id)
                     a2.push(row.c)
                     row.b.style_small = a2;
@@ -48,6 +64,14 @@ module.exports = {
                 }
                 //style big 1 번째 에서 style mid 3 번째
                 if((row.data.A_id === 1) && (row.data.B_id === 7)){
+                    if(select === null){
+                        row.c.is_selected = false
+                        a3.push(row.c)
+                        row.b.style_small = a3;
+                        b3 = [row.b]
+                        row.a.style_mid = b3;
+                        return c3 = [row.a]
+                    }
                     row.c.is_selected = select.includes(row.c.id)
                     a3.push(row.c)
                     row.b.style_small = a3;
@@ -57,6 +81,14 @@ module.exports = {
                 }
                 //style big 1 번째 에서 style mid 4 번째
                 if((row.data.A_id === 1) && (row.data.B_id === 8)){
+                    if(select === null){
+                        row.c.is_selected = false
+                        a4.push(row.c)
+                        row.b.style_small = a4;
+                        b4 = [row.b]
+                        row.a.style_mid = b4;
+                        return c4 = [row.a]
+                    }
                     row.c.is_selected = select.includes(row.c.id)
                     a4.push(row.c)
                     row.b.style_small = a4;
@@ -66,6 +98,14 @@ module.exports = {
                 }
                 //style big 2 번째 에서 style mid 1 번째
                 if((row.data.A_id === 2) && (row.data.B_id === 9)){
+                    if(select === null){
+                        row.c.is_selected = false
+                        a5.push(row.c)
+                        row.b.style_small = a5;
+                        b5 = [row.b]
+                        row.a.style_mid = b5;
+                        return c5 = [row.a]
+                    }
                     row.c.is_selected = select.includes(row.c.id)
                     a5.push(row.c)
                     row.b.style_small = a5;
@@ -75,6 +115,14 @@ module.exports = {
                 }
                 //style big 2 번째 에서 style mid 2 번째
                 if((row.data.A_id === 2) && (row.data.B_id === 10)){
+                    if(select === null){
+                        row.c.is_selected = false
+                        a6.push(row.c)
+                        row.b.style_small = a6;
+                        b6 = [row.b]
+                        row.a.style_mid = b6;
+                        return c6 = [row.a]
+                    }
                     row.c.is_selected = select.includes(row.c.id)
                     a6.push(row.c)
                     row.b.style_small = a6;
@@ -84,6 +132,14 @@ module.exports = {
                 }
                 //style big 3 번째 에서 style mid 1 번째
                 if((row.data.A_id === 3) && (row.data.B_id === 11)){
+                    if(select === null){
+                        row.c.is_selected = false
+                        a7.push(row.c)
+                        row.b.style_small = a7;
+                        b7 = [row.b]
+                        row.a.style_mid = b7;
+                        return c7 = [row.a]
+                    }
                     row.c.is_selected = select.includes(row.c.id)
                     a7.push(row.c)
                     row.b.style_small = a7;
@@ -93,6 +149,14 @@ module.exports = {
                 }
                 //style big 4 번째 에서 style mid 1 번째
                 if((row.data.A_id === 4) && (row.data.B_id === 12)){
+                    if(select === null){
+                        row.c.is_selected = false
+                        a8.push(row.c)
+                        row.b.style_small = a8;
+                        b8 = [row.b]
+                        row.a.style_mid = b8;
+                        return c8 = [row.a]
+                    }
                     row.c.is_selected = select.includes(row.c.id)
                     a8.push(row.c)
                     row.b.style_small = a8;

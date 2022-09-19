@@ -49,7 +49,6 @@ module.exports = {
 
     //select 여부에 따라 boolean 배열로 내보내기
     GetSelectList: async ({value, selected_ids}) => {
-        //console.log('[service] : ', value, selected_ids);
         let data;
         try {
             if (value === 'style') {
@@ -62,12 +61,17 @@ module.exports = {
             if (value === 'aroma') {
                 data = await Aroma.findAll({raw: true});
             }
-
             const all_ids = [];
             for (let i in data) {
                 all_ids[i] = data[i].id;
             }
             const select_list = [];
+            if(selected_ids === null){
+                for (let j in all_ids){
+                    select_list.push(false);
+                }
+                return select_list;
+            }
             for (let i in all_ids) {
                 const alreadySelect = selected_ids.includes(all_ids[i]);
                 if (alreadySelect === true) {

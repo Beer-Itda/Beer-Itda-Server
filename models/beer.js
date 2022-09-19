@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     //맥주 이름(영어)
     e_name: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     //도수(abv)
@@ -24,13 +24,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     //제조국가
     brewery: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
       allowNull: false,
     },
     //별점 평균
     star_avg: {
       type: DataTypes.FLOAT,
       allowNull: false,
+      defaultValue: 0
     },
     //리뷰 수
     review_count: {
