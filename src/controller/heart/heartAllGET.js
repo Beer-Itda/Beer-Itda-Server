@@ -20,7 +20,6 @@ try {
     const { page, size, word } = req.query;
     const { limit, offset } = await informationService.get_pagination(page, size);
     const hearted_array = await heartService.ChangeHeartArray({ user_id });
-
     const hearted_beers = await Beer.findAndCountAll({
     attributes: ['id','k_name', 'e_name', 'star_avg', 'thumbnail_image', 'brewery'],
     where: {

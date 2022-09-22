@@ -119,7 +119,7 @@ const kakaoLogin = async (req, res, kakao_token) => {
             const newBeeritdaUser = await User.create({
                 email: userKakaoEmail,
                 //우선은 닉네임을 유저 이메일에서 추출하여 넣어준다.
-                nickname: userKakaoEmail.substr(0, userKakaoId),
+                nickname: userKakaoEmail.substring(0, userKakaoId),
                 review_count: 0,
                 active: 'Y',
                 path: req.params.social,

@@ -1,4 +1,4 @@
-const {Beer, Style_Small, Aroma, Country, Review} = require('../../../models');
+const {Beer, Style, Style_Small, Aroma, Country, Review} = require('../../../models');
 
 //const beerService = require("../service/beerService");
 const heartService = require('../../service/heartService');
@@ -29,8 +29,7 @@ module.exports = {
                     id: beer_id,
                 },
                 raw: true
-            });
-
+            })
             // 찜 여부
             const alreadyHeart = await heartService.HeartCheck({
                 user_id,
@@ -63,14 +62,14 @@ module.exports = {
             beer_detail.country = country.country;
 
             // 스타일 불러오기
-            const styles = await Style_Small.findOne({
-                attributes: ['small_name'],
+            const styles = await Style.findOne({
+                attributes: ['name'],
                 where: {
                     id: style_id,
                 },
                 raw: true
             });
-            beer_detail.style = styles.small_name;
+            beer_detail.style = styles.name;
             // 향 불러오기
             beer_detail.aroma = [];
             if (aroma_id_1) {

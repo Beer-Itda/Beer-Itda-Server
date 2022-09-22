@@ -222,6 +222,7 @@ module.exports = {
             }
             //1. Select 테이블에 user_id가 있는지 확인
             const alreadySelect = await selectService.FirstSelectCheck({user_id});
+
             if (alreadySelect === 'first') {
                 //select 한적이 없으므로 create
                 await Select.create({
