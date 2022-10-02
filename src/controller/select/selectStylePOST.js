@@ -31,11 +31,11 @@ module.exports = {
                     }, raw: true
                 })
                 const style_992 = styleAllData.map(item => item.id)
-
                 for (let i = 0; i < style_ids.length; i++) {
                     for (let j = 0; j < style_992.length; j++) {
                         if (style_ids[i] === style_992[j]) {
                             style_ids.splice(i, 1)
+                            i--;
                             style_992.splice(j, 1);
                             j--;
                         }
@@ -61,6 +61,7 @@ module.exports = {
                     for (let j = 0; j < style_993.length; j++) {
                         if (style_ids[i] === style_993[j]) {
                             style_ids.splice(i, 1)
+                            i--;
                             style_993.splice(j, 1);
                             j--;
                         }
@@ -87,6 +88,7 @@ module.exports = {
                     for (let j = 0; j < style_994.length; j++) {
                         if (style_ids[i] === style_994[j]) {
                             style_ids.splice(i, 1)
+                            i--;
                             style_994.splice(j, 1);
                             j--;
                         }
@@ -112,6 +114,7 @@ module.exports = {
                     for (let j = 0; j < style_995.length; j++) {
                         if (style_ids[i] === style_995[j]) {
                             style_ids.splice(i, 1)
+                            i--;
                             style_995.splice(j, 1);
                             j--;
                         }
@@ -137,6 +140,7 @@ module.exports = {
                     for (let j = 0; j < style_996.length; j++) {
                         if (style_ids[i] === style_996[j]) {
                             style_ids.splice(i, 1)
+                            i--;
                             style_996.splice(j, 1);
                             j--;
                         }
@@ -162,6 +166,7 @@ module.exports = {
                     for (let j = 0; j < style_997.length; j++) {
                         if (style_ids[i] === style_997[j]) {
                             style_ids.splice(i, 1)
+                            i--;
                             style_997.splice(j, 1);
                             j--;
                         }
@@ -187,6 +192,7 @@ module.exports = {
                     for (let j = 0; j < style_998.length; j++) {
                         if (style_ids[i] === style_998[j]) {
                             style_ids.splice(i, 1)
+                            i--;
                             style_998.splice(j, 1);
                             j--;
                         }
@@ -212,6 +218,7 @@ module.exports = {
                     for (let j = 0; j < style_999.length; j++) {
                         if (style_ids[i] === style_999[j]) {
                             style_ids.splice(i, 1)
+                            i--;
                             style_999.splice(j, 1);
                             j--;
                         }
