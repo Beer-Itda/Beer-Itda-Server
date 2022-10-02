@@ -1,8 +1,9 @@
 const {Heart} = require('../../models');
+const {Op} = require("sequelize");
 
 module.exports = {
   //하트 눌렀는지 확인
-  HeartCheck: async ({
+   HeartCheck: async ({
     user_id,
     beer_id
   }) => {
@@ -34,7 +35,7 @@ module.exports = {
       const heart = await Heart.findAll({
         attributes: ['beer_id'],
         where: {
-          user_id: req.token_data.id,
+          user_id: user_id,
           beer_id: {
             [Op.or]: value
           }
@@ -48,8 +49,7 @@ module.exports = {
       } else {
         return 'N'
       }
-      const Array = value_list.split(',').map(Number);
-      return Array
+      return value_list.split(',').map(Number)
     } catch (err) {
       console.log(err);
       throw err;
@@ -90,7 +90,7 @@ module.exports = {
           newObj[i].dataValues.heart = obj2[i];
         }
         return newObj;
-      };
+      }
     } catch (err) {
       console.log(err);
       throw err;
