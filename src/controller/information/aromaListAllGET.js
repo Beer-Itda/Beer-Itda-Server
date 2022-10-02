@@ -23,9 +23,8 @@ module.exports = {
       const aroma_list = await selectService.mergeData({ 
         value, select_list
       });
-      let tmp = aroma_list[8]
-      aroma_list.splice(aroma_list[8], 1)
-      aroma_list.unshift(tmp)
+      const temp_aroma_list = aroma_list.splice(8,1);
+      aroma_list.unshift(temp_aroma_list[0])
 
       return res.status(statusCode.OK).json({data: aroma_list});
     } catch (error) {
