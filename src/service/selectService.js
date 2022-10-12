@@ -31,7 +31,7 @@ module.exports = {
                     user_id: user_id,
                 }, raw: true
             });
-            
+
             if (!select) return null;
             if (select.style === null || select.aroma === null ) return null;
             //값을 배열로 바꾸는 로직
