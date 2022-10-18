@@ -42,14 +42,14 @@ module.exports = {
 
       //값을 배열로 바꾸는 로직
       if (value === "style") {
-        if (!select.style) {
+        if (!select) {
           return null;
         }
         const select_value = select.style;
         return select_value.split(",").map(Number);
       }
       if (value === "aroma") {
-        if (!select.aroma) {
+        if (!select) {
           return null;
         }
         const select_value = select.aroma;
