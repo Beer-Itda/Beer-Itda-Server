@@ -4,6 +4,7 @@ const userSocialLoginPOST = require('../../controller/user/userSocialLoginPOST')
 const userDetailGET = require('../../controller/user/userDetailGET');
 const userNicknameChangePATCH = require('../../controller/user/userNicknameChangePATCH');
 const renewalTokenPOST = require('../../controller/user/renewalTokenPOST');
+const userWithdrawPOST = require('../../controller/user/userWithdrawPOST');
 const jwtModule = require('../../../modules/jwt');
 
 //토큰 확인하여 유저 정보 출력
@@ -23,7 +24,7 @@ router.post('/token', renewalTokenPOST.renewalWithRefresh);
 //로그아웃
 
 //회원 탈퇴
-router.post('/withdraw', jwtModule.checkAuth, userSocialLoginPOST.userWithdraw);
+router.post('/withdraw', jwtModule.checkAuth, userWithdrawPOST.userWithdraw);
 
 //닉네임 설정
 router.patch('/nickname', jwtModule.checkAuth, userNicknameChangePATCH.userNicknameChange);

@@ -34,11 +34,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(10),
       allowNull: false
     },
-    //Select 테이블 FK
-    select_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
     //Level 테이블 FK
     level_id: {
       type: DataTypes.INTEGER,

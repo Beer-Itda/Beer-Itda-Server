@@ -76,7 +76,8 @@ db.Beer.belongsTo(db.Style, {
  * N : M  User : Style */
 db.Select.belongsTo(db.User, {
   through: 'User',
-  foreignKey: 'user_id'
+  foreignKey: 'user_id',
+  onDelete: 'cascade'
 });
 
 /** [Heart] 

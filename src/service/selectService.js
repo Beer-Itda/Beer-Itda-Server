@@ -46,6 +46,9 @@ module.exports = {
           return null;
         }
         const select_value = select.style;
+        if (!select.style) {
+          return null;
+        }
         return select_value.split(",").map(Number);
       }
       if (value === "aroma") {
@@ -53,6 +56,9 @@ module.exports = {
           return null;
         }
         const select_value = select.aroma;
+        if (!select.aroma) {
+          return null;
+        }
         return select_value.split(",").map(Number);
       }
     } catch (err) {
