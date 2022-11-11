@@ -15,7 +15,7 @@ module.exports = {
     //현재 페이지 출력
     const current_page = page ? +page : 0;
     //총 페이지는 정수로 올림하기
-    const total_page = Math.ceil(total_data / limit);
+    const total_page = total_data ? Math.ceil(total_data / limit) : 0;
     //이전 페이지에 대한 연산
     //음수가 나오면 안되므로 최소 기본 이전 페이지는 0 번째 페이지
     //현재 페이지와 총 페이지가 같다면 음수가 아닌 이상 현재 페이지의 이전 페이지 출력
@@ -28,6 +28,6 @@ module.exports = {
     //다음 페이지는 총 페이지를 넘을 수 없어서 넘는다 하더라도 총 페이지 출력
     const next_page = (current_page < total_page) ? current_page + 1 : total_page;
 
-    return { total_data, data, total_page, current_page, previous_page, next_page };
+    return { total_data: total_data ? total_data : 0, data: data ? data : [], total_page, current_page, previous_page, next_page };
   }
 }

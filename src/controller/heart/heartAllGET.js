@@ -8,6 +8,7 @@ const statusCode = require('../../../modules/statusCode');
 const responseMessage = require('../../../modules/responseMessage');
 
 const Sequelize = require('sequelize');
+const {info} = require("winston");
 
 const Op = Sequelize.Op;
 
@@ -20,6 +21,11 @@ module.exports = {
             const {page, size, word} = req.query;
             const {limit, offset} = await informationService.get_pagination(page, size);
             const hearted_array = await heartService.ChangeHeartArray({user_id});
+
+            if(hearted_array.length ===0){
+                const empty_paginate_data= await informationService.get_paging_data(hearted_array, page, limit);
+                return res.status(statusCode.OK).json(empty_paginate_data)
+            }
 
             const hearted_beers = await Beer.findAndCountAll({
                 attributes: ['id', 'k_name', 'e_name', 'star_avg', 'thumbnail_image', 'brewery'],
